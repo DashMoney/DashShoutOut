@@ -1,0 +1,225 @@
+Test ideas -> 
+
+Platform login vs Wallet login -> ?
+
+User just sees a button on login screen -> use a div so one button on each side -> 
+Questions -> does plat login use skipsync and how?
+          -> or can it use offline mode? ->
+
+    Need to disable the topup button if balance === 0, its a catch all <-
+
+Question -> will the changing of skipsync cause the app to fail. I know that the console.log will yell about it.
+
+What about removing adapter <- so won't affect.. -> Do It ->
+
+
+
+
+
+TODO LIST - We at it again!!!
+
+11) Persistanct issues
+-> hit enter/return in create message errors BC textarea vice input has no onSubmit. and Regex kicks unless multiline
+
+
+Much Success
+-10) Top UP is connected but need to connect to App
+            So I can disconnect the BottomNav when I send a message, refresh or Top up..... -> DONE!!
+
+-9)MAJOR UPDATE WITH TESTNET FUNCTIONALITY
+        -> What about a modal for the loading spinner so spins on top of everything?? -> LATER Possibly ->
+
+-8) handle formatting -> 
+        how to display Announcement correctly -> really probably just include a bootstrap badge that says "Announcement" ;)
+
+        how to handle the order -> this should probably involve how the datacontract*** is created in the first place!!!!
+
+-7) Query for DGT Followers -> DGT Make Announcement creates a dsomessage -> then the follower will query the DGT self invites and then query dso messages from each of the GroupNames but how will it not pick up all the DSOMessages from GroupOwner?? -> special tag -> @01 or something that is not a name??!!
+
+-> Perhaps query should just be to dgtmessages but how to decern regular message from Announcement -> include in DGTDataContract??!!
+
+->Announcement is its own doc? -> ??!!! -> this seems to make the most sense
+
+
+
+-6) Had an idea -> something about removing something -> so people couldn't see order on Everyone -> But it may clutter but that is okay, the more the merrier, I say
+
+-5) ToDo: a) fix tags for unique names and limit to 30NO 60Yes tags ->
+                -> 60 why not should be hard to hit and not even limit.
+                ->
+          b) make the newmessage to implement lowercase and trigger  
+            docs creation -> 
+          c) Fix BottomNav buttons -> DONE
+
+-4) Make List of what I could add in version 2:
+        1) Local storage - probably
+        2) Improved Data Contract -probably
+                -> or introduce a verify function that runs in background
+                    -> I think I will go with a check that uses the ownerId of each Document and then that will check if the dashUniqueName matches the ownerID/identityID (Im pretty sure those are the same)
+                -> or fix the data contract -> i think the data contract has everything i need -> the other way would be that I don't include the name and then I just search the ownerId and retrieve the name but would that slow the presentation/display too much?
+                    -> later if I wanted I could just implement the searchFirst because Document already has that too.
+        3) Live Reload? -> probably no
+        4) Tag yourself -> == Like ? -> maybe
+        5) Reply or Link -> maybe
+        6) search or filtering on everyone tab -> probably
+        7) Load More -> add the bottom of page to pull older messages!
+
+-3) Rip out the Mock up stuff.. -> DONE
+    ->LandingPage Stuff -> DONE
+    Remove the App.js mock up functions -> DONE
+    
+-2) Add a Topic Tag or # to the data Contract -WHY -> dont know -> so NO
+
+    -> implement a local storage to track the "filter" or "Search DSO" 
+
+        -> this will be a list in the Everyone? -> Version 2
+        -> when you search it adds to list of messages so that two people talking back and forth can be seen.
+
+
+-1) Make the buttons the same width! - Looks okay on mobile already.
+
+0) Change DGT to DSO -> DONE
+
+0ai) Make Bottom Nav -> 1 level -> DONE
+    -> Fix expand nav function and -> DONE
+    unexpand top if any on bottom is pressed ->
+
+0a) Incorporate the tag in the message to the users so can have multiple users tagged->
+    ->and make them blue!-> Nope -> Just List below -> DONE
+    -> update everything from receiving just one tag to an array -> DONE
+
+    -> auto tag myself so that I only query once and that is it????*****
+    -> because the tagging and the text are separate so hmmmm
+    -> can I just user tags in document as lowercase and it work?
+    -> works because I control the query and it is hackable/manipulatible
+
+THIS ^^^ WORK ON ABOVE THAT IS NOT DONE YET ^^^^
+
+    -> !!! have to implement a VERIFIER that checks the originator with the identity *********************************** 2ND VERSION
+     -> This brings in many questions but it seems that everyone will have to validate the name to an identity unless like with DPNS and DAshPay maybe there is a validation
+      -> Data Triggers??
+
+---------------------------------------------------------------------------
+
+1) DONE <- Separate out the Everyone and the For you pages - make own files/objects
+    ->  This is much more far reaching that is just from off the top
+        -> got it 
+    ->  Add/Separate State for the Everyone vs the For you messages
+        -> DONE - USED SEARCH and changed them - Thumbs up
+    ->  Change state/props that is passed to MessagePage
+        -> DONE - see above
+    ->  Separate into new files the Everyone and For you-> DONE
+        -> Remove the GroupsPage Stuff -> DONE
+    ->  implement the OnSelect Nav function to display chosen -> DONE
+    -> In For you, how to differenctiate the me and others???
+        -> -> DONE
+2) DONE <- uniformly implement the tab style for login and page selection
+    -> I think one may be tabs and the other Nav Bootstrap components
+        -> They are different and I just removed the Login one
+        -> I don't mind the colors for now in the Nav********
+    -> Clean up wording for the mnemonic login modal -> DONE
+3) DONE <- implement the message creation for the tag a user 
+
+  -> This will be a bit more than expected!!!****
+    -> incorporate into a single Form on one files
+            -> tag a user component integrate -> DONE
+            -> OnChange integrate -> DONE
+            -> Change text to validation format vs alert -> DONE
+            -> submit button control logic -> DONE
+            -> OnSubmit integrate / fix to work -> DONE , EASY DAY
+
+    -> incorporate both inputs to the onChange functions -> DONE
+    -> change the validation to an alert so I can control -> NO -> validation -> DONE
+
+    -> I THINK I FIXED THE VALIDITY PROBLEM BECAUSE IT JUST LOOKS BETTER THAN THE ALERT. I NEED TO ADD / INTEGRATE THE TAGAUSER IN THE CREATEMESSAGEMODAL SO THAT THE ONCHANGE WILL TRIGGER THE VALIDATION 
+        -> YES -> DONE
+
+  -> separate out the tag a user and make appear and disappear. -> maybe no
+  -> got to 8) also
+
+  -> 
+4) Adds to the For you page -> what ? -> Just messages -> DONE
+5) Create some For you messages -> DONE
+    -> differenctiate between you and others -> Change your name to BLUE
+            ->DONE
+6) Add more separations in the relative time difference -> DONE
+7) Handle Empty messages in For you page-> DONE
+8) Fix Heading in the Create Message Modal -> DONE
+    -> Maybe move out of heading section and just put in the body?
+    -> I DONT KNOW I HAVENT HAD THIS PROBLEM BEFORE BUT IT LOOKS ALRIGHT
+
+9) Will there be a pause during the submitting of the document? or will it just display and load in the background?
+
+10) Walk through the login/load process ->
+        -> Identity(mnem) -> Name(idenity) -- (2xDSODocs-Nope) -> DSOEveryone
+            -> (Actually it should display even when don't have all!! like the name and alias on DGN -> hahahahahahah:)
+            -> need to handle not idenity and no name -> 
+        -> Should Display Page -> then DSOForYou(name) -> 
+        -> then IdentityInfo(id)
+
+        -> Reload Button -> can't call if no identity or name
+            -> DSOEveryone so maybe like the last part just again?
+            -> Add a last reload at relative time?
+
+    10a) What about Identity and credits? -> See ^^^ -> Done
+                -> Just add as another part of the login -> 
+
+11) Refresh messages
+    -> isLoading -> connected to the Identity and Name -> haha, i almost missed that -> Got it -> DONE
+        -> also control the bottom Nav -> isLoading ->DONE
+        -> how to I know if identity or name is not avail?
+    -> attach trigger to the button
+
+    11a) separate loading state for everyone and for you
+    -> SEPARATE LOADINGS AND REMOVE ISAVAIL BC ITS JUST !LOADING <- 8)
+
+    11b) Need to disable button while reloading -> 
+
+THIS ^^^ WORK ON ABOVE THAT IS NOT DONE YET ^^^^
+
+12) Top Up Identity
+    -> put in the For me the credits ->
+    -> add the modal -> DONE
+    -> fix the button -> DONE
+    -> add loading to verify that you have sufficient funds to modal and not the page -> DONE
+
+    -> connect TopupFunction in the Modal ->
+    -> connect the loading spinner ->
+    -> connect the alert if insufficient funds -> 
+
+THIS ^^^ WORK ON ABOVE THAT IS NOT DONE YET ^^^^
+
+13) Data Contract and Document Testing
+    13a) DataContract (have queries to ensure coverage) -> DONE
+    13b) RetrieveDataContract -> 
+
+14) Implement Document Creation
+    14a) What are the different cases ->
+    
+15) Query the Documents
+    15a)
+
+16) Implement DC, Docs, Query in stand alone -> 13, 14, 15 ->
+    16a) Add to the Dapp in App.js ->
+
+
+
+//**************************************************************//
+Combining Public Message Board and Personal Messager
+//**************************************************************//
+
+1) Complete Public Message Board - define the data contract and how to add comments or messages
+  a) data contract ->
+      DataContract (paste here)
+
+  b) add comments (view) ability and ability to add to top of board!
+    i)Modal? -> this way doesn't deviate from the top/bottom Nav flow but can I still view the page?
+    ii) Offcanvas?
+  c) New Message - Form - has to have check for more than one letter -> this will allow button to click
+  also not more than so many characters will alert and disconnect button.
+
+2) Complete Personal Messager - really it is an aggregator for messages that include the person in the messages
+  a) Start with to a single person
+  b) Allow multiple persons, use dashpay contacts or just separate by comma
+
+3) Include reply ability and create threads -> no, out of scope - for now
