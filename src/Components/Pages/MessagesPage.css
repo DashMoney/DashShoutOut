@@ -62,6 +62,7 @@
  }
  
  .id-line{
+  margin-top: 0.5rem;
    display:flex;
    flex-wrap: wrap;
    word-wrap: break-word;

@@ -2,6 +2,8 @@ import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 import Nav from "react-bootstrap/Nav";
 
+import Badge from "react-bootstrap/Badge";
+
 import Alert from "react-bootstrap/Alert";
 
 import MessagespageEveryone from "./MessagesPageEveryone";
@@ -59,20 +61,111 @@ class MessagesPage extends React.Component {
               </Nav.Item>
             </Nav>
 
-            {this.props.errorToDisplay === 'Insufficient Credits' ? (
+            {/* <div className="id-line">
+          
+            {this.props.identityInfo === "" ||
+            this.props.identityInfo.balance >= 450000000 ? (
+              <h5><Badge className="paddingBadge" bg="primary">
+                Your Platform Credits
+              </Badge>
+              </h5>
+            ) : (
+              <h5>
+              <Badge className="paddingBadge" bg="danger">
+                Platform Credits : Low!
+              </Badge>
+              </h5>
+            )}
+          
+          {this.props.identityInfo === "" ? (
+            <h5>
+              <Badge className="paddingBadge" bg="primary" pill>
+                Loading..
+              </Badge>
+            </h5>
+          ) : (
+            <>
+              {this.props.identityInfo.balance >= 450000000 ? (
+                <h5>
+                  <Badge className="paddingBadge" bg="primary" pill>
+                    {this.props.identityInfo.balance}
+                  </Badge>
+                </h5>
+              ) : (
+                <h5>
+                  <Badge className="paddingBadge" bg="danger" pill>
+                    {this.props.identityInfo.balance}
+                  </Badge>
+                </h5>
+              )}
+            </>
+          )}
+        </div>
+
+          {this.props.identityInfo === "" ||
+          this.props.identityInfo.balance >= 450000000 ? (
+            <></>
+          ) : (
+            <h5>
+            <Badge className="paddingBadge" bg="primary">
+              Please visit DGN or DGM to TopUp your credits.
+            </Badge>
+            </h5>
+          )} */}
+
+
+            {this.props.identityInfo === "" ||
+            this.props.identityInfo.balance >= 450000000 ? (
+              <></>
+            ) : (
+              <div className="id-line">
+              <>
+              <h5>
+              <Badge className="paddingBadge" bg="danger">
+                Platform Credits : Low!
+              </Badge>
+              </h5>
+              </>
+               <>
+               <p></p>
+               <h5>
+                 <Badge className="paddingBadge" bg="danger" pill>
+                   {this.props.identityInfo.balance}
+                 </Badge>
+               </h5>
+               </>
+               </div>
+            )}
+
+
+          {this.props.identityInfo === "" ||
+          this.props.identityInfo.balance >= 450000000 ? (
+            <></>
+          ) : (
+            <>
+            <h5>
+            <Badge className="paddingBadge" bg="primary">
+              Please visit DGN or DGM to TopUp your credits.
+            </Badge>
+            </h5>
+            </>
+          )}
+
+{this.props.errorToDisplay ? (
               <>
                 <p></p>
                 <Alert variant="danger" dismissible>
                   <Alert.Heading>Message Failed</Alert.Heading>
                   <p>
                     You either have insufficient credits or have run into a platform error. Please TopUp credits on DashGetNames or DashGetPaid. Currently, this dapp is platform only so it does not include full wallet access to enable TopUp, but it is planned for future upgrade.
-                    
                   </p>
                 </Alert>
               </>
             ) : (
               <></>
             )}
+
+
 
             {this.props.isLoadingEveryone && this.state.whichTab === "Everyone" ? (
               <>

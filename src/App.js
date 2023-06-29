@@ -3,6 +3,8 @@ import LocalForage from "localforage";
 
 import Image from "react-bootstrap/Image";
 
+//import Alert from "react-bootstrap/Alert";
+
 import DashBkgd from "./Images/dash_digital-cash_logo_2018_rgb_for_screens.png";
 
 import TopNav from "./Components/TopNav/TopNav";
@@ -37,6 +39,7 @@ class App extends React.Component {
       isLoggedIn: false,
       isLoading: false,
       isLoadingRefresh: false,
+      errorToDisplay: false,
 
       isLoadingEveryone: true,
       isLoadingForyou: false,
@@ -1215,7 +1218,7 @@ if(addedMessage.sh === 'out'){
                 this.state.dsoForyouMessages.slice(1),
               
             isLoadingRefresh: false,
-            errorToDisplay: 'Insufficient Credits',
+            errorToDisplay: true,
           });
         }else{ 
             this.setState({
@@ -1224,7 +1227,7 @@ if(addedMessage.sh === 'out'){
               dsoForyouMessages:
                 this.state.dsoForyouMessages.slice(1),
               isLoadingRefresh: false,
-              errorToDisplay: 'Insufficient Credits',
+              errorToDisplay: true,
             });
           }
         console.error("Something went wrong:\n", e);
@@ -1256,7 +1259,6 @@ if(msgToAdd.sh === 'out'){
       tupleToAdd,
       ...this.state.dsoForyouMessages,
     ],
-    isLoadingRefresh: false,
   });
 }else {
   this.setState({
@@ -1268,7 +1270,6 @@ if(msgToAdd.sh === 'out'){
       tupleToAdd,
       ...this.state.dsoForyouMessages,
     ],
-    isLoadingRefresh: false,
   });
 };
 
@@ -1309,6 +1310,7 @@ if(msgToAdd.sh === 'out'){
           </>
         ) : (
           <>
+          
             <MessagesPage
               isLoading={this.state.isLoading}
               isLoadingRefresh={this.state.isLoadingRefresh}
