@@ -1176,7 +1176,6 @@ if(addedMessage.sh === 'out'){
       return platform.documents.broadcast(documentBatch, identity);
     };
 
-
     submitDocuments()
       .then((d) => {
        // let submittedDoc = d;//.toJSON();
@@ -1203,10 +1202,33 @@ if(addedMessage.sh === 'out'){
         // console.log(submittedDoc);
       })
       .catch((e) => {
-        this.setState({
-          isLoadingRefresh: false,
-        });
+
+        if(addedMessage.sh === 'out'){
+          this.setState({
+            addedForYouTuplesPriorToConf:
+              this.state.addedForYouTuplesPriorToConf.slice(0,-1),
+            addedEveryoneTuplesPriorToConf:
+              this.state.addedEveryoneTuplesPriorToConf.slice(0,-1),
+              dsoEveryoneMessages: 
+                this.state.dsoEveryoneMessages.slice(1),
+              dsoForyouMessages:
+                this.state.dsoForyouMessages.slice(1),
+              
+            isLoadingRefresh: false,
+            errorToDisplay: 'Insufficient Credits',
+          });
+        }else{ 
+            this.setState({
+              addedForYouTuplesPriorToConf:
+                this.state.addedForYouTuplesPriorToConf.slice(0,-1),
+              dsoForyouMessages:
+                this.state.dsoForyouMessages.slice(1),
+              isLoadingRefresh: false,
+              errorToDisplay: 'Insufficient Credits',
+            });
+          }
         console.error("Something went wrong:\n", e);
+        
       })
       .finally(() => client.disconnect());
   };
@@ -1292,6 +1314,7 @@ if(msgToAdd.sh === 'out'){
               isLoadingRefresh={this.state.isLoadingRefresh}
               isLoadingEveryone={this.state.isLoadingEveryone}
               isLoadingForyou={this.state.isLoadingForyou}
+              errorToDisplay={this.state.errorToDisplay}
               identity={this.state.identity}
               identityInfo={this.state.identityInfo}
               uniqueName={this.state.uniqueName}

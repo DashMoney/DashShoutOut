@@ -2,6 +2,8 @@ import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 import Nav from "react-bootstrap/Nav";
 
+import Alert from "react-bootstrap/Alert";
+
 import MessagespageEveryone from "./MessagesPageEveryone";
 import MessagespageForyou from "./MessagesPageForyou";
 
@@ -56,6 +58,21 @@ class MessagesPage extends React.Component {
                 </Nav.Link>
               </Nav.Item>
             </Nav>
+
+            {this.props.errorToDisplay === 'Insufficient Credits' ? (
+              <>
+                <p></p>
+                <Alert variant="danger" dismissible>
+                  <Alert.Heading>Message Failed</Alert.Heading>
+                  <p>
+                    You either have insufficient credits or have run into a platform error. Please TopUp credits on DashGetNames or DashGetPaid. Currently, this dapp is platform only so it does not include full wallet access to enable TopUp, but it is planned for future upgrade.
+                    
+                  </p>
+                </Alert>
+              </>
+            ) : (
+              <></>
+            )}
 
             {this.props.isLoadingEveryone && this.state.whichTab === "Everyone" ? (
               <>
@@ -167,6 +184,8 @@ class MessagesPage extends React.Component {
           this.state.whichTab === "Everyone" ? (
             <div className="d-grid gap-2">
               <MessagespageEveryone
+
+                identityInfo={this.props.identityInfo}
                 uniqueName={this.props.uniqueName}
                 dsoEveryoneMessages={this.props.dsoEveryoneMessages}
                 mode={this.props.mode}
