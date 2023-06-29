@@ -69,17 +69,17 @@ class MessagespageForyou extends React.Component {
           )}
         </div>
 
-
-        <h5>
           {this.props.identityInfo === "" ||
           this.props.identityInfo.balance >= 450000000 ? (
             <></>
           ) : (
+            <h5>
             <Badge className="paddingBadge" bg="primary">
               Please visit DGN or DGM to TopUp your credits.
             </Badge>
+            </h5>
           )}
-        </h5>
+        
 
         {this.props.dsoForyouMessages.length < 1 ? (
           <p>
