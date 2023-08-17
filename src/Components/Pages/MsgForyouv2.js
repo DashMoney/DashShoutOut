@@ -106,9 +106,7 @@ class MsgForyou extends React.Component {
   }
 
   checkIfShout = (msgDoc) => {
-    if(msgDoc.sh === undefined){
-      return <></>
-    }else if(msgDoc.sh === 'out'){
+     if(msgDoc.sh === 'out'){
       return <span className="textsmaller text-muted">SO</span>
     } else{
       return <span className="textsmaller text-muted">DM</span>
