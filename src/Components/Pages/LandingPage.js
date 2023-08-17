@@ -1,6 +1,7 @@
 import React from "react";
 //import Badge from "react-bootstrap/Badge";
-import DSOmodified from "../../Images/DSOPreview.png";
+import DSOdark from "../../Images/IMG_1553.jpg";
+import DSOlight from "../../Images/IMG_1554.jpg"
 import Image from "react-bootstrap/Image";
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -49,9 +50,15 @@ class LandingPage extends React.Component {
            <Col xs={2} md={4}></Col>
            <Col xs={8} md={4} className="positionCaption">
            <div className="positionCaption">
-         <Image
-           fluid  rounded id="dash-landing-page" src={DSOmodified} alt="DSO Landing Page Preview" 
+          {this.props.mode === 'dark'?
+          <Image
+          fluid  rounded id="dash-landing-page" src={DSOdark} alt="DSO Landing Page Preview" 
+        />:
+        <Image
+           fluid  rounded id="dash-landing-page" src={DSOlight} alt="DSO Landing Page Preview" 
          />
+          }
+         
          <p></p>
          <Figure.Caption>
            <b>DashShoutOut - Preview</b>

@@ -3567,8 +3567,13 @@ handleFromTagsNewDM = (docArray) => {
 
         {!this.state.isLoggedIn ? (
           <>
-            <LandingPage />
-            <LoginBottomNav mode={this.state.mode} showModal={this.showModal} />
+            <LandingPage 
+            mode={this.state.mode}
+            />
+            <LoginBottomNav 
+            mode={this.state.mode}
+             showModal={this.showModal} 
+             />
             <Footer />
           </>
         ) : (
