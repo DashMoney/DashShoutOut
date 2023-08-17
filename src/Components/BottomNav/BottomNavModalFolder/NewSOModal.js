@@ -202,7 +202,7 @@ class NewSOModal extends React.Component {
         apps: {
           DPNS: {
             //this probably changed!! ->
-            contractId: "GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec",
+            contractId: this.props.DataContractDPNS,
           },
         },
       };

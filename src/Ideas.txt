@@ -1,3 +1,137 @@
+
+
+
+ if(docArray.length !== 0){ -> Cant call for name query if there is not docs after the new/old comparison -> check -> 
+    
+    
+        handleLoadNewSO = (docArray) => {
+            //this gets the new name and maybe check if already have and then the button will on display to load new msgs
+
+            //FIRST CHECK IF I ALREADY HAVE THE NAME IN THE NAME ARRAY. -> SAVE A QUERY
+
+            //how to i check if it has it?
+
+            //it getting more complicated because what if I have multiple new docs and some I have and others I don't.. -> Skio for now and do later ->
+
+            // will have to do a forEach or map and then check and see if any are undefined.. otherwise just call all and save myself from sorting it all out.
+
+            // let nameDoc = this.state.EveryoneNames.find(doc => {
+            //   return msgDoc.$ownerId === doc.$ownerId
+            // })
+
+            // if(nameDoc !== undefined){
+            //   this will shortcut the query and set up the button.
+            // also handle if already have something in the array so it just adds
+            // }else{
+            //This will be the query.
+
+            //}
+            
+
+            // IF NOT THEN QUERY
+
+            //AFTER QUERY ADD TO NAME ARRAY AND THEN PUSH THE NEW MSG DOC TO THE HOLDING TO SIGNAL THE BUTTON TO APPEAR!! ->
+
+Hold off Identity and (future - wallet) until after -> maybe bc I still need identity if don't have the info. -> DONE
+
+isLoadingRefresh is ended by Everyone and ForYou -> That will allow buttons press so choose one and not both -> so the ForYou will probably be the lagger -> but it may also take too long when you just want to send a msg or shoutout... -> 
+
+another good thought -> shift the msg docs set in state to be withthe names so that only do once instead of twice!! with threadsdoc too -> 6 instances to remove!! -> do it!!
+
+new thought -> with auto update -> after names are gotten there is no loading state, it just pushes to the array for display and displays it!! no spinner!!!
+
+
+TEST THE OBJECT AND TUPLE FOR SET IF IT WORKS -> NEED TO KNOW -> NOPE they don't
+https://stackoverflow.com/questions/41404607/why-does-javascript-set-not-do-unique-objects
+JSON.stringify and JSON.Parse or I can just compare the $id property of the objects.
+I could just do a separate by the $id but that just makes extra work, just do the work on the array of objects. so I have an array of objects and I just want to return a unique set 
+well I could also just filter before i combine them? and then I wouldn't have to compare the lengths just see if there is anything left? -> how 
+
+so if i work separately then I can just loop through new and compare each $id to each other
+
+if put together, I can just count each one and .. and ....
+
+SEPARATE IS BETTER FOR THIS BECAUSE i DON'T HAVE TO DO A COMPLETE loop
+ALSO i THINK i CAN JUST CREATE A SEPARATE FUNCTION FOR THIS AND RETURN WHAT i NEED SO A LOT OF REUSE! -> 
+compareNewToOld(newDocs, oldDocs){
+    let leftOver = [];
+
+    newDocs.forEach(doc => {
+        use find i think no use includes() no
+        just do a manual loop until if finds or returns false..
+    https://masteringjs.io/tutorials/fundamentals/foreach-break  
+
+    this isn't right need to if return true from every then I add to leftOver!! -> do it ->   
+
+     if(oldDocs.every(docu => docu.$id !== doc.$id){
+        leftOver.append(doc);
+     }
+        }) 
+
+    USE every() INSTEAD OF FOREACH!!!!
+
+    https://www.w3schools.com/jsref/jsref_every.asp
+    
+}
+
+To do:
+1) fix the msg creation so there is $id with it to enable thread -> DONE -> NEED TO TEST -> now its done thx threads
+
+2) add name doc or equivalent to thread creation so that it has your name for thread -> Done -> TEST -> now its correct dont forget ... in arrays
+
+3) automate the msg retrieval -> pull all msgs like before and then pull threads for all the msgs
+        -> how to do I know if I have something new? pull the top and compare body, no just compare the time. to the lowest time I have. I can augment the retrieval to limit this as well. so 
+        -> well it may just be easier to pull entire new and later add a feature to grab old messages?!! <- I think yeah
+
+So where do i trigger the setInterval? after the loading?? what loading??
+        -> Separate functions for the auto update!! -> so thereby separating
+
+Do a search all the msgs and threads SEPARATELY -> SOLUTION FOR THE THREADS work but how to solve for msgs. instead of keeping time of last msg in state just retrieve from the msgsArray and then just compare? doing time is new to me , why not just pull and add and set for unique and see if length changes?
+WHAT HAPPENS IF MSGS GROWS TO GREATER THAN 100 AND CAN'T SEARCH ALL.. WELL I JUST SUPPOSE i WILL RUN INTO LIMITS EVENTUALLY... -> accepted
+    -> Search the messages and compare to old how? 
+    -> when search threads of msgs and compare to old? or just add how to ensure unique and how to know that there are new ones?
+            -> !!!! just add the new to old and create set to ensure unique and if the length changed then you have new msgs BUT THEN WHERE AND WHEN DO I GET THE NEW NAMES FOR THE DOCS???
+            -> if lengths is new and longer then just pull
+
+
+----------
+
+
+Issue!!! -> I use the $id of the msgs to attach the threads and new msgs are not getting the $id added so then I can't add threads to it or the threads may cause everything to fail!  -> SOLVE THE ISSUE BY REMOVING THE EARLY DISPLAY OF MSG SO THAT I HAVE THE $ID AND I DON'T HAVE TO CHANGE ALL THE STRUCTURE YET(THE TUPLE STUFF IS NOT GOOD IDEA) -> gOOD FIX
+
+Disable making a thread when loadingRefresh so like when the buttons are disabled also -> I LIKE IT! -> 
+
+WHAT ABOUT THE THREADS FORYOU WHERE THE TWO QUERIES ARE MERGED TOGETHER?
+    THREADS WILL WORK PRETTY EASIER FOR THE UPDATE BECAUSE I CAN JUST THROW ALL THE msgs in an array and do the query? -> can only do up to 100 unique in arra
+
+
+I THINK I HAVE A SOLID PATH FOR THREADS BUT WHAT ABOUT THE RELOAD -> HOW DOES THE BACKGROUND LOADING WORK? AND PERHAPS MAYBE USE CREATEAT OR THE TIMESTAMP TO ONLY SEARCH PAST A CERTAIN TIME BUT ALSO WHAT WILL THESE SEARCHES BE ->
+    STORE A DATETIMEOBJECT WITH MILLISECONDS IN STATE.
+    THEN PERFORM THE THREE QUERIES THAT I DO IN THE BEGINING AND IF THE LENGTH COMES BACK AS NOT ZERO THEN I PERFORM THE NAME SEARCH AND THEN IF THE NAME
+    OR JUST LOOK THERE THE NAMES THAT i ALREADY HAVE? SHOULD I jUST STORE ALL NAMES IN ONE PLACE? -> Do I have to break apart the tuples?
+    -> THESE ^^ ARE ALL GOOD QUESTIONS.
+AND HOW DO I GET EVERYTHING BEFORE AS ALLOW BUTTON TO RELOAD? SO THAT IT HAPPENS INSTANTANEOUSLY -> 
+
+Separate Threads from messages -> in Data Contract to help save on cost and because it is also okay? --> chekc the okay part but I think will will save on Data contract and possibly better solution to the problem?
+
+Threads Capability and autoLoad -> 
+
+How to load and how to query ->
+    So now -> EveryoneMsg(Shouts) -> Grab names -> makes tuples for display
+           -> ForYou yourShouts & tags -> tags msgs -> names -> combine for display
+
+***Look more carefully -> Everyone -> msgs have sh:'out', Foryou myShouts -> ownerId, , and lastly gets tags which gets msgs. 
+
+threads simply have a msgId they are attached to. Foryou myShouts would pick up the thread msgs.
+Also CAN YOU ADD A TAG TO A THREAD? WELL WHY NOT JUST ADD THE ORIGINAL MSG AND THEN THE TAG WILL APPEAR? -> ???!! -> DOES THAT SOLVE IT?
+
+i CAN JUST EXTEND WHAT IS CURRENTLY HAPPENING WITH TAGS BUT THE ISSUE IS THAT THE MYsHOUTS WILL GRAB ALL MY THREADS AS WELL... -> wHAT IF i ADD SHOUT TO MY SHOUTS TO SPECIFY BUT ALSO GRABS MY dMS AS WELL.. -> !!!!! -> nEED TO cHANGE THE DC INDEX FOR QUERY THEN -> 
+
+
+HOW TO ADD THREADS -> nEED TO SEPARATE THREADS FROM MSGS IF i AM GOING TO LOAD SEPARATELY BUT IF GOING TO LOAD TOGETHER THEN DO WHAT? (Limit on doc return: 100)
+Could implement a load more a the bottom with startAt or StartAfter
+THIS ^^^ MAY BE THE FUTURE WAY BUT IT JUST DOESN'T IT HOW IT WORKS.
+
 Test ideas -> 
 
 Platform login vs Wallet login -> ?
@@ -11,8 +145,6 @@ Questions -> does plat login use skipsync and how?
 Question -> will the changing of skipsync cause the app to fail. I know that the console.log will yell about it.
 
 What about removing adapter <- so won't affect.. -> Do It ->
-
-
 
 
 

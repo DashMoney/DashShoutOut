@@ -199,7 +199,7 @@ extends React.Component {
           newMessage = {
             //OR JUST PUT TYPE: SO OR DM HERE?
             timeStamp: 2546075019551 - Date.now(),
-            sh: "dm",
+            sh: "dir", //this just goes to function and not DataContract creation
             msg: `${event.target.ControlTextarea1.value}`,
           };
         
@@ -218,7 +218,7 @@ extends React.Component {
 
         apps: {
           DPNS: {
-            contractId: "GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec",
+            contractId: this.props.DataContractDPNS,
           },
         },
       };

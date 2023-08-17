@@ -2,6 +2,8 @@ import React from "react";
 //import Button from 'react-bootstrap/Button';
 import Card from "react-bootstrap/Card";
 
+import Threads from "./Threads";
+
 class MsgEveryone extends React.Component {
   constructor(props) {
     super(props);
@@ -11,17 +13,18 @@ class MsgEveryone extends React.Component {
   }
 
   handleNameClick = () => {
-    navigator.clipboard.writeText(`@${this.props.tuple[0]}`);
+    navigator.clipboard.writeText(this.props.tuple[0]);
     this.setState({
       copiedName: true,
     });
   };
 
+
   getRelativeTimeAgo(messageTime, timeNow){
 
-    //timeStamp: 2546075019551 - Date.now(), -> this is how I make the time for the DSO document
+    //timeStamp: 2546075019551 - Date.now(), 
 
-    //How do I make he adjustments....
+    //How do I make the adjustments....
     //So the messageTime is the time Stamp
     // So messageTime = 2546075019551 - Time of message
     //So I want Time of message
@@ -48,60 +51,61 @@ class MsgEveryone extends React.Component {
     if(timeDifference < 15000){
       return "Just now"
     }else if(timeDifference <44000){
-      return "A few moments ago"
+      return "Few moments ago"
     }else if(timeDifference <90000){
-      return "1 minute ago"
+      return "1 min ago"
     }else if(timeDifference <150000){
-      return "2 minutes ago"
+      return "2 min ago"
     }else if(timeDifference <210000){
-      return "3 minutes ago"
+      return "3 min ago"
     }else if(timeDifference <270000){
-      return "4 minutes ago"
+      return "4 min ago"
     }else if(timeDifference <330000){
-      return "5 minutes ago"
+      return "5 min ago"
     }else if(timeDifference <390000){
-      return "6 minutes ago"
+      return "6 min ago"
     }else if(timeDifference <450000){
-      return "7 minutes ago"
+      return "7 min ago"
     }else if(timeDifference <510000){
-      return "8 minutes ago"  
+      return "8 min ago"  
     }else if(timeDifference <570000){
-      return "9 minutes ago"  
+      return "9 min ago"  
     }else if(timeDifference <660000){
-      return "10 minutes ago"
+      return "10 min ago"
     }else if(timeDifference <840000){
-      return "12 minutes ago"
+      return "12 min ago"
     }else if(timeDifference <1020000){
-      return "15 minutes ago"
+      return "15 min ago"
     }else if(timeDifference <1140000){
-      return "18 minutes ago"
+      return "18 min ago"
     }else if(timeDifference <1380000){
-      return "20 minutes ago"
+      return "20 min ago"
     }else if(timeDifference <1650000){
-      return "25 minutes ago"
+      return "25 min ago"
     }else if(timeDifference <1950000){
-      return "30 minutes ago"
+      return "30 min ago"
     }else if(timeDifference <2250000){
-      return "35 minutes ago"
+      return "35 min ago"
     }else if(timeDifference <2550000){
-      return "40 minutes ago"
+      return "40 min ago"
     }else if(timeDifference <3000000){
-      return "45 minutes ago"
+      return "45 min ago"
     }else if(timeDifference <5400000){
-      return "1 hour ago"
+      return "1 hr ago"
     }else if(timeDifference <9000000){
-      return "2 hours ago"
+      return "2 hrs ago"
     }else if(timeDifference <12600000){
-      return "3 hours ago"
+      return "3 hrs ago"
     }else if(timeDifference <18000000){
-      return "A few hours ago"
+      return "5 hrs ago"
     }else if(timeDifference <43200000){
-      return "Several hours ago"
+      return "Many hrs ago"
     }else if(timeDifference <84600000){
-      return "Less than a day ago"
+      return "About a day ago"
     }
   }
 
+  
   render() {
     let cardBkg;
     let cardText;
@@ -116,6 +120,43 @@ class MsgEveryone extends React.Component {
 
     }
 
+    //NEW THING BELOW -> ADDING THREADS TO MSGS
+    let threadDocs = this.props.EveryoneThreads.filter((doc)=>{
+      return doc.msgId === this.props.tuple[1].$id;
+    });
+
+    //need to order the docs -> 
+    threadDocs = threadDocs.sort(function (a, b) {
+      return b.timeStamp - a.timeStamp;
+    });
+
+    let threadsToDisplay = []; 
+
+    if(threadDocs.length > 0){
+
+      threadsToDisplay = threadDocs.map((thr, index )=>{
+        return(
+//NEED TO ABSTRACT/ GENERALIZE SO THAT i CAN USE FOR BOTH -> OR JUST MAKE A SEPARATE BUT I THINK USE FOR BOTH WONT BE TOO DIFFICULT
+          <Threads
+          key={index}
+          mode={this.props.mode} 
+          index={index} 
+          thr = {thr}
+          msg = {this.props.tuple[1]}
+          date = {this.props.date}
+          identity={this.props.identity}
+          uniqueName={this.props.uniqueName}
+          // showModal={this.props.showModal}
+          handleThread={this.props.handleThread}
+                    
+          ThreadsNames={this.props.EveryoneThreadsNames}
+          />
+        )
+      });
+    }
+    
+//END OF NEW THING
+
     return (
       <Card id="card" key={this.props.index} bg={cardBkg} text={cardText}>
         <Card.Body>
@@ -124,7 +165,7 @@ class MsgEveryone extends React.Component {
               <span style={{ color: "#008de4" }}>{this.props.tuple[0]}</span>
             ) : (
               <>
-              <span onClick={() => this.handleNameClick()}>
+              <span style={{ color: "#008de4" }} onClick={() => this.handleNameClick()}>
                 {this.props.tuple[0]}
               </span>
               <span>
@@ -139,13 +180,19 @@ class MsgEveryone extends React.Component {
           }
           >Copy</Button>
           {this.state.copiedName?<span>☑️🔵☑️</span>:<></>} */}
+                      
 
             <span className="textsmaller text-muted">
               {this.getRelativeTimeAgo(this.props.tuple[1].timeStamp, this.props.date)}
             </span>
           </Card.Title>
 
-          <Card.Text>{this.props.tuple[1].msg}</Card.Text>
+          <Card.Text 
+          onClick={()=>this.props.handleThread(this.props.tuple[1].$id)}
+          >
+            {this.props.tuple[1].msg}
+          </Card.Text>
+          {threadsToDisplay}
         </Card.Body>
       </Card>
     );

@@ -1,4 +1,3 @@
-"use Strict";
 import React from "react";
 import DashIcon from "../../Images/white-d.svg";
 import DashIconBlue from "../../Images/blue-d.svg";

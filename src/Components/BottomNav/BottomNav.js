@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 import CreateMessageButton from "./CreateMessageButton";
-import RefreshButton from "./RefreshButton";
+import TipButton from "./TipButton";
 //import TopUpButton from "./TopUpButton";
 import DirectMessageButton from "./DirectMessageButton";
 
@@ -29,9 +29,8 @@ class BottomNav extends React.Component {
               showModal={this.props.showModal}
             />
 
-            <RefreshButton
+            <TipButton
               isLoadingRefresh={this.props.isLoadingRefresh}
-              refreshGetDocsAndGetIdInfo={this.props.refreshGetDocsAndGetIdInfo}
               mode={this.props.mode}
               showModal={this.props.showModal}
             />
