@@ -773,6 +773,39 @@ class App extends React.Component {
       .finally(() => client.disconnect());
   };
 
+  updateIdentityInfo = () => {
+    console.log("Called update id info");
+
+    this.setState({
+      identityInfo: '',
+    })
+
+    const client = new Dash.Client({ network: this.state.whichNetwork });
+
+    const retrieveIdentity = async () => {
+      return client.platform.identities.get(this.state.identity); // Your identity ID
+    };
+
+    retrieveIdentity()
+      .then((d) => {
+        //console.log("Identity retrieved:\n", d.toJSON());
+
+        this.setState({
+          identityInfo: d.toJSON(),
+          identityRaw: d,
+          //isLoading: false,
+        });
+      })
+      .catch((e) => {
+        console.error("Something went wrong:\n", e);
+
+        // this.setState({
+        //   isLoading: false,
+        // });
+      })
+      .finally(() => client.disconnect());
+  };
+
   getWalletwithMnem = (theMnemonic) => {
 
     const client = new Dash.Client({
@@ -2442,12 +2475,12 @@ sendATip = () =>{
             EveryoneMsgs: [message, ...this.state.EveryoneMsgs],
             ByYouMsgs: [message, ...this.state.ByYouMsgs],
             isLoadingRefresh: false,
-          });
+          }, ()=> this.updateIdentityInfo());
         } else {
           this.setState({
             ByYouMsgs: [message, ...this.state.ByYouMsgs],
             isLoadingRefresh: false,
-          });
+          }, ()=> this.updateIdentityInfo());
         }
 
         //console.log(submittedDoc);
@@ -2620,13 +2653,13 @@ sendATip = () =>{
 
           ByYouThreads: [newThread, ...this.state.ByYouThreads],
 
-          // FromTagsThreads: [
-          //   newThread,
-          //   ...this.state.FromTagsThreads,
-          // ],
+          FromTagsThreads: [
+            newThread,
+            ...this.state.FromTagsThreads,
+          ],
 
           isLoadingRefresh: false,
-        });
+        }, ()=> this.updateIdentityInfo());
       })
       .catch((e) => {
         this.setState({

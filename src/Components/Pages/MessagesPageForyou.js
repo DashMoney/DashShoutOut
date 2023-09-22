@@ -50,6 +50,32 @@ class MessagespageForyou extends React.Component {
 
   let ForYouThreads = [...this.props.ByYouThreads, ...this.props.FromTagsThreads];
 
+   // Ensure Unique threads***
+    let arrayOfThrIds = ForYouThreads.map(thr => {
+      return thr.$id;
+    });
+
+    // console.log('Combined ForYou Threads!!', arrayOfThrIds);
+
+    let setOfThrIds = [...new Set(arrayOfThrIds)];
+
+    arrayOfThrIds = [...setOfThrIds];
+
+    //       ***
+
+    ForYouThreads = arrayOfThrIds.map((thrId) => {
+      let thread;
+
+      for (let thrDoc of ForYouThreads) {
+        if (thrDoc.$id === thrId) {
+          thread = thrDoc;
+          break;
+        }
+      }
+      return thread;
+    });
+ 
+
   let ForYouThreadsNames = [...this.props.ByYouThreadsNames, ...this.props.FromTagsThreadsNames];
 
 // ### ### ### ### ### ###
