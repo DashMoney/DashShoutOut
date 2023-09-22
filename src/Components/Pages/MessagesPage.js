@@ -130,8 +130,7 @@ class MessagesPage extends React.Component {
                   <Alert.Heading>Message Failed</Alert.Heading>
                   <p>
                     You either have insufficient credits or have run into a
-                    platform error. Please TopUp credits on DashGetNames or
-                    DashGetPaid. 
+                    platform error.
                   </p>
                 </Alert>
               </>

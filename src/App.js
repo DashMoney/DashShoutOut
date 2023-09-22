@@ -881,7 +881,7 @@ class App extends React.Component {
         let docArray = [];
         //console.log("Getting Everyone DSO Docs");
         for (const n of d) {
-          console.log("Document:\n", n.toJSON());
+          //console.log("EveryoneMsgs:\n", n.toJSON());
           docArray = [...docArray, n.toJSON()];
         }
 
@@ -922,11 +922,7 @@ class App extends React.Component {
 
     let arrayOfOwnerIds = [...setOfOwnerIds];
 
-    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-    //   Buffer.from(Identifier.from(item))
-    // );
-
-    console.log("Calling getNamesforDSOmsgs");
+    //console.log("Calling getNamesforDSOmsgs");
 
     const getNameDocuments = async () => {
       return client.platform.documents.get("DPNS.domain", {
@@ -991,10 +987,6 @@ class App extends React.Component {
 
     arrayOfMsgIds = [...setOfMsgIds];
 
-    // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-    //   Identifier.from(item)
-    // );
-
     //console.log("Array of Msg ids", arrayOfMsgIds);
 
     const getDocuments = async () => {
@@ -1010,9 +1002,12 @@ class App extends React.Component {
       .then((d) => {
         let docArray = [];
 
-        for (const n of d) {
-          console.log("Msg:\n", n.toJSON());
-          docArray = [...docArray, n.toJSON()];
+        for(const n of d) {
+          let returnedDoc = n.toJSON()
+           //console.log("Thr:\n", returnedDoc);
+           returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+           //console.log("newThr:\n", returnedDoc);
+          docArray = [...docArray, returnedDoc];
         }
 
         if (docArray.length === 0) {
@@ -1060,13 +1055,8 @@ class App extends React.Component {
 
     arrayOfOwnerIds = [...setOfOwnerIds];
 
-    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-    //   Buffer.from(Identifier.from(item))
-      
-    // );
-
-    console.log("Called Get Everyone Threads Names");
-    console.log(arrayOfOwnerIds);
+    //console.log("Called Get Everyone Threads Names");
+    //console.log(arrayOfOwnerIds);
 
     const getNameDocuments = async () => {
       return client.platform.documents.get("DPNS.domain", {
@@ -1084,7 +1074,7 @@ class App extends React.Component {
         let nameDocArray = [];
 
         for(const n of d) {
-          console.log("NameDoc:\n", n.toJSON());
+          //console.log("NameDoc:\n", n.toJSON());
           nameDocArray = [n.toJSON(), ...nameDocArray];
         }
 
@@ -1168,9 +1158,9 @@ class App extends React.Component {
           );
         } else {
           let docArray = [];
-          //console.log("Getting ForyouByyouMsgs");
+          
           for (const n of d) {
-            //console.log("Document:\n", n.toJSON());
+            //console.log("ByYouMsgs:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
           this.getForyouByyouNames(docArray);
@@ -1201,11 +1191,7 @@ class App extends React.Component {
 
     let arrayOfOwnerIds = [...setOfOwnerIds];
 
-    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-    //   Buffer.from(Identifier.from(item))
-    // );
-
-    console.log("Calling getNamesforyouDSOmsgs");
+    //console.log("Calling getNamesforyouDSOmsgs");
 
     const getNameDocuments = async () => {
       return client.platform.documents.get("DPNS.domain", {
@@ -1267,10 +1253,6 @@ class App extends React.Component {
 
         arrayOfMsgIds = [...setOfMsgIds];
 
-        // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-        //   Identifier.from(item)
-        // );
-
         //console.log("Array of order ids", arrayOfMsgIds);
 
         const getDocuments = async () => {
@@ -1287,8 +1269,11 @@ class App extends React.Component {
             let docArray = [];
 
             for(const n of d) {
-              //console.log("Msg:\n", n.toJSON());
-              docArray = [...docArray, n.toJSON()];
+              let returnedDoc = n.toJSON()
+               //console.log("Thr:\n", returnedDoc);
+               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+               //console.log("newThr:\n", returnedDoc);
+              docArray = [...docArray, returnedDoc];
             }
 
             if (docArray.length === 0) {
@@ -1331,9 +1316,6 @@ class App extends React.Component {
 
         arrayOfOwnerIds = [...setOfOwnerIds];
 
-        // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-        //   Buffer.from(Identifier.from(item))
-        // );
 
         //console.log("Called Get ByYou Threads Names");
 
@@ -1413,11 +1395,14 @@ class App extends React.Component {
       .then((d) => {
         if (d.length !== 0) {
           let docArray = [];
-          for (const n of d) {
-            //console.log("tags:\n", n.toJSON());
-            docArray = [...docArray, n.toJSON()];
+          
+          for(const n of d) {
+            let returnedDoc = n.toJSON()
+             //console.log("Thr:\n", returnedDoc);
+             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+             //console.log("newThr:\n", returnedDoc);
+            docArray = [...docArray, returnedDoc];
           }
-          //console.log( docArray instanceof Array);
 
           let msgIdArray = docArray.map((doc) => {
             return doc.msgId;
@@ -1458,18 +1443,11 @@ class App extends React.Component {
     };
     let client = new Dash.Client(clientOpts);
 
-    let arrayOfMSGIds = idsOfMsgsFromTags.map(
-      (item) => {
-        return Identifier.from(item);
-      }
-      //return item}
-    );
-
     //console.log(`Array of MsgIds: ${arrayOfMSGIds}`);
 
     const getDocuments = async () => {
       return client.platform.documents.get("DSOContract.dsomsg", {
-        where: [["$id", "in", arrayOfMSGIds]],
+        where: [["$id", "in", idsOfMsgsFromTags]],
         orderBy: [["$id", "asc"]],
       });
     };
@@ -1585,10 +1563,6 @@ class App extends React.Component {
 
         arrayOfMsgIds = [...setOfMsgIds];
 
-        // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-        //   Identifier.from(item)
-        // );
-
         //console.log("Array of order ids", arrayOfMsgIds);
 
         const getDocuments = async () => {
@@ -1603,11 +1577,13 @@ class App extends React.Component {
         getDocuments()
           .then((d) => {
             let docArray = [];
-            //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
 
             for (const n of d) {
-              //console.log("Msg:\n", n.toJSON());
-              docArray = [...docArray, n.toJSON()];
+              let returnedDoc = n.toJSON()
+              //console.log("Thr:\n", returnedDoc);
+              returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+              //console.log("newThr:\n", returnedDoc);
+             docArray = [...docArray, returnedDoc];
             }
             
 
@@ -1702,51 +1678,6 @@ class App extends React.Component {
   //END - ForYou TAGS: Msgs and Threads
 
   //######################################################
-
-  /*combineForyouMsgs = () => { //THE OLD WAY 
-    let tupleArray = [
-      ...this.state.dsoForyouBYYOUTuples,
-      ...this.state.dsoForyouFROMOTHERSTuples,
-    ];
-  // Ensure Unique msgs***
-    let arrayOfMsgIds = tupleArray.map((tuple) => {
-      return tuple[1].$id;
-    });
-
-    //console.log('Combine FORYOU arrayMsgId!!', arrayOfMsgIds);
-
-    let setOfMsgIds = [...new Set(arrayOfMsgIds)];
-
-    arrayOfMsgIds = [...setOfMsgIds];
-
-    //       ***
-
-    tupleArray = arrayOfMsgIds.map((msgId) => {
-      let tuple = [];
-
-      for (let tupleDoc of tupleArray) {
-        if (tupleDoc[1].$id === msgId) {
-          tuple = tupleDoc;
-          break;
-        }
-      }
-      return tuple;
-    });
-
-    //console.log('CombineandUnique FORYOU!!', tupleArray);
-
-    let sortedForYou = tupleArray.sort(function (a, b) {
-      return a[1].$createdAt - b[1].$createdAt;
-    });
-
-    //console.log('Final FORYOU!!', sortedForYou);
-
-    this.setState({
-      dsoForyouMessages: sortedForYou,
-      isLoadingForYou: false,
-    });
-  };
-*/
 
 sendATip = () =>{
   //Need Identity Credit Transfer
@@ -1861,10 +1792,6 @@ sendATip = () =>{
 
     let arrayOfOwnerIds = [...setOfOwnerIds];
 
-    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-    //   Buffer.from(Identifier.from(item))
-    // );
-
     //console.log("Calling getNamesforDSOmsgs");
 
     const getNameDocuments = async () => {
@@ -1922,16 +1849,11 @@ sendATip = () =>{
           return doc.$id;
         });
 
-        console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+        //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
 
         let setOfMsgIds = [...new Set(arrayOfMsgIds)];
 
         arrayOfMsgIds = [...setOfMsgIds];
-
-         arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-         Identifier.from(item) //<-v0.24
-         // Identifier.from(item, 'base64').toJSON() //<- Not an issue.. hmm
-         );
 
         //console.log("Array of Msg ids", arrayOfMsgIds);
 
@@ -1947,11 +1869,14 @@ sendATip = () =>{
         getDocuments()
           .then((d) => {
             let docArray = [];
-            //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
+            
 
             for(const n of d) {
-              // console.log("Msg:\n", n.toJSON());
-              docArray = [...docArray, n.toJSON()];
+              let returnedDoc = n.toJSON()
+               //console.log("Thr:\n", returnedDoc);
+               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+               //console.log("newThr:\n", returnedDoc);
+              docArray = [...docArray, returnedDoc];
             }
 
             if (docArray.length === 0) {
@@ -1992,10 +1917,6 @@ sendATip = () =>{
         let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
 
         arrayOfOwnerIds = [...setOfOwnerIds];
-
-        // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-        //   Buffer.from(Identifier.from(item))
-        // );
 
         //console.log("Called Get InitialByYou Threads Names");
 
@@ -2075,11 +1996,15 @@ sendATip = () =>{
       .then((d) => {
         if (d.length !== 0) {
           let docArray = [];
-          for (const n of d) {
-            //console.log("tags:\n", n.toJSON());
-            docArray = [...docArray, n.toJSON()];
+
+          for(const n of d) {
+            let returnedDoc = n.toJSON()
+             //console.log("Tag:\n", returnedDoc);
+             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+             returnedDoc.toId = Identifier.from(returnedDoc.toId, 'base64').toJSON();
+             //console.log("newTag:\n", returnedDoc);
+            docArray = [...docArray, returnedDoc];
           }
-          //console.log( docArray instanceof Array);
 
           let msgIdArray = docArray.map((doc) => {
             return doc.msgId;
@@ -2092,7 +2017,7 @@ sendATip = () =>{
           //NEXT GET THE MSGS FROM THE TAGS msgIds************
 
         } else {
-          console.log("No Tags for this user.");
+          //console.log("No Tags for this user.");
           
           this.setState(
             {
@@ -2120,18 +2045,10 @@ sendATip = () =>{
     };
     let client = new Dash.Client(clientOpts);
 
-    let arrayOfMSGIds = idsOfMsgsFromTags.map(
-      (item) => {
-        return Identifier.from(item);
-      }
-      //return item}
-    );
-
-    // console.log(`Array of MsgIds: ${arrayOfMSGIds}`);
 
     const getDocuments = async () => {
       return client.platform.documents.get("DSOContract.dsomsg", {
-        where: [["$id", "in", arrayOfMSGIds]],
+        where: [["$id", "in", idsOfMsgsFromTags]],
         orderBy: [["$id", "asc"]],
       });
     };
@@ -2248,10 +2165,6 @@ sendATip = () =>{
 
         arrayOfMsgIds = [...setOfMsgIds];
 
-        // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-        //   Identifier.from(item)
-        // );
-
         //console.log("Array of order ids", arrayOfMsgIds);
 
         const getDocuments = async () => {
@@ -2269,8 +2182,11 @@ sendATip = () =>{
             //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
 
             for(const n of d) {
-              //console.log("Msg:\n", n.toJSON());
-              docArray = [...docArray, n.toJSON()];
+              let returnedDoc = n.toJSON()
+               //console.log("Thr:\n", returnedDoc);
+               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+               //console.log("newThr:\n", returnedDoc);
+              docArray = [...docArray, returnedDoc];
             }
             
 
@@ -2434,9 +2350,7 @@ sendATip = () =>{
         docProperties
       );
 
-      //console.log(dsoDocument.toJSON());
-
-      //let dsoMessageAndTags; //MOVED OUTSIDE FUNCTION TO USE IN POST SUBMIT BELOW
+    console.log(dsoDocument.toJSON());
 
       //console.log('OwnerIdArray of Tags: ',ownerIdArray);
 
@@ -3003,9 +2917,6 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
 
     arrayOfMsgIds = [...setOfMsgIds];
 
-    // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-    //   Identifier.from(item)
-    // );
 
     //console.log("Array of order ids", arrayOfMsgIds);
 
@@ -3025,8 +2936,11 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
         //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
 
         for(const n of d) {
-          //console.log("Msg:\n", n.toJSON());
-          docArray = [...docArray, n.toJSON()];
+          let returnedDoc = n.toJSON()
+           //console.log("Thr:\n", returnedDoc);
+           returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+           //console.log("newThr:\n", returnedDoc);
+          docArray = [...docArray, returnedDoc];
         }
 
         let alreadyHaveArray = [...this.state.EveryoneThreads, ...this.state.NewSOThreads]
@@ -3207,9 +3121,6 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
     
         arrayOfMsgIds = [...setOfMsgIds];
     
-        // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-        //   Identifier.from(item)
-        // );
     
         //console.log("Array of order ids", arrayOfMsgIds);
     
@@ -3228,8 +3139,11 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
             let docArray = [];
     
             for(const n of d) {
-              //console.log("Msg:\n", n.toJSON());
-              docArray = [...docArray, n.toJSON()];
+              let returnedDoc = n.toJSON()
+               //console.log("Thr:\n", returnedDoc);
+               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+               //console.log("newThr:\n", returnedDoc);
+              docArray = [...docArray, returnedDoc];
             }
     
             let alreadyHaveArray = [...this.state.ByYouThreads, ...this.state.NewDMByYouThreads]
@@ -3359,13 +3273,18 @@ getTagsNewDM = () =>{
       .then((d) => {
         if (d.length !== 0) {
           let docArray = [];
-          for (const n of d) {
-            //console.log("tags:\n", n.toJSON());
-            docArray = [...docArray, n.toJSON()];
+          
+          for(const n of d) {
+            let returnedDoc = n.toJSON()
+             //console.log("Thr:\n", returnedDoc);
+             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+             returnedDoc.toId = Identifier.from(returnedDoc.toId, 'base64').toJSON();
+             //console.log("newThr:\n", returnedDoc);
+            docArray = [...docArray, returnedDoc];
           }
-          //console.log( docArray instanceof Array);
 
           let msgIdArray = docArray.map((doc) => {
+            
             return doc.msgId;
           });
 
@@ -3407,18 +3326,12 @@ getNewDMMsgsFromTags = (idsOfMsgsFromTags) => {
   };
   let client = new Dash.Client(clientOpts);
 
-  let arrayOfMSGIds = idsOfMsgsFromTags.map(
-    (item) => {
-      return Identifier.from(item);
-    }
-    //return item}
-  );
 
-  //console.log(`Array of MsgIds: ${arrayOfMSGIds}`);
+  //console.log(`Array of MsgIds: ${idsOfMsgsFromTags}`);
 
   const getDocuments = async () => {
     return client.platform.documents.get("DSOContract.dsomsg", {
-      where: [["$id", "in", arrayOfMSGIds]],
+      where: [["$id", "in", idsOfMsgsFromTags]],
       orderBy: [["$id", "asc"]],
     });
   };
@@ -3550,9 +3463,6 @@ handleFromTagsNewDM = (docArray) => {
   
       arrayOfMsgIds = [...setOfMsgIds];
   
-      // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-      //   Identifier.from(item)
-      // );
   
       //console.log("Array of order ids", arrayOfMsgIds);
   
@@ -3569,11 +3479,14 @@ handleFromTagsNewDM = (docArray) => {
       getDocuments()
         .then((d) => {
           let docArray = [];
-          //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
+          
   
-          for (const n of d) {
-            //console.log("Msg:\n", n.toJSON());
-            docArray = [...docArray, n.toJSON()];
+          for(const n of d) {
+            let returnedDoc = n.toJSON()
+             //console.log("Thr:\n", returnedDoc);
+             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
+             //console.log("newThr:\n", returnedDoc);
+            docArray = [...docArray, returnedDoc];
           }
   
           let alreadyHaveArray = [...this.state.NewDMFromTagsThreads, ...this.state.FromTagsThreads];

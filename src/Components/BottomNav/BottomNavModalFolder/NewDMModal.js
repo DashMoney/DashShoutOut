@@ -194,7 +194,7 @@ extends React.Component {
         let newMessage;
 
         /*dsomsg ->
-      msg, sh, msgId(for reply)  (only first 2 are required)
+      msg, sh,  (only first 2 are required)
 */
           newMessage = {
             //OR JUST PUT TYPE: SO OR DM HERE?

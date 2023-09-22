@@ -4,7 +4,6 @@ import Card from "react-bootstrap/Card";
 
 import Threads from "./Threads";
 
-
 class MsgForyou extends React.Component {
   constructor(props) {
     super(props);
@@ -135,7 +134,7 @@ class MsgForyou extends React.Component {
 
     let threadDocs = this.props.ForYouThreads.filter((doc)=>{
       return doc.msgId === this.props.tuple[1].$id;
-     // return Identifier.from(doc.msgId, 'base64').toJSON() === this.props.tuple[1].$id;
+      //return Identifier.from(doc.msgId, 'base64').toJSON() === this.props.tuple[1].$id;
     });
 
     //need to order the docs -> 
