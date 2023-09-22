@@ -177,11 +177,10 @@ class NewSOModal extends React.Component {
         let newMessage;
 
         /*dsomsg ->
-      timeStamp, msg, sh, msgId(for reply)  (only first 2 are required)
+      msg, sh, msgId(for reply)  (only first 2 are required)
 */
           newMessage = {
             //OR I COULD JUST PUT TYPE: SO OR DM HERE?
-            timeStamp: 2546075019551 - Date.now(),
             sh: "out",
             msg: `${event.target.ControlTextarea1.value}`,
           };

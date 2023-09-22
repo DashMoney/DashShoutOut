@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 
 import Threads from "./Threads";
 
+
 class MsgEveryone extends React.Component {
   constructor(props) {
     super(props);
@@ -28,15 +29,14 @@ class MsgEveryone extends React.Component {
     //So the messageTime is the time Stamp
     // So messageTime = 2546075019551 - Time of message
     //So I want Time of message
-    //There4 TOM = 2546075019551 - timeStamp -> okay
 
-    let timeOfMessage = 2546075019551 - messageTime;
+    //let timeOfMessage = 2546075019551 - messageTime; //No longer used
 
-    let timeDifference = timeNow - timeOfMessage;
+    let timeDifference = timeNow - messageTime;
   
     if(timeDifference >= 84600000){
       let longFormDate = new Date();
-       longFormDate.setTime(timeOfMessage);
+       longFormDate.setTime(messageTime);
       return longFormDate.toLocaleDateString();
     }
     
@@ -123,11 +123,12 @@ class MsgEveryone extends React.Component {
     //NEW THING BELOW -> ADDING THREADS TO MSGS
     let threadDocs = this.props.EveryoneThreads.filter((doc)=>{
       return doc.msgId === this.props.tuple[1].$id;
+      //return Identifier.from(doc.msgId, 'base64').toJSON() === this.props.tuple[1].$id;
     });
 
     //need to order the docs -> 
     threadDocs = threadDocs.sort(function (a, b) {
-      return b.timeStamp - a.timeStamp;
+      return a.$createdAt - b.$createdAt;
     });
 
     let threadsToDisplay = []; 
@@ -183,7 +184,7 @@ class MsgEveryone extends React.Component {
                       
 
             <span className="textsmaller text-muted">
-              {this.getRelativeTimeAgo(this.props.tuple[1].timeStamp, this.props.date)}
+              {this.getRelativeTimeAgo(this.props.tuple[1].$createdAt, this.props.date)}
             </span>
           </Card.Title>
 

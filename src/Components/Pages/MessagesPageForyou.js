@@ -89,7 +89,7 @@ class MessagespageForyou extends React.Component {
     // console.log('CombineandUnique FORYOU!!', tupleArray);
 
     let sortedForYou = tupleArray.sort(function (a, b) {
-      return a[1].timeStamp - b[1].timeStamp;
+      return b[1].$createdAt - a[1].$createdAt;
     });
 
     // console.log('Final FORYOU!!', sortedForYou);

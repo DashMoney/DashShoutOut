@@ -194,11 +194,10 @@ extends React.Component {
         let newMessage;
 
         /*dsomsg ->
-      timeStamp, msg, sh, msgId(for reply)  (only first 2 are required)
+      msg, sh, msgId(for reply)  (only first 2 are required)
 */
           newMessage = {
             //OR JUST PUT TYPE: SO OR DM HERE?
-            timeStamp: 2546075019551 - Date.now(),
             sh: "dir", //this just goes to function and not DataContract creation
             msg: `${event.target.ControlTextarea1.value}`,
           };

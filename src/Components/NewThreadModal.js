@@ -178,7 +178,7 @@ class NewThreadModal extends React.Component {
 
         
           newMessage = {
-            timeStamp: 2546075019551 - Date.now(),
+            //timeStamp: 2546075019551 - Date.now(),
             msg: `${event.target.ControlTextarea1.value}`,
             
           };

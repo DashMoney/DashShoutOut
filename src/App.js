@@ -24,7 +24,8 @@ import NewSOModal from "./Components/BottomNav/BottomNavModalFolder/NewSOModal";
 import NewThreadModal from "./Components/NewThreadModal";
 import SendTipModal from "./Components/SendTipModal";
 
-import TopUpIdentityModal from "./Components/BottomNav/BottomNavModalFolder/TopUpModal";
+
+import TopUpIdentityModal from "./Components/TopUpIdentityModal";
 
 import "./App.css";
 
@@ -41,6 +42,7 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: false,
       isLoading: false,
+      isLoadingWallet: true,
       isLoadingRefresh: false, //-> WHAT IS THIS CONNECTED TO ? ->
       errorToDisplay: false,
 
@@ -144,13 +146,16 @@ class App extends React.Component {
 
       walletId: "",
 
+      accountBalance: "",
+      accountAddress: "",
+
       mostRecentLogin: false,
 
       platformLogin: false,
-      skipSynchronizationBeforeHeight: 853000,
-      mostRecentBlockHeight: 853000,
+      skipSynchronizationBeforeHeight: 900000,
+      mostRecentBlockHeight: 900000,
 
-      DataContractDSO: "4RAhSBTY9waj6XB1FpMA43XacyPzWxAd2PfE52nVuEco",
+      DataContractDSO: '32omnikxoSidL7RwATtgzYCmWgUFEWVbQsWMtqrTbU9V', //v025notimeStamp
       DataContractDPNS: "GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec",
 
       expandedTopNav: false,
@@ -302,12 +307,15 @@ class App extends React.Component {
         NewDMFromTagsThreads: [],
   
         walletId: "",
-  
+
+        accountBalance: "",
+        accountAddress: "",
+
         mostRecentLogin: false,
   
         platformLogin: false,
-        skipSynchronizationBeforeHeight: 853000,
-        mostRecentBlockHeight: 853000,
+        skipSynchronizationBeforeHeight: 900000,
+        mostRecentBlockHeight: 900000,
   
         expandedTopNav: false,
       },
@@ -345,7 +353,7 @@ class App extends React.Component {
             uniqueName: val.name,
           });
         } else {
-          //console.log("There is no mostRecentWalletId");
+          console.log("There is no mostRecentWalletId");
         }
       })
       .catch(function (err) {
@@ -366,7 +374,7 @@ class App extends React.Component {
     getMostRecentBlockHeight()
       .then((d) => {
         let blockHeight = d.chain.blocksCount;
-        //console.log("Most Recent Block Height:\n", blockHeight);
+        console.log("Most Recent Block Height:\n", blockHeight);
         this.setState({
           mostRecentBlockHeight: blockHeight - 9,
         });
@@ -747,8 +755,11 @@ class App extends React.Component {
 
         //*** *** *** *** ***
 
-        setInterval(()=>this.autoUpdateEveryoneHelper(), 23000);
-        setInterval(()=>this.autoUpdateForYouHelper(), 23000); 
+        
+        this.getWalletwithMnem(this.state.mnemonic);
+
+        setInterval(()=>this.autoUpdateEveryoneHelper(), 30000);
+        setInterval(()=>this.autoUpdateForYouHelper(), 30000); 
 
         //*** *** *** *** ***
       })
@@ -758,6 +769,70 @@ class App extends React.Component {
         // this.setState({
         //   isLoading: false,
         // });
+      })
+      .finally(() => client.disconnect());
+  };
+
+  getWalletwithMnem = (theMnemonic) => {
+
+    const client = new Dash.Client({
+      network: this.state.whichNetwork,
+      wallet: {
+        mnemonic: theMnemonic,
+        adapter: LocalForage.createInstance,
+        unsafeOptions: {
+          skipSynchronizationBeforeHeight: this.state.skipSynchronizationBeforeHeight,
+        },
+      },
+    });
+
+    const retrieveIdentityIds = async () => {
+      const account = await client.getWalletAccount();
+      //console.log(account);
+      //console.log(account.getTotalBalance());
+      // console.log(account.getUnusedAddress().address);
+      //console.log('TX History: ', account.getTransactionHistory());
+
+      this.setState({
+        //accountWallet: client, //Can I use this for the send TX?-> NO
+        accountBalance: account.getTotalBalance(),
+        accountAddress: account.getUnusedAddress().address, //This can be used if you havent created the DGMDocument <-
+        //accountHistory: account.getTransactionHistory(),
+      });
+
+
+      return true;
+    };
+
+    retrieveIdentityIds()
+      .then((d) => {
+        console.log("Wallet Loaded:\n", d);
+        this.setState({
+          isLoadingWallet: false,
+        });
+        //This if - handles if there is an identity or not
+        // if (d.length === 0) {
+        //   this.setState({
+        //     isLoading: false,
+        //     identity: "No Identity",
+        //   });
+        // } else {
+        //   this.setState(
+        //     {
+        //       identity: d[0],
+        //       isLoading: false,
+        //       //maintain Loading bc continuing to other functions
+        //     }
+        //   );
+        // }
+      })
+      .catch((e) => {
+        console.error("Something went wrong getting Wallet:\n", e);
+        this.setState({
+          isLoadingWallet: false,
+          isLoading: false,
+          identity: "Identity Error",
+        });
       })
       .finally(() => client.disconnect());
   };
@@ -791,9 +866,11 @@ class App extends React.Component {
         limit: 60,
         where: [
           ["sh", "==", "out"],
-          ["timeStamp", ">=", 2546075019551 - Date.now()],
-        ],
-        orderBy: [["timeStamp", "asc"]],
+          ['$createdAt', '<=' , Date.now()]
+    ],
+    orderBy: [
+    ['$createdAt', 'desc'],
+  ],
       });
     };
 
@@ -804,7 +881,7 @@ class App extends React.Component {
         let docArray = [];
         //console.log("Getting Everyone DSO Docs");
         for (const n of d) {
-          //console.log("Document:\n", n.toJSON());
+          console.log("Document:\n", n.toJSON());
           docArray = [...docArray, n.toJSON()];
         }
 
@@ -845,11 +922,11 @@ class App extends React.Component {
 
     let arrayOfOwnerIds = [...setOfOwnerIds];
 
-    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-      Buffer.from(Identifier.from(item))
-    );
+    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+    //   Buffer.from(Identifier.from(item))
+    // );
 
-    //console.log("Calling getNamesforDSOmsgs");
+    console.log("Calling getNamesforDSOmsgs");
 
     const getNameDocuments = async () => {
       return client.platform.documents.get("DPNS.domain", {
@@ -908,7 +985,7 @@ class App extends React.Component {
       return doc.$id;
     });
 
-    //console.log("Array of order ids", arrayOfMsgIds);
+    //console.log("Array of Msg ids", arrayOfMsgIds);
 
     let setOfMsgIds = [...new Set(arrayOfMsgIds)];
 
@@ -918,7 +995,7 @@ class App extends React.Component {
     //   Identifier.from(item)
     // );
 
-    //console.log("Array of order ids", arrayOfMsgIds);
+    //console.log("Array of Msg ids", arrayOfMsgIds);
 
     const getDocuments = async () => {
       //console.log("Called Get Everyone Threads");
@@ -934,7 +1011,7 @@ class App extends React.Component {
         let docArray = [];
 
         for (const n of d) {
-          //console.log("Msg:\n", n.toJSON());
+          console.log("Msg:\n", n.toJSON());
           docArray = [...docArray, n.toJSON()];
         }
 
@@ -968,7 +1045,7 @@ class App extends React.Component {
     const clientOpts = {
       network: this.state.whichNetwork,
       apps: {
-        DataContractDPNS: {
+        DPNS: {
           contractId: this.state.DataContractDPNS,
         },
       },
@@ -983,14 +1060,16 @@ class App extends React.Component {
 
     arrayOfOwnerIds = [...setOfOwnerIds];
 
-    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-      Buffer.from(Identifier.from(item))
-    );
+    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+    //   Buffer.from(Identifier.from(item))
+      
+    // );
 
-    //console.log("Called Get Everyone Threads Names");
+    console.log("Called Get Everyone Threads Names");
+    console.log(arrayOfOwnerIds);
 
     const getNameDocuments = async () => {
-      return client.platform.documents.get("DataContractDPNS.domain", {
+      return client.platform.documents.get("DPNS.domain", {
         where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
         orderBy: [["records.dashUniqueIdentityId", "asc"]],
       });
@@ -1005,7 +1084,7 @@ class App extends React.Component {
         let nameDocArray = [];
 
         for(const n of d) {
-          //console.log("NameDoc:\n", n.toJSON());
+          console.log("NameDoc:\n", n.toJSON());
           nameDocArray = [n.toJSON(), ...nameDocArray];
         }
 
@@ -1051,7 +1130,7 @@ class App extends React.Component {
     //console.log("Calling dsoForYouFromyouDocs");
 
     const clientOpts = {
-      network: "testnet",
+      network: this.state.whichNetwork,
       apps: {
         DSOContract: {
           contractId: this.state.DataContractDSO, // Your contract ID
@@ -1067,9 +1146,11 @@ class App extends React.Component {
         limit: 60,
         where: [
           ["$ownerId", "==", theIdentity],
-          ["timeStamp", ">=", 2546075019551 - Date.now()],
-        ],
-        orderBy: [["timeStamp", "asc"]],
+          ['$createdAt', '<=' , Date.now()]
+    ],
+    orderBy: [
+    ['$createdAt', 'desc'],
+  ],
       });
     };
 
@@ -1120,11 +1201,11 @@ class App extends React.Component {
 
     let arrayOfOwnerIds = [...setOfOwnerIds];
 
-    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-      Buffer.from(Identifier.from(item))
-    );
+    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+    //   Buffer.from(Identifier.from(item))
+    // );
 
-    //console.log("Calling getNamesforDSOmsgs");
+    console.log("Calling getNamesforyouDSOmsgs");
 
     const getNameDocuments = async () => {
       return client.platform.documents.get("DPNS.domain", {
@@ -1235,7 +1316,7 @@ class App extends React.Component {
         const clientOpts = {
           network: this.state.whichNetwork,
           apps: {
-            DataContractDPNS: {
+            DPNS: {
               contractId: this.state.DataContractDPNS,
             },
           },
@@ -1250,14 +1331,14 @@ class App extends React.Component {
 
         arrayOfOwnerIds = [...setOfOwnerIds];
 
-        arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-          Buffer.from(Identifier.from(item))
-        );
+        // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+        //   Buffer.from(Identifier.from(item))
+        // );
 
         //console.log("Called Get ByYou Threads Names");
 
         const getNameDocuments = async () => {
-          return client.platform.documents.get("DataContractDPNS.domain", {
+          return client.platform.documents.get("DPNS.domain", {
             where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
             orderBy: [["records.dashUniqueIdentityId", "asc"]],
           });
@@ -1320,9 +1401,11 @@ class App extends React.Component {
         limit: 60,
         where: [
           ["toId", "==", theIdentity],
-          ["timeStamp", ">=", 2546075019551 - Date.now()],
-        ],
-        orderBy: [["timeStamp", "asc"]],
+          ['$createdAt', '<=' , Date.now()]
+    ],
+    orderBy: [
+    ['$createdAt', 'desc'],
+  ],
       });
     };
 
@@ -1653,7 +1736,7 @@ class App extends React.Component {
     //console.log('CombineandUnique FORYOU!!', tupleArray);
 
     let sortedForYou = tupleArray.sort(function (a, b) {
-      return a[1].timeStamp - b[1].timeStamp;
+      return a[1].$createdAt - b[1].$createdAt;
     });
 
     //console.log('Final FORYOU!!', sortedForYou);
@@ -1707,7 +1790,7 @@ sendATip = () =>{
     //console.log("Calling dsoForYouFromyouDocs");
 
     const clientOpts = {
-      network: "testnet",
+      network: this.state.whichNetwork,
       apps: {
         DSOContract: {
           contractId: this.state.DataContractDSO, // Your contract ID
@@ -1723,9 +1806,11 @@ sendATip = () =>{
         limit: 60,
         where: [
           ["$ownerId", "==", theIdentity],
-          ["timeStamp", ">=", 2546075019551 - Date.now()],
-        ],
-        orderBy: [["timeStamp", "asc"]],
+          ['$createdAt', '<=' , Date.now()]
+    ],
+    orderBy: [
+    ['$createdAt', 'desc'],
+  ],
       });
     };
 
@@ -1776,9 +1861,9 @@ sendATip = () =>{
 
     let arrayOfOwnerIds = [...setOfOwnerIds];
 
-    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-      Buffer.from(Identifier.from(item))
-    );
+    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+    //   Buffer.from(Identifier.from(item))
+    // );
 
     //console.log("Calling getNamesforDSOmsgs");
 
@@ -1837,17 +1922,18 @@ sendATip = () =>{
           return doc.$id;
         });
 
-        //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+        console.log("Array of ByYouThreads ids", arrayOfMsgIds);
 
         let setOfMsgIds = [...new Set(arrayOfMsgIds)];
 
         arrayOfMsgIds = [...setOfMsgIds];
 
-        // arrayOfMsgIds = arrayOfMsgIds.map((item) =>
-        //   Identifier.from(item)
-        // );
+         arrayOfMsgIds = arrayOfMsgIds.map((item) =>
+         Identifier.from(item) //<-v0.24
+         // Identifier.from(item, 'base64').toJSON() //<- Not an issue.. hmm
+         );
 
-        //console.log("Array of order ids", arrayOfMsgIds);
+        //console.log("Array of Msg ids", arrayOfMsgIds);
 
         const getDocuments = async () => {
           //console.log("Called Get InitialByYou Threads");
@@ -1892,7 +1978,7 @@ sendATip = () =>{
         const clientOpts = {
           network: this.state.whichNetwork,
           apps: {
-            DataContractDPNS: {
+            DPNS: {
               contractId: this.state.DataContractDPNS,
             },
           },
@@ -1907,14 +1993,14 @@ sendATip = () =>{
 
         arrayOfOwnerIds = [...setOfOwnerIds];
 
-        arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-          Buffer.from(Identifier.from(item))
-        );
+        // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+        //   Buffer.from(Identifier.from(item))
+        // );
 
         //console.log("Called Get InitialByYou Threads Names");
 
         const getNameDocuments = async () => {
-          return client.platform.documents.get("DataContractDPNS.domain", {
+          return client.platform.documents.get("DPNS.domain", {
             where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
             orderBy: [["records.dashUniqueIdentityId", "asc"]],
           });
@@ -1977,9 +2063,11 @@ sendATip = () =>{
         limit: 60,
         where: [
           ["toId", "==", theIdentity],
-          ["timeStamp", ">=", 2546075019551 - Date.now()],
-        ],
-        orderBy: [["timeStamp", "asc"]],
+          ['$createdAt', '<=' , Date.now()]
+    ],
+    orderBy: [
+    ['$createdAt', 'desc'],
+  ],
       });
     };
 
@@ -2290,7 +2378,7 @@ sendATip = () =>{
 
     //console.log(addedMessage);
     const clientOpts = {
-      network: "testnet",
+      network: this.state.whichNetwork,
       wallet: {
         mnemonic: this.state.mnemonic,
 
@@ -2323,12 +2411,11 @@ sendATip = () =>{
       let docProperties = {};
 
       /*dsomsg ->
-      timeStamp, msg, sh, msgId(for reply)  (only first 2 are required)
+       msg, sh, msgId(for reply)  (only first 2 are required)
 */
 
       if (addedMessage.sh === "out") {
         docProperties = {
-          timeStamp: addedMessage.timeStamp,
           msg: addedMessage.msg,
           sh: "out",
         };
@@ -2336,7 +2423,6 @@ sendATip = () =>{
       //and then if 'thr' adds the state to the msgId ->
       else {
         docProperties = {
-          timeStamp: addedMessage.timeStamp,
           msg: addedMessage.msg,
         };
       }
@@ -2359,7 +2445,7 @@ sendATip = () =>{
           ownerIdArray.map(async (ownerId) => {
             //https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
 
-            //dsotag ->  timeStamp, toId, msgId (all required)
+            //dsotag ->  toId, msgId (all required)
 
             let tagDoc = await platform.documents.create(
               "DSOContract.dsotag",
@@ -2367,7 +2453,6 @@ sendATip = () =>{
               {
                 toId: ownerId,
                 msgId: dsoDocument.toJSON().$id,
-                timeStamp: addedMessage.timeStamp,
               }
             );
             return tagDoc;
@@ -2384,50 +2469,55 @@ sendATip = () =>{
       //############################################################
       //This below disconnects the document sending..***
 
-      // this.addSentMessage(addedMessage);
 
-      // return dsoMessageAndTags;
+      //return dsoMessageAndTags;
 
       //This is to disconnect the Document Creation***
 
       //############################################################
 
-      //this.addSentMessage(addedMessage); -> DONE //REMOVE THIS AND FIX THE DOCUMNET SUBMIT COMPLETE BELOW AND HAVE THE $ID THERE FOR THE TAGS!
 
       const documentBatch = {
         create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
       };
 
-      return platform.documents.broadcast(documentBatch, identity);
+      //return platform.documents.broadcast(documentBatch, identity); //<- Old v0.24
+      await platform.documents.broadcast(documentBatch, identity);
+      return dsoMessageAndTags;
     };
 
     submitDocuments()
       .then((d) => {
-        let returnedDoc = d.toJSON();
-        console.log("MSG Documents JSON:\n", returnedDoc);
+        //Returns array!!! -> 
+        // let returnedDoc = d.toJSON();
+        // console.log("MSG Documents JSON:\n", returnedDoc);
 
-        //dsoMessageAndTags
+        let docArray = [];
+          for (const n of d) {
+            console.log("Msgs:\n", n.toJSON());
+            docArray = [...docArray, n.toJSON()];
+          }
 
         let message;
 
         if (dsoMessageAndTags.length === 1) {
           message = {
-            $ownerId: returnedDoc.ownerId,
-            $id: returnedDoc.transitions[0].$id,
-            //i DONT NEED THE SH PROPERTY here
-            timeStamp: addedMessage.timeStamp,
+            $ownerId: docArray[0].$ownerId,
+            $id: docArray[0].$id,//$id: returnedDoc.transitions[0].$id,
+            sh: addedMessage.sh,
             msg: addedMessage.msg,
+            $createdAt: docArray[0].$createdAt
           };
         } else {
-          returnedDoc.transitions.forEach((doc) => {
+          docArray.forEach((doc) => {
             //OR I could do a find and it would be a bit faster ->
             if (doc.$type === "dsomsg") {
               message = {
-                $ownerId: returnedDoc.ownerId,
+                $ownerId: doc.$ownerId,
                 $id: doc.$id,
-
-                timeStamp: addedMessage.timeStamp,
+                sh: addedMessage.sh,
                 msg: addedMessage.msg,
+                $createdAt: doc.$createdAt
               };
             }
           });
@@ -2475,9 +2565,6 @@ sendATip = () =>{
   };
 
   submitDSOThread = (addedMessage, ownerIdArray) => {
-    //CHANGE FROM MSGS TO THR ->
-
-    // thread is now a separate data contract document
 
     this.setState({
       isLoadingRefresh: true,
@@ -2485,10 +2572,10 @@ sendATip = () =>{
 
     //console.log(addedMessage);
     const clientOpts = {
-      network: "testnet",
+      network: this.state.whichNetwork,
       wallet: {
         mnemonic: this.state.mnemonic,
-        //adapter: LocalForage, //WILL THIS MAKE IT FASTER?? BUT i DONT HAVE THE WALLET LOAD ADDED!! THAT IS WHY USING MOSTRECENTBLOCKHEIGHT BELOW!!
+        //adapter: LocalForage, 
         unsafeOptions: {
           skipSynchronizationBeforeHeight: this.state.mostRecentBlockHeight,
           // this.state.skipSynchronizationBeforeHeight,
@@ -2502,7 +2589,7 @@ sendATip = () =>{
     };
     const client = new Dash.Client(clientOpts);
 
-    let dsoMessageAndTags;
+    let dsoThreadAndTags;
 
     const submitDocuments = async () => {
       const { platform } = client;
@@ -2517,9 +2604,8 @@ sendATip = () =>{
       let docProperties = {};
 
       //THIS ALL NEED TO BE ADJUST FRO THREADS AND NOT MSGS ->
-      //required: ['timeStamp', 'msg', 'msgId', "$createdAt", "$updatedAt"],
+      //required: [ 'msg', 'msgId', "$createdAt", "$updatedAt"],
       docProperties = {
-        timeStamp: addedMessage.timeStamp,
         msg: addedMessage.msg,
         msgId: this.state.ThreadMessageId,
       };
@@ -2540,7 +2626,7 @@ sendATip = () =>{
           ownerIdArray.map(async (ownerId) => {
             //https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
 
-            //dsotag ->  timeStamp, toId, msgId (all required)
+            //dsotag -> toId, msgId (all required)
 
             let tagDoc = await platform.documents.create(
               "DSOContract.dsotag",
@@ -2548,16 +2634,15 @@ sendATip = () =>{
               {
                 toId: ownerId,
                 msgId: dsoDocument.toJSON().$id,
-                timeStamp: addedMessage.timeStamp,
               }
             );
             return tagDoc;
           })
         );
 
-        dsoMessageAndTags = [dsoDocument, ...dsotags];
+        dsoThreadAndTags = [dsoDocument, ...dsotags];
       } else {
-        dsoMessageAndTags = [dsoDocument];
+        dsoThreadAndTags = [dsoDocument];
       }
 
       //THIS ^^^ IS WHAT IS PASSED TO THE DOCUMENT CREATION
@@ -2565,48 +2650,52 @@ sendATip = () =>{
       //############################################################
       //This below disconnects the document sending..***
 
-      // this.addSentMessage(addedMessage);
-
-      // return dsoMessageAndTags;
+      // return dsoThreadAndTags;
 
       //This is to disconnect the Document Creation***
 
       //############################################################
 
-      //HOW DO I ADD THE NEW THREAD -> DEFINITELY NOT LIKE THE BELOW, i NEED TO KNOW WHERE IT CAME FROM OR i JUST ADD TO ALL AND IT WILL HANDLE ITSELF -> Hmmm ->
-
       const documentBatch = {
-        create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
+        create: dsoThreadAndTags, // [dsoDocument], // Document(s) to create
       };
 
-      return platform.documents.broadcast(documentBatch, identity);
+      //return platform.documents.broadcast(documentBatch, identity);
+      await platform.documents.broadcast(documentBatch, identity);
+      return dsoThreadAndTags;
     };
 
     submitDocuments()
       .then((d) => {
         
-        let returnedDoc = d.toJSON();
-        console.log("Thread Documents:\n", returnedDoc);
+        // let returnedDoc = d;
+        // console.log("Thread Documents:\n", returnedDoc);
+
+        let docArray = [];
+          for (const n of d) {
+            console.log("Thr:\n", n.toJSON());
+            docArray = [...docArray, n.toJSON()];
+          }
         
         let newThread;
 
-        if (dsoMessageAndTags.length === 1) {
+        if (dsoThreadAndTags.length === 1) {
           newThread = {
-            $ownerId: returnedDoc.ownerId,
-            $id: returnedDoc.transitions[0].$id,
+            $ownerId: docArray[0].$ownerId,
+            $id: docArray[0].$id, //$id: returnedDoc.transitions[0].$id,
             msgId: this.state.ThreadMessageId,
-            timeStamp: addedMessage.timeStamp,
             msg: addedMessage.msg,
+            $createdAt: docArray[0].$createdAt
           };
         } else {
-          returnedDoc.transitions.forEach((doc) => {
+          docArray.transitions.forEach((doc) => {
             if (doc.$type === "dsothr") {
               newThread = {
-                $ownerId: returnedDoc.ownerId,
+                $ownerId: doc.$ownerId,
                 $id: doc.$id,
                 msgId: this.state.ThreadMessageId,
-                timeStamp: addedMessage.timeStamp,
                 msg: addedMessage.msg,
+                $createdAt: doc.$createdAt
               };
             }
           });
@@ -2652,6 +2741,52 @@ sendATip = () =>{
       ],
     });
     //END OF NAME DOC ADD***
+  };
+
+  // TOP UP
+  doTopUpIdentity = (numOfCredits) => {
+    this.setState({
+      isLoadingWallet: true,
+    });
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      wallet: {
+        mnemonic: this.state.mnemonic, 
+        adapter: LocalForage.createInstance,
+        unsafeOptions: {
+          skipSynchronizationBeforeHeight:
+            this.state.skipSynchronizationBeforeHeight,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
+  
+    const topupIdentity = async () => {
+      const identityId = this.state.identity; // Your identity ID
+      const topUpAmount = numOfCredits; // Number of duffs ie 1000
+  
+      await client.platform.identities.topUp(identityId, topUpAmount);
+      return client.platform.identities.get(identityId);
+    };
+  
+    topupIdentity()
+      .then((d) => {
+        console.log("Identity credit balance: ", d.balance);
+        this.setState({
+          identityInfo: d.toJSON(),
+          identityRaw: d,
+          isLoadingWallet: false,
+          accountBalance: this.state.accountBalance - 1000000,
+        });
+      })
+      .catch((e) => {
+        console.error("Something went wrong:\n", e);
+        this.setState({
+          isLoadingWallet: false,
+          topUpError: true, //Add to State and handle ->
+        });
+      })
+      .finally(() => client.disconnect());
   };
 
   //ALSO RECALL THE IDENTITY SO THAT IT WILL UPDATE THE CREDITS
@@ -2733,9 +2868,11 @@ sendATip = () =>{
           limit: 60,
           where: [
             ["sh", "==", "out"],
-            ["timeStamp", ">=", 2546075019551 - Date.now()],
-          ],
-          orderBy: [["timeStamp", "asc"]],
+            ['$createdAt', '<=' , Date.now()]
+    ],
+    orderBy: [
+    ['$createdAt', 'desc'],
+  ],
         });
       };
   
@@ -3046,6 +3183,8 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
   checkByYouDMThreads = () => {
 
     let docArray = this.state.ByYouMsgs;
+
+    if(docArray.length !== 0){
     
         const clientOpts = {
           network: this.state.whichNetwork,
@@ -3078,7 +3217,7 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
           //console.log("Called Get ByYouDM Threads");
     
           return client.platform.documents.get("DSOContract.dsothr", {
-            //<- Check this
+            
             where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
             orderBy: [["msgId", "asc"]],
           });
@@ -3119,6 +3258,7 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
             });
           })
           .finally(() => client.disconnect());
+    }
       };
     
   handleByYouDMThreads = (docArray) => {
@@ -3207,9 +3347,11 @@ getTagsNewDM = () =>{
         limit: 60,
         where: [
           ["toId", "==", this.state.identity],
-          ["timeStamp", ">=", 2546075019551 - Date.now()],
-        ],
-        orderBy: [["timeStamp", "asc"]],
+          ['$createdAt', '<=' , Date.now()]
+    ],
+    orderBy: [
+    ['$createdAt', 'desc'],
+  ],
       });
     };
 
@@ -3726,22 +3868,18 @@ handleFromTagsNewDM = (docArray) => {
         {this.state.isModalShowing &&
         this.state.presentModal === "TopUpIdentityModal" ? (
           <TopUpIdentityModal
-            triggerTopUpLoading={this.triggerTopUpLoading}
-            updateCreditsAfterTopUp={this.updateCreditsAfterTopUp}
-            mnemonic={this.state.mnemonic}
-            whichNetwork={this.state.whichNetwork}
-            skipSynchronizationBeforeHeight={
-              this.state.skipSynchronizationBeforeHeight
-            }
-            identity={this.state.identity}
+          accountBalance={this.state.accountBalance}
+          isLoadingWallet={this.state.isLoadingWallet}
             isModalShowing={this.state.isModalShowing}
             hideModal={this.hideModal}
             mode={this.state.mode}
+            doTopUpIdentity={this.doTopUpIdentity}
             closeExpandedNavs={this.closeExpandedNavs}
           />
         ) : (
           <></>
         )}
+
       </>
     );
   }
