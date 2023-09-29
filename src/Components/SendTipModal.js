@@ -32,7 +32,7 @@ class SendTipModal extends React.Component {
         <Modal show={this.props.isModalShowing}
         contentClassName={modalBkg}>
         <Modal.Header >
-          <Modal.Title>Send a Tip</Modal.Title>
+          <Modal.Title>Send Platform Credits</Modal.Title>
           {closeButtonColor}
         </Modal.Header>
         <Modal.Body>

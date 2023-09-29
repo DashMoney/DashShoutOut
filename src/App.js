@@ -142,7 +142,12 @@ class App extends React.Component {
       NewDMFromTagsThreadsNames: [], 
       NewDMFromTagsThreads: [],
 
-      //Above AutoUpdate Arrays
+      //Above AutoUpdate Arrays^^^^
+
+      Submit1: false,
+      Submit2: false,
+
+      //DocumentSubmissionSeparatation^^^^
 
       walletId: "",
 
@@ -914,7 +919,7 @@ class App extends React.Component {
         let docArray = [];
         console.log("Getting Everyone DSO Docs");
         for (const n of d) {
-          console.log("EveryoneMsgs:\n", n.toJSON());
+          //console.log("EveryoneMsgs:\n", n.toJSON());
           docArray = [...docArray, n.toJSON()];
         }
 
@@ -1751,7 +1756,7 @@ sendATip = () =>{
   //START MOST RECENT INITIAL - ForYou: Msgs and Threads
   getInitialByyouDocs = (theIdentity) => {
     //Add the thread call
-    console.log("Calling dsoForYouFromyouDocs");
+    //console.log("Calling dsoForYouFromyouDocs");
 
     const clientOpts = {
       network: this.state.whichNetwork,
@@ -1794,7 +1799,7 @@ sendATip = () =>{
           let docArray = [];
           //console.log("Getting ForyouByyouMsgs");
           for (const n of d) {
-            console.log("Document:\n", n.toJSON());
+           // console.log("Document:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
           this.getInitialForyouByyouNames(docArray);
@@ -2318,6 +2323,246 @@ sendATip = () =>{
 
   //#######################################################################
   //   DOCUMENT CREATION
+  /*  checkSubmitRace = () => {
+    
+      if (this.state.Submit1 &&
+            this.state.Submit2) {
+        
+          this.setState({
+      isLoadingRefresh: false,
+      Submit1: false,
+      Submit2: false,
+        },()=> this.updateIdentityInfo());
+        
+      }
+    };
+
+
+  submitDocsSeparately = (addedMessage, ownerIdArray) => {
+
+    this.setState({
+      isLoadingRefresh: true,
+    });
+
+    if(ownerIdArray.length === 0){
+
+      this.submitDSOMSG(addedMessage);
+      this.setState({
+        Submit2: true,
+      });
+
+    }else{
+      this.submitDSOMSG(addedMessage); //Must call from function need the msgId!!
+      this.submitDSOTAGS(ownerIdArray);
+    }
+  }
+
+  submitDSOMSG = (addedMessage) => {
+
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      wallet: {
+        mnemonic: this.state.mnemonic,
+        //adapter: LocalForage,
+        unsafeOptions: {
+          skipSynchronizationBeforeHeight: this.state.mostRecentBlockHeight,
+          // this.state.skipSynchronizationBeforeHeight,
+        },
+      },
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO, // Your contract ID
+        },
+      },
+    };
+
+    const client = new Dash.Client(clientOpts);
+
+    const submitDocuments = async () => {
+      const { platform } = client;
+
+      let identity = "";
+      if (this.state.identityRaw !== "") {
+        identity = this.state.identityRaw;
+      } else {
+        identity = await platform.identities.get(this.state.identity);
+      } // Your identity ID
+
+      let docProperties = {};
+
+      if (addedMessage.sh === "out") {
+        docProperties = {
+          msg: addedMessage.msg,
+          sh: "out",
+        };
+      } 
+      
+      else {
+        docProperties = {
+          msg: addedMessage.msg,
+        };
+      }
+
+      // Create the note document
+      const dsoDocument = await platform.documents.create(
+        "DSOContract.dsomsg", /// I changed .note TO .dsomessage***
+        identity,
+        docProperties
+      );
+
+      const documentBatch = {
+        create: [dsoDocument], // Document(s) to create
+      };
+
+      await platform.documents.broadcast(documentBatch, identity);
+      return documentBatch;
+    };
+
+    submitDocuments()
+      .then((d) => {
+        //Returns array!!! -> 
+        // let returnedDoc = d.toJSON();
+        // console.log("MSG Documents JSON:\n", returnedDoc);
+
+        let docArray = [];
+          for (const n of d) {
+            console.log("Submitted Doc:\n", n.toJSON());
+            docArray = [...docArray, n.toJSON()];
+          }
+
+        let message;
+
+          message = {
+            $ownerId: docArray[0].$ownerId,
+            $id: docArray[0].$id, //$id: returnedDoc.transitions[0].$id,
+            sh: addedMessage.sh,
+            msg: addedMessage.msg,
+            $createdAt: docArray[0].$createdAt
+          };
+
+        if (addedMessage.sh === "out") {
+          this.setState({
+            EveryoneMsgs: [message, ...this.state.EveryoneMsgs],
+            ByYouMsgs: [message, ...this.state.ByYouMsgs],
+            isLoadingRefresh: false,
+            Submit1: true
+          }, ()=> this.checkSubmitRace());
+        } else {
+          this.setState({
+            ByYouMsgs: [message, ...this.state.ByYouMsgs],
+            isLoadingRefresh: false,
+            Submit1: true
+          }, ()=> this.checkSubmitRace());
+        }
+
+      })
+      .catch((e) => {
+        this.setState({
+          isLoadingRefresh: false,
+          errorToDisplay: true,
+        });
+
+        console.error("Something went wrong:\n", e);
+      })
+      .finally(() => client.disconnect());
+
+    //THIS BELOW IS THE NAME DOC ADD, SO PROCESSES DURING DOC SUBMISSION ***
+    let nameDoc = {
+      $ownerId: this.state.identity,
+      label: this.state.uniqueName,
+    };
+
+    this.setState({
+      EveryoneNames: [nameDoc, ...this.state.EveryoneNames],
+
+      ByYouNames: [nameDoc, ...this.state.ByYouNames],
+
+      FromTagsNames: [nameDoc, ...this.state.FromTagsNames],
+    });
+    //END OF NAME DOC ADD***
+
+  }
+
+  submitDSOTAGS = (ownerIdArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      wallet: {
+        mnemonic: this.state.mnemonic,
+
+        //adapter: LocalForage,
+        unsafeOptions: {
+          skipSynchronizationBeforeHeight: this.state.mostRecentBlockHeight,
+          // this.state.skipSynchronizationBeforeHeight,
+        },
+      },
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO, // Your contract ID
+        },
+      },
+    };
+
+    const client = new Dash.Client(clientOpts);
+
+    let tagDocuments;
+
+    const submitDocuments = async () => {
+      const { platform } = client;
+
+      let identity = "";
+      if (this.state.identityRaw !== "") {
+        identity = this.state.identityRaw;
+      } else {
+        identity = await platform.identities.get(this.state.identity);
+      } // Your identity ID
+
+
+      //console.log('OwnerIdArray of Tags: ',ownerIdArray);
+
+        let dsotags = await Promise.all(
+          ownerIdArray.map(async (ownerId) => {
+            //https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
+
+            //dsotag ->  toId, msgId (all required)
+
+            let tagDoc = await platform.documents.create(
+              "DSOContract.dsotag",
+              identity,
+              {
+                toId: ownerId,
+                msgId: dsoDocument.toJSON().$id,
+              }
+            );
+            return tagDoc;
+          })
+        );
+
+        tagDocuments = [dsoDocument, ...dsotags];
+      
+
+      //THIS ^^^ IS WHAT IS PASSED TO THE DOCUMENT CREATION
+
+      //############################################################
+      //This below disconnects the document sending..***
+
+
+      //return dsoMessageAndTags;
+
+      //This is to disconnect the Document Creation***
+
+      //############################################################
+
+
+      const documentBatch = {
+        create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
+      };
+
+      //return platform.documents.broadcast(documentBatch, identity); //<- Old v0.24
+      await platform.documents.broadcast(documentBatch, identity);
+      return dsoMessageAndTags;
+    };
+  }
+*/
 
   submitDSODocument = (addedMessage, ownerIdArray) => {
     //  -> sh: out, dir, tip ?
@@ -2346,7 +2591,8 @@ sendATip = () =>{
     };
     const client = new Dash.Client(clientOpts);
 
-    let dsoMessageAndTags;
+    //let dsoMessageAndTags;
+    let dsoTags;
 
     const submitDocuments = async () => {
       const { platform } = client;
@@ -2389,6 +2635,7 @@ sendATip = () =>{
       console.log('OwnerIdArray of Tags: ',ownerIdArray);
 
       if (ownerIdArray.length !== 0) {
+
         let dsotags = await Promise.all(
           ownerIdArray.map(async (ownerId) => {
             //https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
@@ -2407,10 +2654,10 @@ sendATip = () =>{
           })
         );
 
-        dsoMessageAndTags = [dsoDocument, ...dsotags];
-      } else {
-        dsoMessageAndTags = [dsoDocument];
-      }
+        dsoTags = dsotags;
+      } //else {
+       // dsoMessageAndTags = [dsoDocument];
+     // }
 
       //THIS ^^^ IS WHAT IS PASSED TO THE DOCUMENT CREATION
 
@@ -2425,13 +2672,25 @@ sendATip = () =>{
       //############################################################
 
 
-      const documentBatch = {
-        create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
+      // const documentBatch = {
+      //   create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
+      // };
+
+      const msgBatch = {
+        create: [dsoDocument], // Document(s) to create
       };
 
-      //return platform.documents.broadcast(documentBatch, identity); //<- Old v0.24
-      await platform.documents.broadcast(documentBatch, identity);
-      return dsoMessageAndTags;
+      const tagBatch = {
+        create: dsoTags, // Document(s) to create
+      };
+      
+      await platform.documents.broadcast(msgBatch, identity)
+
+      if(ownerIdArray.length !== 0){
+      await platform.documents.broadcast(tagBatch, identity)
+      }
+      
+      return [dsoDocument];
     };
 
     submitDocuments()
@@ -2446,9 +2705,9 @@ sendATip = () =>{
             docArray = [...docArray, n.toJSON()];
           }
 
-        let message;
+        let message = {};
 
-        if (dsoMessageAndTags.length === 1) {
+        if (docArray.length === 1) {
           message = {
             $ownerId: docArray[0].$ownerId,
             $id: docArray[0].$id, //$id: returnedDoc.transitions[0].$id,
