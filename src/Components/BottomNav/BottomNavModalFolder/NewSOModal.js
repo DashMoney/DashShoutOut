@@ -346,7 +346,7 @@ class NewSOModal extends React.Component {
                   <></>
                 )}
 
-                {this.state.taggedArray !== 0 &&
+                {/* {this.state.taggedArray !== 0 &&
                 this.state.retrievedNameLabelArray.length !==
                   this.state.taggedArray.length ? (
                   <Form.Control.Feedback className="floatLeft" type="invalid">
@@ -354,7 +354,7 @@ class NewSOModal extends React.Component {
                   </Form.Control.Feedback>
                 ) : (
                   <></>
-                )}
+                )} */}
 
 
                 {this.state.taggedArray.length < 1 ? (

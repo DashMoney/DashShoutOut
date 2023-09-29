@@ -36,7 +36,7 @@ class SendTipModal extends React.Component {
           {closeButtonColor}
         </Modal.Header>
         <Modal.Body>
-          <p>Once, v0.25 JS SDK is available, you will be able to send a tips to others with your credits.</p>
+          <p>Once, v0.25 JS SDK is available, you will be able to send credits to others.</p>
         </Modal.Body>
 
         <Modal.Footer>

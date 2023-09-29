@@ -168,7 +168,7 @@ extends React.Component {
 
     if (this.formValidate(event.target.ControlTextarea1.value)) {
 
-      //Accomplishes for Document Creation -> sets lowercase, add author and ensures unique on lowercase
+      //Accomplishes for Document Creation -> sets lowercase,  and ensures unique on lowercase
 
       let names = this.state.taggedArray;
 
@@ -372,15 +372,15 @@ extends React.Component {
                 <></>
               )}
 
-{this.state.taggedArray !== 0 &&
+{/* {this.state.taggedArray !== 0 &&
                 this.state.retrievedNameLabelArray.length !==
                   this.state.taggedArray.length ? (
-                  <Form.Control.Feedback className="floatLeft" type="invalid">
+                  <Form.Control.Feedback className="floatLeft" type="invalid" >
                     Please use <b>Verify Tags</b> below, to ensure there is a Dash Name that matches before sending.
                   </Form.Control.Feedback>
                 ) : (
                   <></>
-                )}
+                )} */}
 
               
                 {this.state.taggedArray.length < 1?

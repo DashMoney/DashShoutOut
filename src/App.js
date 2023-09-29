@@ -155,7 +155,7 @@ class App extends React.Component {
       skipSynchronizationBeforeHeight: 900000,
       mostRecentBlockHeight: 900000,
 
-      DataContractDSO: '32omnikxoSidL7RwATtgzYCmWgUFEWVbQsWMtqrTbU9V', //v025notimeStamp
+      DataContractDSO: '78QiKDzfCAhLxMiwiD393fDZM3gcXAprVL1F3td1aFxV', //v025notimeStamp
       DataContractDPNS: "GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec",
 
       expandedTopNav: false,
@@ -912,9 +912,9 @@ class App extends React.Component {
         //Should never be 0 so not handling that case.
 
         let docArray = [];
-        //console.log("Getting Everyone DSO Docs");
+        console.log("Getting Everyone DSO Docs");
         for (const n of d) {
-          //console.log("EveryoneMsgs:\n", n.toJSON());
+          console.log("EveryoneMsgs:\n", n.toJSON());
           docArray = [...docArray, n.toJSON()];
         }
 
@@ -1751,7 +1751,7 @@ sendATip = () =>{
   //START MOST RECENT INITIAL - ForYou: Msgs and Threads
   getInitialByyouDocs = (theIdentity) => {
     //Add the thread call
-    //console.log("Calling dsoForYouFromyouDocs");
+    console.log("Calling dsoForYouFromyouDocs");
 
     const clientOpts = {
       network: this.state.whichNetwork,
@@ -1781,7 +1781,7 @@ sendATip = () =>{
     getDocuments()
       .then((d) => {
         if (d.length === 0) {
-          //console.log("There are no ForyouByyouMsgs");
+          console.log("There are no ForyouByyouMsgs");
 
           this.setState(
             {
@@ -1794,7 +1794,7 @@ sendATip = () =>{
           let docArray = [];
           //console.log("Getting ForyouByyouMsgs");
           for (const n of d) {
-            //console.log("Document:\n", n.toJSON());
+            console.log("Document:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
           this.getInitialForyouByyouNames(docArray);
@@ -2264,9 +2264,10 @@ sendATip = () =>{
 
         arrayOfOwnerIds = [...setOfOwnerIds];
 
-        arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-          Buffer.from(Identifier.from(item))
-        );
+//TEST -> 
+        // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+        //   Buffer.from(Identifier.from(item))
+        // );
 
         //console.log("Called Get FromTags Threads Names");
 
@@ -2319,7 +2320,7 @@ sendATip = () =>{
   //   DOCUMENT CREATION
 
   submitDSODocument = (addedMessage, ownerIdArray) => {
-    // I think we do -> sh: out, dir, thr, tip?
+    //  -> sh: out, dir, tip ?
 
     this.setState({
       isLoadingRefresh: true,
@@ -2385,7 +2386,7 @@ sendATip = () =>{
 
     console.log(dsoDocument.toJSON());
 
-      //console.log('OwnerIdArray of Tags: ',ownerIdArray);
+      console.log('OwnerIdArray of Tags: ',ownerIdArray);
 
       if (ownerIdArray.length !== 0) {
         let dsotags = await Promise.all(
@@ -2417,20 +2418,20 @@ sendATip = () =>{
       //This below disconnects the document sending..***
 
 
-      //return dsoMessageAndTags;
+      return dsoMessageAndTags;
 
       //This is to disconnect the Document Creation***
 
       //############################################################
 
 
-      const documentBatch = {
-        create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
-      };
+      // const documentBatch = {
+      //   create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
+      // };
 
-      //return platform.documents.broadcast(documentBatch, identity); //<- Old v0.24
-      await platform.documents.broadcast(documentBatch, identity);
-      return dsoMessageAndTags;
+      // //return platform.documents.broadcast(documentBatch, identity); //<- Old v0.24
+      // await platform.documents.broadcast(documentBatch, identity);
+      // return dsoMessageAndTags;
     };
 
     submitDocuments()
@@ -2441,7 +2442,7 @@ sendATip = () =>{
 
         let docArray = [];
           for (const n of d) {
-            console.log("Msgs:\n", n.toJSON());
+            console.log("Submitted Doc:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
 
@@ -2450,7 +2451,7 @@ sendATip = () =>{
         if (dsoMessageAndTags.length === 1) {
           message = {
             $ownerId: docArray[0].$ownerId,
-            $id: docArray[0].$id,//$id: returnedDoc.transitions[0].$id,
+            $id: docArray[0].$id, //$id: returnedDoc.transitions[0].$id,
             sh: addedMessage.sh,
             msg: addedMessage.msg,
             $createdAt: docArray[0].$createdAt

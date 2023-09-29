@@ -24,7 +24,7 @@ class TipButton extends React.Component {
             disabled
             >
             <div className="ms-2 me-auto">
-              <div className="fw-bold">Send Tip</div>
+              <div className="fw-bold">Send</div>
               <Badge bg="light" text="dark" pill>
               Credits
               </Badge>
@@ -39,7 +39,7 @@ class TipButton extends React.Component {
             }}
             >
             <div className="ms-2 me-auto">
-              <div className="fw-bold">Send Tip</div>
+              <div className="fw-bold">Send</div>
               <Badge bg="light" text="dark" pill>
               Credits
               </Badge>
