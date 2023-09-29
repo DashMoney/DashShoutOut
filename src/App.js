@@ -2796,7 +2796,7 @@ sendATip = () =>{
     };
     const client = new Dash.Client(clientOpts);
 
-    let dsoThreadAndTags;
+    let dsoTags;
 
     const submitDocuments = async () => {
       const { platform } = client;
@@ -2829,11 +2829,12 @@ sendATip = () =>{
       //console.log('OwnerIdArray of Tags: ',ownerIdArray);
 
       if (ownerIdArray.length !== 0) {
+
         let dsotags = await Promise.all(
           ownerIdArray.map(async (ownerId) => {
             //https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
 
-            //dsotag -> toId, msgId (all required)
+            //dsotag ->  toId, msgId (all required)
 
             let tagDoc = await platform.documents.create(
               "DSOContract.dsotag",
@@ -2847,29 +2848,39 @@ sendATip = () =>{
           })
         );
 
-        dsoThreadAndTags = [dsoDocument, ...dsotags];
-      } else {
-        dsoThreadAndTags = [dsoDocument];
-      }
+        dsoTags = dsotags;
+      } //else {
+       // dsoMessageAndTags = [dsoDocument];
+     // }
 
       //THIS ^^^ IS WHAT IS PASSED TO THE DOCUMENT CREATION
 
       //############################################################
       //This below disconnects the document sending..***
 
-      // return dsoThreadAndTags;
+
+      //return dsoMessageAndTags;
 
       //This is to disconnect the Document Creation***
 
       //############################################################
 
-      const documentBatch = {
-        create: dsoThreadAndTags, // [dsoDocument], // Document(s) to create
+
+      const thrBatch = {
+        create: [dsoDocument], // Document(s) to create
       };
 
-      //return platform.documents.broadcast(documentBatch, identity);
-      await platform.documents.broadcast(documentBatch, identity);
-      return dsoThreadAndTags;
+      const tagBatch = {
+        create: dsoTags, // Document(s) to create
+      };
+      
+      await platform.documents.broadcast(thrBatch, identity)
+
+      if(ownerIdArray.length !== 0){
+      await platform.documents.broadcast(tagBatch, identity)
+      }
+      
+      return [dsoDocument];
     };
 
     submitDocuments()
@@ -2884,9 +2895,9 @@ sendATip = () =>{
             docArray = [...docArray, n.toJSON()];
           }
         
-        let newThread;
+        let newThread = {};
 
-        if (dsoThreadAndTags.length === 1) {
+        if (docArray.length === 1) {
           newThread = {
             $ownerId: docArray[0].$ownerId,
             $id: docArray[0].$id, //$id: returnedDoc.transitions[0].$id,
@@ -2895,7 +2906,7 @@ sendATip = () =>{
             $createdAt: docArray[0].$createdAt
           };
         } else {
-          docArray.transitions.forEach((doc) => {
+          docArray.forEach((doc) => {
             if (doc.$type === "dsothr") {
               newThread = {
                 $ownerId: doc.$ownerId,
