@@ -152,8 +152,8 @@ class App extends React.Component {
       mostRecentLogin: false,
 
       platformLogin: false,
-      skipSynchronizationBeforeHeight: 900000,
-      mostRecentBlockHeight: 900000,
+      skipSynchronizationBeforeHeight: 910000,
+      mostRecentBlockHeight: 910000,
 
       DataContractDSO: '78QiKDzfCAhLxMiwiD393fDZM3gcXAprVL1F3td1aFxV', //v025notimeStamp
       DataContractDPNS: "GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec",
@@ -314,8 +314,8 @@ class App extends React.Component {
         mostRecentLogin: false,
   
         platformLogin: false,
-        skipSynchronizationBeforeHeight: 900000,
-        mostRecentBlockHeight: 900000,
+        skipSynchronizationBeforeHeight: 910000,
+        mostRecentBlockHeight: 910000,
   
         expandedTopNav: false,
       },
@@ -2418,20 +2418,20 @@ sendATip = () =>{
       //This below disconnects the document sending..***
 
 
-      return dsoMessageAndTags;
+      //return dsoMessageAndTags;
 
       //This is to disconnect the Document Creation***
 
       //############################################################
 
 
-      // const documentBatch = {
-      //   create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
-      // };
+      const documentBatch = {
+        create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
+      };
 
-      // //return platform.documents.broadcast(documentBatch, identity); //<- Old v0.24
-      // await platform.documents.broadcast(documentBatch, identity);
-      // return dsoMessageAndTags;
+      //return platform.documents.broadcast(documentBatch, identity); //<- Old v0.24
+      await platform.documents.broadcast(documentBatch, identity);
+      return dsoMessageAndTags;
     };
 
     submitDocuments()
