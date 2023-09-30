@@ -14,11 +14,19 @@ class Footer extends React.Component {
             <b>DashGetMoney.com</b>
             </a> to send and receive Dash just using your name!
           </li>
-          <li>And <span></span>
+          {/* <li>And <span></span>
             <a rel="noopener noreferrer" target="_blank" href="https://dashgettogether.com">
             <b>DashGetTogether.com</b>
             </a> for a group messenger dapp!
+          </li> */}
+           <li>And <span> </span>
+            <a rel="noopener noreferrer" target="_blank" href="https://dashmoney.io">
+            <b> DashMoney.io</b>
+            </a> to find places to spend Dash or make a place to earn Money!
           </li>
+          </ul>
+          
+          <ul>
           <li>DashMoney Github Repo - <a rel="noopener noreferrer" target="_blank" href="https://github.com/DashMoney">
             <b>https://github.com/DashMoney</b>
             </a></li>
