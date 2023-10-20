@@ -47,7 +47,7 @@ class LandingPage extends React.Component {
 
          <Container>
          <Row>
-           <Col xs={2} md={4}></Col>
+           <Col xs={2} md={4} ></Col>
            <Col xs={8} md={4} className="positionCaption">
            <div className="positionCaption">
           {this.props.mode === 'dark'?

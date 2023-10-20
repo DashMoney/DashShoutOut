@@ -4,6 +4,9 @@ import LocalForage from "localforage";
 import Image from "react-bootstrap/Image";
 
 //import Alert from "react-bootstrap/Alert";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import DashBkgd from "./Images/dash_digital-cash_logo_2018_rgb_for_screens.png";
 
@@ -160,7 +163,7 @@ class App extends React.Component {
       skipSynchronizationBeforeHeight: 910000,
       mostRecentBlockHeight: 910000,
 
-      DataContractDSO: '78QiKDzfCAhLxMiwiD393fDZM3gcXAprVL1F3td1aFxV', //v025notimeStamp
+      DataContractDSO: 'HGgDSSh9UiSgzYgT5Ux3XEK7G1CcrZ4EF1bthsiT9D11', //v025notimeStamp
       DataContractDPNS: "GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec",
 
       expandedTopNav: false,
@@ -924,8 +927,8 @@ class App extends React.Component {
         }
 
         if (docArray.length !== 0) {
-          this.getDSOEveryoneNames(docArray);
           this.getEveryoneThreads(docArray);
+          this.getDSOEveryoneNames(docArray);
           // this.setState({
           //   EveryoneMsgs: docArray,
           // });
@@ -1194,6 +1197,7 @@ class App extends React.Component {
             },
             () => this.checkForYouRace()
           );
+          
         } else {
           let docArray = [];
           
@@ -1201,8 +1205,9 @@ class App extends React.Component {
             //console.log("ByYouMsgs:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
-          this.getForyouByyouNames(docArray);
           this.getByYouThreads(docArray);
+          this.getForyouByyouNames(docArray);
+          
         }
       })
       .catch((e) => console.error("Something went wrong:\n", e))
@@ -1501,9 +1506,9 @@ class App extends React.Component {
             //console.log("Document:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
-
-          this.getDSOmsgsFromTagsNames(docArray);
           this.getFromTagsThreads(docArray);
+          this.getDSOmsgsFromTagsNames(docArray);
+          
 
           // this.setState({
           //   FromTagsMsgs: docArray,
@@ -1802,8 +1807,9 @@ sendATip = () =>{
            // console.log("Document:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
-          this.getInitialForyouByyouNames(docArray);
           this.getInitialByYouThreads(docArray);
+          this.getInitialForyouByyouNames(docArray);
+          
         }
       })
       .catch((e) => console.error("Something went wrong:\n", e))
@@ -2102,9 +2108,10 @@ sendATip = () =>{
             //console.log("Document:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
-
-          this.getInitialMsgsFromTagsNames(docArray);
+          
           this.getInitialFromTagsThreads(docArray);
+          this.getInitialMsgsFromTagsNames(docArray);
+          
 
           // this.setState({
           //   FromTagsMsgs: docArray,
@@ -3924,6 +3931,10 @@ handleFromTagsNewDM = (docArray) => {
         />
         <Image fluid="true" id="dash-bkgd" src={DashBkgd} alt="Dash Logo" />
 
+        <Container className="g-0">
+  <Row className="justify-content-md-center">
+    <Col md={11} lg={10} xl={9} xxl={9}>
+
         {!this.state.isLoggedIn ? (
           <>
             <LandingPage 
@@ -3979,6 +3990,7 @@ handleFromTagsNewDM = (docArray) => {
               pushNewDMtoView={this.pushNewDMtoView}
             />
 
+
             {!this.state.isLoading &&
             this.state.identity !== "No Identity" &&
             this.state.uniqueName !== "Er" ? (
@@ -3994,6 +4006,10 @@ handleFromTagsNewDM = (docArray) => {
             )}
           </>
         )}
+
+</Col>
+        </Row>
+        </Container>
 
         {this.state.isModalShowing &&
         this.state.presentModal === "LoginSignupModal" ? (
