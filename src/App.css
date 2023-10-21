@@ -12,6 +12,10 @@ body, html {
 
 }
 
+.loginButton{
+  padding:1rem;
+}
+
 
 #bodytext{
   padding:1rem;

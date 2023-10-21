@@ -12,7 +12,8 @@ import DashBkgd from "./Images/dash_digital-cash_logo_2018_rgb_for_screens.png";
 
 import TopNav from "./Components/TopNav/TopNav";
 import BottomNav from "./Components/BottomNav/BottomNav";
-import LoginBottomNav from "./Components/BottomNav/LoginBottomNav";
+
+//import LoginBottomNav from "./Components/BottomNav/LoginBottomNav";
 
 import LandingPage from "./Components/Pages/LandingPage";
 import MessagesPage from "./Components/Pages/MessagesPage";
@@ -3933,17 +3934,20 @@ handleFromTagsNewDM = (docArray) => {
 
         <Container className="g-0">
   <Row className="justify-content-md-center">
-    <Col md={11} lg={10} xl={9} xxl={9}>
+    <Col md={11} lg={10} xl={9} xxl={8}>
 
         {!this.state.isLoggedIn ? (
           <>
             <LandingPage 
             mode={this.state.mode}
+            showModal={this.showModal} 
             />
-            <LoginBottomNav 
+
+            {/* <LoginBottomNav 
             mode={this.state.mode}
              showModal={this.showModal} 
-             />
+             /> */}
+
             <Footer />
           </>
         ) : (

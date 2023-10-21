@@ -8,6 +8,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Figure from 'react-bootstrap/Figure';
 
+import Button from "react-bootstrap/Button";
+
 import "./LandingPage.css";
 
 class LandingPage extends React.Component {
@@ -29,20 +31,36 @@ class LandingPage extends React.Component {
         {/* <h3>
           <Badge bg="primary">Purpose of DashShoutOut</Badge>
         </h3> */}
-        <div className="heading-shift">
+<div className="loginButton">
+        <div className="d-grid gap-2">
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={() => this.props.showModal("LoginSignupModal")}
+              >
+                <b>Connect Wallet</b>
+              </Button>
+            </div>
+            </div>
+            <p></p>
+
+
+        {/* <div className="heading-shift">
           <p>
             <b>DashShoutOut is a Dapp or Decentralized Application that showcases Dash Platform's Data Contracts and Names! 
             </b> 
           </p>
-          {/* To showcase a simple message board Dapp and an actual implementation of Dash Platform's Data Contracts and Documents with a social aspect. */}
+
+           //To showcase a simple message board Dapp and an actual implementation of Dash Platform's Data Contracts and Documents with a social aspect. */}
           {/* <ul>
             <li>
               <p>
                  To assist in "Closing the Loop" and building the network effect for the Dash ecosystem, the user network should utilize the Dash Platform. That is what DashShoutOut hopes to achieve and may it be one of many to do so.
               </p>
             </li>
-          </ul> */}
-        </div>
+          </ul> //
+
+        </div> */}
         
 
          <Container>
@@ -80,18 +98,17 @@ class LandingPage extends React.Component {
         <div className="paragraph-shift">
          
             <h6>
-              Connect your Wallet at the bottom of your screen, and you can start using DashShoutOut. </h6>
+              Connect your Wallet and you can start using DashShoutOut. </h6>
 
               <h6> The DashShoutOut
-              runs entirely in your browser and is purely a front end communicating with the Dash
+              runs in your browser and is purely a front end communicating with the Dash
               Platform.
             </h6>
-
+<p></p>
             <p>
                If you are new to Dash, you will need a Dash Name from <a rel="noopener noreferrer" target="_blank" href="https://dashgetnames.com/">
             <b>DashGetNames.com</b>
-             </a> {/*or sign up with <b>DashPay</b>, just download the app on your phone. Signing up for DashPay will provide you with everything you need.*/} (Currently, this is all 
-              working on Testnet, so it is not real Dash.)
+             </a> {/*or sign up with <b>DashPay</b>, just download the app on your phone. Signing up for DashPay will provide you with everything you need.*/} 
             </p>
           
 

@@ -167,11 +167,23 @@ class NewSOModal extends React.Component {
 
       //console.log(nameArray);
 
+      //base58 
+
+      let base58NameArray = nameArray.map(name => {
+
+        let base58Name = name.replace(/l/g, '1');
+        base58Name = base58Name.replace(/i/g, '1');
+        base58Name = base58Name.replace(/o/g, '0');
+
+        return base58Name;
+      })
+      console.log(base58NameArray);
+
       //$$$
 
       if (
         this.state.taggedArray.length -
-          this.state.retrievedNameLabelArray.length ===0
+          this.state.retrievedNameLabelArray.length ===0 && this.checkNamesVersusTags()
       ) {
         
         let newMessage;
@@ -212,7 +224,7 @@ class NewSOModal extends React.Component {
           where: [
             ["normalizedParentDomainName", "==", "dash"],
             // Return all matching names from the provided array
-            ["normalizedLabel", "in", nameArray],
+            ["normalizedLabel", "in", base58NameArray],
           ],
           orderBy: [["normalizedLabel", "asc"]],
         });
@@ -263,6 +275,28 @@ class NewSOModal extends React.Component {
       console.log("Invalid Message");
     }
   };
+
+
+  checkNamesVersusTags = () => {
+    if(this.state.taggedArray.length !== 0 && this.state.retrievedNameLabelArray.length !== 0){
+
+      let lowerCaseRetrieved = this.state.retrievedNameLabelArray.map(name => name.toLowerCase())
+
+      return this.state.taggedArray.every(tag =>{
+
+        let normalizedTag = tag.toLowerCase();
+        // normalizedTag = normalizedTag.replace(/l/g, '1');
+        // normalizedTag = normalizedTag.replace(/i/g, '1');
+        // normalizedTag = normalizedTag.replace(/o/g, '0');
+
+        return lowerCaseRetrieved.find(name => name === normalizedTag );
+
+      })
+
+  }else{
+    return true
+  }
+  }
 
   render() {
     let modalBkg = "";
@@ -396,7 +430,7 @@ class NewSOModal extends React.Component {
 
               {this.state.taggedArray.length -
                 this.state.retrievedNameLabelArray.length ===
-              0 ? (
+              0 && this.checkNamesVersusTags() ? (
                 this.state.validityCheck ? (
                   <Button variant="primary" type="submit">
                     Create Message
