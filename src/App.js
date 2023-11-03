@@ -4,9 +4,9 @@ import LocalForage from "localforage";
 import Image from "react-bootstrap/Image";
 
 //import Alert from "react-bootstrap/Alert";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import DashBkgd from "./Images/dash_digital-cash_logo_2018_rgb_for_screens.png";
 
@@ -27,7 +27,6 @@ import NewDMModal from "./Components/BottomNav/BottomNavModalFolder/NewDMModal";
 import NewSOModal from "./Components/BottomNav/BottomNavModalFolder/NewSOModal";
 import NewThreadModal from "./Components/NewThreadModal";
 import SendTipModal from "./Components/SendTipModal";
-
 
 import TopUpIdentityModal from "./Components/TopUpIdentityModal";
 
@@ -69,13 +68,13 @@ class App extends React.Component {
       EveryoneMsgs: [],
       EveryoneNames: [],
 
-      Everyone1:false, //2 threads -> msg names and thread names
-      Everyone2:false,
+      Everyone1: false, //2 threads -> msg names and thread names
+      Everyone2: false,
 
-      ForYou1:false, //4 threads -> 2 by 2 path but could have zero on either of the paths?? ->
-      ForYou2:false,
-      ForYou3:false,
-      ForYou4:false,
+      ForYou1: false, //4 threads -> 2 by 2 path but could have zero on either of the paths?? ->
+      ForYou2: false,
+      ForYou3: false,
+      ForYou4: false,
 
       ByYouMsgs: [],
       ByYouNames: [],
@@ -96,9 +95,9 @@ class App extends React.Component {
       ThreadMessageId: "",
       //Above is the new Thread state
 
-//*** *** *** *** ***
+      //*** *** *** *** ***
 
-      //BELOW Most Recent Initial For You 
+      //BELOW Most Recent Initial For You
       Initial1: false,
       Initial2: false,
       Initial3: false,
@@ -116,34 +115,34 @@ class App extends React.Component {
       InitialFromTagsThreads: [],
       InitialFromTagsThreadsNames: [],
 
-      //ABOVE Most Recent Initial For You 
+      //ABOVE Most Recent Initial For You
 
-//*** *** *** *** ***
+      //*** *** *** *** ***
 
       //BELOW AutoUpdate Arrays
-      NewSO1:false,
-      NewSO2:false,
+      NewSO1: false,
+      NewSO2: false,
 
-      NewSONames: [], 
+      NewSONames: [],
       NewSOMsgs: [],
 
-      NewSOThreadsNames: [], 
+      NewSOThreadsNames: [],
       NewSOThreads: [],
 
-      NewDM1:false,
-      NewDM2:false,
-      NewDM3:false,
+      NewDM1: false,
+      NewDM2: false,
+      NewDM3: false,
 
       //NewDMByYouNames: [], //Not required bc user would make themselves
       //NewDMByYouMsgs: [],
 
-      NewDMByYouThreadsNames: [], 
+      NewDMByYouThreadsNames: [],
       NewDMByYouThreads: [],
 
-      NewDMFromTagsNames: [], 
+      NewDMFromTagsNames: [],
       NewDMFromTagsMsgs: [],
 
-      NewDMFromTagsThreadsNames: [], 
+      NewDMFromTagsThreadsNames: [],
       NewDMFromTagsThreads: [],
 
       //Above AutoUpdate Arrays^^^^
@@ -161,10 +160,10 @@ class App extends React.Component {
       mostRecentLogin: false,
 
       platformLogin: false,
-      skipSynchronizationBeforeHeight: 910000,
-      mostRecentBlockHeight: 910000,
+      skipSynchronizationBeforeHeight: 905000,
+      mostRecentBlockHeight: 905000,
 
-      DataContractDSO: 'HGgDSSh9UiSgzYgT5Ux3XEK7G1CcrZ4EF1bthsiT9D11', //v025notimeStamp
+      DataContractDSO: "Cp5SJNvy3CdmCJpFFXM4haA1vS2nEJb7avKpEfVLgoyE",
       DataContractDPNS: "GWRSAVFMjXx8HpQFaNJMqBV7MBgMK4br5UESsB4S31Ec",
 
       expandedTopNav: false,
@@ -232,100 +231,100 @@ class App extends React.Component {
         isLoading: false,
         isLoadingRefresh: false,
         errorToDisplay: false,
-  
+
         isLoadingEveryone: true,
         isLoadingForYou: true,
-  
+
         mode: "dark",
         presentModal: "",
         isModalShowing: false,
         whichNetwork: "testnet",
-  
+
         mnemonic: "",
         identity: "",
         identityInfo: "",
         identityRaw: "",
         uniqueName: "",
         messagePriorToSubmit: "",
-  
+
         EveryoneMsgs: [],
         EveryoneNames: [],
-  
-        Everyone1:false, 
-        Everyone2:false,
-  
-        ForYou1:false, 
-        ForYou2:false,
-        ForYou3:false,
-        ForYou4:false,
-  
+
+        Everyone1: false,
+        Everyone2: false,
+
+        ForYou1: false,
+        ForYou2: false,
+        ForYou3: false,
+        ForYou4: false,
+
         ByYouMsgs: [],
         ByYouNames: [],
-  
+
         FromTagsMsgs: [],
         FromTagsNames: [],
-  
+
         EveryoneThreads: [],
         EveryoneThreadsNames: [],
-  
+
         ByYouThreads: [],
         ByYouThreadsNames: [],
-  
+
         FromTagsThreads: [],
         FromTagsThreadsNames: [],
-  
+
         ThreadMessageId: "",
-        
+
         Initial1: false,
         Initial2: false,
         Initial3: false,
         Initial4: false,
-  
+
         InitialByYouMsgs: [],
         InitialByYouNames: [],
-  
+
         InitialFromTagsMsgs: [],
         InitialFromTagsNames: [],
-  
+
         InitialByYouThreads: [],
         InitialByYouThreadsNames: [],
-  
+
         InitialFromTagsThreads: [],
         InitialFromTagsThreadsNames: [],
-  
-        NewSO1:false,
-        NewSO2:false,
-  
-        NewSONames: [], 
+
+        NewSO1: false,
+        NewSO2: false,
+
+        NewSONames: [],
         NewSOMsgs: [],
-  
-        NewSOThreadsNames: [], 
+
+        NewSOThreadsNames: [],
         NewSOThreads: [],
-  
-        NewDM1:false,
-        NewDM2:false,
-        NewDM3:false,
-  
-        NewDMByYouThreadsNames: [], 
+
+        NewDM1: false,
+        NewDM2: false,
+        NewDM3: false,
+
+        NewDMByYouThreadsNames: [],
         NewDMByYouThreads: [],
-  
-        NewDMFromTagsNames: [], 
+
+        NewDMFromTagsNames: [],
         NewDMFromTagsMsgs: [],
-  
-        NewDMFromTagsThreadsNames: [], 
+
+        NewDMFromTagsThreadsNames: [],
         NewDMFromTagsThreads: [],
-  
+
         walletId: "",
 
         accountBalance: "",
         accountAddress: "",
 
         mostRecentLogin: false,
-  
+
         platformLogin: false,
         skipSynchronizationBeforeHeight: 910000,
         mostRecentBlockHeight: 910000,
-  
+
         expandedTopNav: false,
       },
       () => this.componentDidMount()
@@ -410,7 +409,7 @@ class App extends React.Component {
   handleInitialForYouLogin = (theIdentity) => {
     this.getInitialByyouDocs(theIdentity);
     this.getInitialForyouFromOthersTags(theIdentity);
-  }
+  };
 
   handleLoginwithMnem = (theMnemonic) => {
     if (this.state.LocalForageKeys.length === 0) {
@@ -519,7 +518,8 @@ class App extends React.Component {
                       );
                     });
                   //******************** */
-                } else { //This is if the LocalForage return fails to validate
+                } else {
+                  //This is if the LocalForage return fails to validate
                   //console.log("platform login failed");
                   //this.getIdentitywithMnem(theMnemonic);
                   //() => this.getNamefromIdentity(val)); // send to get it
@@ -543,26 +543,26 @@ class App extends React.Component {
                 //NO MORE INITIAL PULL SO DON'T CLEAR
                 // ByYouMsgs: [],
                 // ByYouNames: [],
-                      
+
                 // FromTagsMsgs: [],
                 // FromTagsNames: [],
-
               },
               () => this.getIdentitywithMnem(theMnemonic)
             );
           }
         } //Closes mostRecentMatch
         else {
-          this.setState({
+          this.setState(
+            {
+              mostRecentLogin: true,
 
-            mostRecentLogin:true, 
-
-            platformLogin: true,
-            isLoading: false,
-            //isLoadingEveryone: false,
-            //isLoadingForYou: false,
-          },
-          () => this.handleMostRecentLogin(this.state.identity));
+              platformLogin: true,
+              isLoading: false,
+              //isLoadingEveryone: false,
+              //isLoadingForYou: false,
+            },
+            () => this.handleMostRecentLogin(this.state.identity)
+          );
         }
       })
       .catch((e) => console.error("Something went wrong:\n", e))
@@ -573,30 +573,31 @@ class App extends React.Component {
   ///****************************************************************** */
 
   handleMostRecentLogin = (theIdentity) => {
-    
-    if (this.state.Initial1 &&
-          this.state.Initial2 &&
-            this.state.Initial3 &&
-              this.state.Initial4) {
-        this.setState({
-          ByYouMsgs: this.state.InitialByYouMsgs,
-          ByYouNames: this.state.InitialByYouNames,
-    
-          FromTagsMsgs: this.state.InitialFromTagsMsgs,
-          FromTagsNames: this.state.InitialFromTagsNames,
-    
-          ByYouThreads: this.state.InitialByYouThreads,
-          ByYouThreadsNames: this.state.InitialByYouThreadsNames,
-    
-          FromTagsThreads: this.state.InitialFromTagsThreads,
-          FromTagsThreadsNames: this.state.InitialFromTagsThreadsNames,
+    if (
+      this.state.Initial1 &&
+      this.state.Initial2 &&
+      this.state.Initial3 &&
+      this.state.Initial4
+    ) {
+      this.setState({
+        ByYouMsgs: this.state.InitialByYouMsgs,
+        ByYouNames: this.state.InitialByYouNames,
 
-          isLoadingForYou: false,
-      });      
+        FromTagsMsgs: this.state.InitialFromTagsMsgs,
+        FromTagsNames: this.state.InitialFromTagsNames,
+
+        ByYouThreads: this.state.InitialByYouThreads,
+        ByYouThreadsNames: this.state.InitialByYouThreadsNames,
+
+        FromTagsThreads: this.state.InitialFromTagsThreads,
+        FromTagsThreadsNames: this.state.InitialFromTagsThreadsNames,
+
+        isLoadingForYou: false,
+      });
     }
-    // next 
+    // next
     this.getIdentityInfo(theIdentity);
-  } 
+  };
 
   handleStartQuerySeq = (theIdentity) => {
     this.getDSOForyouByyouDocs(theIdentity);
@@ -764,11 +765,10 @@ class App extends React.Component {
 
         //*** *** *** *** ***
 
-        
         this.getWalletwithMnem(this.state.mnemonic);
 
-        setInterval(()=>this.autoUpdateEveryoneHelper(), 30000);
-        setInterval(()=>this.autoUpdateForYouHelper(), 30000); 
+        setInterval(() => this.autoUpdateEveryoneHelper(), 30000);
+        setInterval(() => this.autoUpdateForYouHelper(), 30000);
 
         //*** *** *** *** ***
       })
@@ -786,8 +786,8 @@ class App extends React.Component {
     console.log("Called update id info");
 
     this.setState({
-      identityInfo: '',
-    })
+      identityInfo: "",
+    });
 
     const client = new Dash.Client({ network: this.state.whichNetwork });
 
@@ -816,14 +816,14 @@ class App extends React.Component {
   };
 
   getWalletwithMnem = (theMnemonic) => {
-
     const client = new Dash.Client({
       network: this.state.whichNetwork,
       wallet: {
         mnemonic: theMnemonic,
         adapter: LocalForage.createInstance,
         unsafeOptions: {
-          skipSynchronizationBeforeHeight: this.state.skipSynchronizationBeforeHeight,
+          skipSynchronizationBeforeHeight:
+            this.state.skipSynchronizationBeforeHeight,
         },
       },
     });
@@ -841,7 +841,6 @@ class App extends React.Component {
         accountAddress: account.getUnusedAddress().address, //This can be used if you havent created the DGMDocument <-
         //accountHistory: account.getTransactionHistory(),
       });
-
 
       return true;
     };
@@ -892,7 +891,6 @@ class App extends React.Component {
   };
 
   getDSOEveryoneDocs = () => {
-    
     const clientOpts = {
       network: this.state.whichNetwork,
       apps: {
@@ -908,11 +906,9 @@ class App extends React.Component {
         limit: 60,
         where: [
           ["sh", "==", "out"],
-          ['$createdAt', '<=' , Date.now()]
-    ],
-    orderBy: [
-    ['$createdAt', 'desc'],
-  ],
+          ["$createdAt", "<=", Date.now()],
+        ],
+        orderBy: [["$createdAt", "desc"]],
       });
     };
 
@@ -942,7 +938,8 @@ class App extends React.Component {
           isLoadingEveryone: false,
           isLoadingRefresh: false,
         });
-      }).finally(() => client.disconnect());
+      })
+      .finally(() => client.disconnect());
   };
 
   getDSOEveryoneNames = (docArray) => {
@@ -1004,7 +1001,8 @@ class App extends React.Component {
           isLoadingEveryone: false,
           isLoadingRefresh: false,
         });
-      }).finally(() => client.disconnect());
+      })
+      .finally(() => client.disconnect());
   };
 
   getEveryoneThreads = (docArray) => {
@@ -1035,7 +1033,7 @@ class App extends React.Component {
       //console.log("Called Get Everyone Threads");
 
       return client.platform.documents.get("DSOContract.dsothr", {
-        where: [["msgId", "in", arrayOfMsgIds]], 
+        where: [["msgId", "in", arrayOfMsgIds]],
         orderBy: [["msgId", "asc"]],
       });
     };
@@ -1044,11 +1042,14 @@ class App extends React.Component {
       .then((d) => {
         let docArray = [];
 
-        for(const n of d) {
-          let returnedDoc = n.toJSON()
-           //console.log("Thr:\n", returnedDoc);
-           returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-           //console.log("newThr:\n", returnedDoc);
+        for (const n of d) {
+          let returnedDoc = n.toJSON();
+          //console.log("Thr:\n", returnedDoc);
+          returnedDoc.msgId = Identifier.from(
+            returnedDoc.msgId,
+            "base64"
+          ).toJSON();
+          //console.log("newThr:\n", returnedDoc);
           docArray = [...docArray, returnedDoc];
         }
 
@@ -1115,7 +1116,7 @@ class App extends React.Component {
 
         let nameDocArray = [];
 
-        for(const n of d) {
+        for (const n of d) {
           //console.log("NameDoc:\n", n.toJSON());
           nameDocArray = [n.toJSON(), ...nameDocArray];
         }
@@ -1139,17 +1140,20 @@ class App extends React.Component {
           isLoadingEveryone: false,
           isLoadingRefresh: false,
         });
-      }).finally(() => client.disconnect());
+      })
+      .finally(() => client.disconnect());
   };
   //END - Everyone: Msgs and Threads
 
   //######### ########### ########### ############ ########
 
   checkForYouRace = () => {
-    if (this.state.ForYou1 &&
-          this.state.ForYou2 &&
-            this.state.ForYou3 &&
-              this.state.ForYou4) {
+    if (
+      this.state.ForYou1 &&
+      this.state.ForYou2 &&
+      this.state.ForYou3 &&
+      this.state.ForYou4
+    ) {
       this.setState({
         isLoadingForYou: false,
         isLoadingRefresh: false,
@@ -1178,11 +1182,9 @@ class App extends React.Component {
         limit: 60,
         where: [
           ["$ownerId", "==", theIdentity],
-          ['$createdAt', '<=' , Date.now()]
-    ],
-    orderBy: [
-    ['$createdAt', 'desc'],
-  ],
+          ["$createdAt", "<=", Date.now()],
+        ],
+        orderBy: [["$createdAt", "desc"]],
       });
     };
 
@@ -1198,17 +1200,15 @@ class App extends React.Component {
             },
             () => this.checkForYouRace()
           );
-          
         } else {
           let docArray = [];
-          
+
           for (const n of d) {
             //console.log("ByYouMsgs:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
           this.getByYouThreads(docArray);
           this.getForyouByyouNames(docArray);
-          
         }
       })
       .catch((e) => console.error("Something went wrong:\n", e))
@@ -1271,139 +1271,138 @@ class App extends React.Component {
       })
       .catch((e) => {
         console.error("Something went wrong getting Everyone Names:\n", e);
-      }).finally(() => client.disconnect());
+      })
+      .finally(() => client.disconnect());
     //END OF NAME RETRIEVAL
   }; //SENDS TO COMBINE MESSAGES
 
-      getByYouThreads = (docArray) => {
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DSOContract: {
-              contractId: this.state.DataContractDSO,
+  getByYouThreads = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
+
+    // This Below is to get unique set of ByYou msg doc ids
+    let arrayOfMsgIds = docArray.map((doc) => {
+      return doc.$id;
+    });
+
+    //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+
+    let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+
+    arrayOfMsgIds = [...setOfMsgIds];
+
+    //console.log("Array of order ids", arrayOfMsgIds);
+
+    const getDocuments = async () => {
+      //console.log("Called Get ByYou Threads");
+
+      return client.platform.documents.get("DSOContract.dsothr", {
+        where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
+        orderBy: [["msgId", "asc"]],
+      });
+    };
+
+    getDocuments()
+      .then((d) => {
+        let docArray = [];
+
+        for (const n of d) {
+          let returnedDoc = n.toJSON();
+          //console.log("Thr:\n", returnedDoc);
+          returnedDoc.msgId = Identifier.from(
+            returnedDoc.msgId,
+            "base64"
+          ).toJSON();
+          //console.log("newThr:\n", returnedDoc);
+          docArray = [...docArray, returnedDoc];
+        }
+
+        if (docArray.length === 0) {
+          this.setState(
+            {
+              ForYou2: true,
             },
-          },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        // This Below is to get unique set of ByYou msg doc ids
-        let arrayOfMsgIds = docArray.map((doc) => {
-          return doc.$id;
+            () => this.checkForYouRace()
+          );
+        } else {
+          this.getByYouThreadsNames(docArray); //Name Retrieval
+        }
+      })
+      .catch((e) => {
+        console.error("Something went wrong ByYouThreads:\n", e);
+        this.setState({
+          ByYouThreadsError: true, //handle error ->
+          isLoadingForYou: false,
         });
+      })
+      .finally(() => client.disconnect());
+  };
 
-        //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+  getByYouThreadsNames = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DPNS: {
+          contractId: this.state.DataContractDPNS,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
 
-        let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+    let arrayOfOwnerIds = docArray.map((doc) => {
+      return doc.$ownerId;
+    });
 
-        arrayOfMsgIds = [...setOfMsgIds];
+    let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
 
-        //console.log("Array of order ids", arrayOfMsgIds);
+    arrayOfOwnerIds = [...setOfOwnerIds];
 
-        const getDocuments = async () => {
-          //console.log("Called Get ByYou Threads");
+    //console.log("Called Get ByYou Threads Names");
 
-          return client.platform.documents.get("DSOContract.dsothr", {
-            where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
-            orderBy: [["msgId", "asc"]],
-          });
-        };
+    const getNameDocuments = async () => {
+      return client.platform.documents.get("DPNS.domain", {
+        where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
+        orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      });
+    };
 
-        getDocuments()
-          .then((d) => {
-            let docArray = [];
+    getNameDocuments()
+      .then((d) => {
+        if (d.length === 0) {
+          console.log("No DPNS domain documents retrieved.");
+        }
 
-            for(const n of d) {
-              let returnedDoc = n.toJSON()
-               //console.log("Thr:\n", returnedDoc);
-               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-               //console.log("newThr:\n", returnedDoc);
-              docArray = [...docArray, returnedDoc];
-            }
+        let nameDocArray = [];
+        for (const n of d) {
+          //console.log("NameDoc:\n", n.toJSON());
 
-            if (docArray.length === 0) {
-              this.setState(
-                {
-                  ForYou2: true,
-                },
-                () => this.checkForYouRace()
-              );
-            } else {
-              this.getByYouThreadsNames(docArray); //Name Retrieval
-            }
-          })
-          .catch((e) => {
-            console.error("Something went wrong ByYouThreads:\n", e);
-            this.setState({
-              ByYouThreadsError: true, //handle error ->
-              isLoadingForYou: false,
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+          nameDocArray = [n.toJSON(), ...nameDocArray];
+        }
 
-      getByYouThreadsNames = (docArray) => {
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DPNS: {
-              contractId: this.state.DataContractDPNS,
-            },
+        this.setState(
+          {
+            ByYouThreadsNames: nameDocArray,
+            ByYouThreads: docArray,
+            ForYou2: true,
           },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        let arrayOfOwnerIds = docArray.map((doc) => {
-          return doc.$ownerId;
+          () => this.checkForYouRace()
+        );
+      })
+      .catch((e) => {
+        console.error("Something went wrong getting ByYouThreadsNames:\n", e);
+        this.setState({
+          ByYouThreadsNamesError: true, //<- add to state? ->
         });
-
-        let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
-
-        arrayOfOwnerIds = [...setOfOwnerIds];
-
-
-        //console.log("Called Get ByYou Threads Names");
-
-        const getNameDocuments = async () => {
-          return client.platform.documents.get("DPNS.domain", {
-            where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
-            orderBy: [["records.dashUniqueIdentityId", "asc"]],
-          });
-        };
-
-        getNameDocuments()
-          .then((d) => {
-            if (d.length === 0) {
-              console.log("No DPNS domain documents retrieved.");
-            }
-
-            let nameDocArray = [];
-            for (const n of d) {
-              //console.log("NameDoc:\n", n.toJSON());
-
-              nameDocArray = [n.toJSON(), ...nameDocArray];
-            }
-
-            this.setState(
-              {
-                ByYouThreadsNames: nameDocArray,
-                ByYouThreads: docArray,
-                ForYou2: true,
-              },
-              () => this.checkForYouRace()
-            );
-          })
-          .catch((e) => {
-            console.error(
-              "Something went wrong getting ByYouThreadsNames:\n",
-              e
-            );
-            this.setState({
-              ByYouThreadsNamesError: true, //<- add to state? ->
-              
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+      })
+      .finally(() => client.disconnect());
+  };
   //END - ForYou: Msgs and Threads
 
   //START - ForYou TAGS: Msgs and Threads
@@ -1427,11 +1426,9 @@ class App extends React.Component {
         limit: 60,
         where: [
           ["toId", "==", theIdentity],
-          ['$createdAt', '<=' , Date.now()]
-    ],
-    orderBy: [
-    ['$createdAt', 'desc'],
-  ],
+          ["$createdAt", "<=", Date.now()],
+        ],
+        orderBy: [["$createdAt", "desc"]],
       });
     };
 
@@ -1439,12 +1436,15 @@ class App extends React.Component {
       .then((d) => {
         if (d.length !== 0) {
           let docArray = [];
-          
-          for(const n of d) {
-            let returnedDoc = n.toJSON()
-             //console.log("Thr:\n", returnedDoc);
-             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-             //console.log("newThr:\n", returnedDoc);
+
+          for (const n of d) {
+            let returnedDoc = n.toJSON();
+            //console.log("Thr:\n", returnedDoc);
+            returnedDoc.msgId = Identifier.from(
+              returnedDoc.msgId,
+              "base64"
+            ).toJSON();
+            //console.log("newThr:\n", returnedDoc);
             docArray = [...docArray, returnedDoc];
           }
 
@@ -1457,10 +1457,9 @@ class App extends React.Component {
           //NEXT GET THE MSGS FROM THE TAGS msgIds************
           this.getDSOmsgsFromTags(msgIdArray);
           //NEXT GET THE MSGS FROM THE TAGS msgIds************
-
         } else {
           console.log("No Tags for this user.");
-          
+
           this.setState(
             {
               ForYou3: true,
@@ -1509,12 +1508,11 @@ class App extends React.Component {
           }
           this.getFromTagsThreads(docArray);
           this.getDSOmsgsFromTagsNames(docArray);
-          
 
           // this.setState({
           //   FromTagsMsgs: docArray,
           // });
-            //SET IN STATE IN NAMES TO REDUCE SETSTATE CALLS!!
+          //SET IN STATE IN NAMES TO REDUCE SETSTATE CALLS!!
         }
       })
       .catch((e) => console.error("Something went wrong:\n", e))
@@ -1581,181 +1579,180 @@ class App extends React.Component {
       })
       .catch((e) => {
         console.error("Something went wrong getting ForYou Tags Names:\n", e);
-      }).finally(() => client.disconnect());
+      })
+      .finally(() => client.disconnect());
     //END OF NAME RETRIEVAL
-  }; 
+  };
 
-      getFromTagsThreads = (docArray) => {
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DSOContract: {
-              contractId: this.state.DataContractDSO,
+  getFromTagsThreads = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
+
+    // This Below is to get unique set of ByYou msg doc ids
+    let arrayOfMsgIds = docArray.map((doc) => {
+      return doc.$id;
+    });
+
+    //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+
+    let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+
+    arrayOfMsgIds = [...setOfMsgIds];
+
+    //console.log("Array of order ids", arrayOfMsgIds);
+
+    const getDocuments = async () => {
+      //console.log("Called Get FromTags Threads");
+
+      return client.platform.documents.get("DSOContract.dsothr", {
+        where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
+        orderBy: [["msgId", "asc"]],
+      });
+    };
+
+    getDocuments()
+      .then((d) => {
+        let docArray = [];
+
+        for (const n of d) {
+          let returnedDoc = n.toJSON();
+          //console.log("Thr:\n", returnedDoc);
+          returnedDoc.msgId = Identifier.from(
+            returnedDoc.msgId,
+            "base64"
+          ).toJSON();
+          //console.log("newThr:\n", returnedDoc);
+          docArray = [...docArray, returnedDoc];
+        }
+
+        if (docArray.length === 0) {
+          this.setState(
+            {
+              ForYou4: true,
             },
-          },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        // This Below is to get unique set of ByYou msg doc ids
-        let arrayOfMsgIds = docArray.map((doc) => {
-          return doc.$id;
+            () => this.checkForYouRace()
+          );
+        } else {
+          this.getFromTagsThreadsNames(docArray); //Name Retrieval
+        }
+      })
+      .catch((e) => {
+        console.error("Something went wrong ByYouThreads:\n", e);
+        this.setState({
+          FromTagsThreadsError: true, //handle error ->
+          //isLoadingForYou: false,
         });
+      })
+      .finally(() => client.disconnect());
+  };
 
-        //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+  getFromTagsThreadsNames = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DataContractDPNS: {
+          contractId: this.state.DataContractDPNS,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
 
-        let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+    let arrayOfOwnerIds = docArray.map((doc) => {
+      return doc.$ownerId;
+    });
 
-        arrayOfMsgIds = [...setOfMsgIds];
+    let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
 
-        //console.log("Array of order ids", arrayOfMsgIds);
+    arrayOfOwnerIds = [...setOfOwnerIds];
 
-        const getDocuments = async () => {
-          //console.log("Called Get FromTags Threads");
+    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+      Buffer.from(Identifier.from(item))
+    );
 
-          return client.platform.documents.get("DSOContract.dsothr", {
-            where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
-            orderBy: [["msgId", "asc"]],
-          });
-        };
+    //console.log("Called Get FromTags Threads Names");
 
-        getDocuments()
-          .then((d) => {
-            let docArray = [];
+    const getNameDocuments = async () => {
+      return client.platform.documents.get("DataContractDPNS.domain", {
+        where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
+        orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      });
+    };
 
-            for (const n of d) {
-              let returnedDoc = n.toJSON()
-              //console.log("Thr:\n", returnedDoc);
-              returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-              //console.log("newThr:\n", returnedDoc);
-             docArray = [...docArray, returnedDoc];
-            }
-            
+    getNameDocuments()
+      .then((d) => {
+        if (d.length === 0) {
+          //console.log("No DPNS domain documents retrieved.");
+        }
 
-            if (docArray.length === 0) {
-              this.setState(
-                {
-                  ForYou4: true,
-                },
-                () => this.checkForYouRace()
-              );
-            } else {
-              this.getFromTagsThreadsNames(docArray); //Name Retrieval
+        let nameDocArray = [];
+        for (const n of d) {
+          //console.log("NameDoc:\n", n.toJSON());
 
-            }
-          })
-          .catch((e) => {
-            console.error("Something went wrong ByYouThreads:\n", e);
-            this.setState({
-              FromTagsThreadsError: true, //handle error ->
-              //isLoadingForYou: false,
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+          nameDocArray = [n.toJSON(), ...nameDocArray];
+        }
 
-      getFromTagsThreadsNames = (docArray) => {
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DataContractDPNS: {
-              contractId: this.state.DataContractDPNS,
-            },
+        this.setState(
+          {
+            FromTagsThreadsNames: nameDocArray,
+            FromTagsThreads: docArray,
+            ForYou4: true,
           },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        let arrayOfOwnerIds = docArray.map((doc) => {
-          return doc.$ownerId;
-        });
-
-        let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
-
-        arrayOfOwnerIds = [...setOfOwnerIds];
-
-        arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-          Buffer.from(Identifier.from(item))
+          () => this.checkForYouRace()
         );
-
-        //console.log("Called Get FromTags Threads Names");
-
-        const getNameDocuments = async () => {
-          return client.platform.documents.get("DataContractDPNS.domain", {
-            where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
-            orderBy: [["records.dashUniqueIdentityId", "asc"]],
-          });
-        };
-
-        getNameDocuments()
-          .then((d) => {
-            if (d.length === 0) {
-              //console.log("No DPNS domain documents retrieved.");
-            }
-
-            let nameDocArray = [];
-            for (const n of d) {
-              //console.log("NameDoc:\n", n.toJSON());
-
-              nameDocArray = [n.toJSON(), ...nameDocArray];
-            }
-
-            this.setState(
-              {
-                FromTagsThreadsNames: nameDocArray,
-                FromTagsThreads: docArray,
-                ForYou4: true,
-              },
-              () => this.checkForYouRace()
-            );
-          })
-          .catch((e) => {
-            console.error(
-              "Something went wrong getting FromTagsThreadsNames:\n",
-              e
-            );
-            this.setState({
-              FromTagsThreadsNamesError: true, //<- add to state? ->
-              
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+      })
+      .catch((e) => {
+        console.error(
+          "Something went wrong getting FromTagsThreadsNames:\n",
+          e
+        );
+        this.setState({
+          FromTagsThreadsNamesError: true, //<- add to state? ->
+        });
+      })
+      .finally(() => client.disconnect());
+  };
   //END - ForYou TAGS: Msgs and Threads
 
   //######################################################
 
-sendATip = () =>{
-  //Need Identity Credit Transfer
-  console.log('This should implement Identity Credit Transfers')
-
-}
+  sendATip = () => {
+    //Need Identity Credit Transfer
+    console.log("This should implement Identity Credit Transfers");
+  };
 
   //######### ########### ########### ############ ########
 
   checkInitialForYouRace = () => {
-    
-    if (this.state.Initial1 &&
-          this.state.Initial2 &&
-            this.state.Initial3 &&
-              this.state.Initial4) {
-      if(this.state.mostRecentLogin){
-        
+    if (
+      this.state.Initial1 &&
+      this.state.Initial2 &&
+      this.state.Initial3 &&
+      this.state.Initial4
+    ) {
+      if (this.state.mostRecentLogin) {
         this.setState({
           ByYouMsgs: this.state.InitialByYouMsgs,
           ByYouNames: this.state.InitialByYouNames,
 
           ByYouThreads: this.state.InitialByYouThreads,
           ByYouThreadsNames: this.state.InitialByYouThreadsNames,
-    
+
           FromTagsMsgs: this.state.InitialFromTagsMsgs,
           FromTagsNames: this.state.InitialFromTagsNames,
-    
+
           FromTagsThreads: this.state.InitialFromTagsThreads,
           FromTagsThreadsNames: this.state.InitialFromTagsThreadsNames,
 
           isLoadingForYou: false,
-      });
+        });
       }
-      
     }
   };
 
@@ -1781,11 +1778,9 @@ sendATip = () =>{
         limit: 60,
         where: [
           ["$ownerId", "==", theIdentity],
-          ['$createdAt', '<=' , Date.now()]
-    ],
-    orderBy: [
-    ['$createdAt', 'desc'],
-  ],
+          ["$createdAt", "<=", Date.now()],
+        ],
+        orderBy: [["$createdAt", "desc"]],
       });
     };
 
@@ -1805,12 +1800,11 @@ sendATip = () =>{
           let docArray = [];
           //console.log("Getting ForyouByyouMsgs");
           for (const n of d) {
-           // console.log("Document:\n", n.toJSON());
+            // console.log("Document:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
           this.getInitialByYouThreads(docArray);
           this.getInitialForyouByyouNames(docArray);
-          
         }
       })
       .catch((e) => console.error("Something went wrong:\n", e))
@@ -1873,139 +1867,141 @@ sendATip = () =>{
       })
       .catch((e) => {
         console.error("Something went wrong getting InitialByYou Names:\n", e);
-      }).finally(() => client.disconnect());
+      })
+      .finally(() => client.disconnect());
     //END OF NAME RETRIEVAL
-  }; 
+  };
 
-      getInitialByYouThreads = (docArray) => {
-        //CHANGE from everyone to foryou ->
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DSOContract: {
-              contractId: this.state.DataContractDSO,
+  getInitialByYouThreads = (docArray) => {
+    //CHANGE from everyone to foryou ->
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
+
+    // This Below is to get unique set of ByYou msg doc ids
+    let arrayOfMsgIds = docArray.map((doc) => {
+      return doc.$id;
+    });
+
+    //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+
+    let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+
+    arrayOfMsgIds = [...setOfMsgIds];
+
+    //console.log("Array of Msg ids", arrayOfMsgIds);
+
+    const getDocuments = async () => {
+      //console.log("Called Get InitialByYou Threads");
+
+      return client.platform.documents.get("DSOContract.dsothr", {
+        where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
+        orderBy: [["msgId", "asc"]],
+      });
+    };
+
+    getDocuments()
+      .then((d) => {
+        let docArray = [];
+
+        for (const n of d) {
+          let returnedDoc = n.toJSON();
+          //console.log("Thr:\n", returnedDoc);
+          returnedDoc.msgId = Identifier.from(
+            returnedDoc.msgId,
+            "base64"
+          ).toJSON();
+          //console.log("newThr:\n", returnedDoc);
+          docArray = [...docArray, returnedDoc];
+        }
+
+        if (docArray.length === 0) {
+          this.setState(
+            {
+              Initial2: true,
             },
-          },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        // This Below is to get unique set of ByYou msg doc ids
-        let arrayOfMsgIds = docArray.map((doc) => {
-          return doc.$id;
+            () => this.checkInitialForYouRace()
+          );
+        } else {
+          this.getInitialByYouThreadsNames(docArray); //Name Retrieval
+        }
+      })
+      .catch((e) => {
+        console.error("Something went wrong InitialByYouThreads:\n", e);
+        this.setState({
+          InitialByYouThreadsError: true, //handle error ->
         });
+      })
+      .finally(() => client.disconnect());
+  };
 
-        //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+  getInitialByYouThreadsNames = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DPNS: {
+          contractId: this.state.DataContractDPNS,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
 
-        let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+    let arrayOfOwnerIds = docArray.map((doc) => {
+      return doc.$ownerId;
+    });
 
-        arrayOfMsgIds = [...setOfMsgIds];
+    let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
 
-        //console.log("Array of Msg ids", arrayOfMsgIds);
+    arrayOfOwnerIds = [...setOfOwnerIds];
 
-        const getDocuments = async () => {
-          //console.log("Called Get InitialByYou Threads");
+    //console.log("Called Get InitialByYou Threads Names");
 
-          return client.platform.documents.get("DSOContract.dsothr", {
-            where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
-            orderBy: [["msgId", "asc"]],
-          });
-        };
+    const getNameDocuments = async () => {
+      return client.platform.documents.get("DPNS.domain", {
+        where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
+        orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      });
+    };
 
-        getDocuments()
-          .then((d) => {
-            let docArray = [];
-            
+    getNameDocuments()
+      .then((d) => {
+        if (d.length === 0) {
+          console.log("No DPNS domain documents retrieved.");
+        }
 
-            for(const n of d) {
-              let returnedDoc = n.toJSON()
-               //console.log("Thr:\n", returnedDoc);
-               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-               //console.log("newThr:\n", returnedDoc);
-              docArray = [...docArray, returnedDoc];
-            }
+        let nameDocArray = [];
+        for (const n of d) {
+          //console.log("NameDoc:\n", n.toJSON());
 
-            if (docArray.length === 0) {
-              this.setState(
-                {
-                  Initial2: true,
-                },
-                () => this.checkInitialForYouRace()
-              );
-            } else {
-              this.getInitialByYouThreadsNames(docArray); //Name Retrieval
-            }
-          })
-          .catch((e) => {
-            console.error("Something went wrong InitialByYouThreads:\n", e);
-            this.setState({
-              InitialByYouThreadsError: true, //handle error ->
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+          nameDocArray = [n.toJSON(), ...nameDocArray];
+        }
 
-      getInitialByYouThreadsNames = (docArray) => {
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DPNS: {
-              contractId: this.state.DataContractDPNS,
-            },
+        this.setState(
+          {
+            InitialByYouThreadsNames: nameDocArray,
+            InitialByYouThreads: docArray,
+            Initial2: true,
           },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        let arrayOfOwnerIds = docArray.map((doc) => {
-          return doc.$ownerId;
+          () => this.checkInitialForYouRace()
+        );
+      })
+      .catch((e) => {
+        console.error(
+          "Something went wrong getting InitialByYouThreadsNames:\n",
+          e
+        );
+        this.setState({
+          InitialByYouThreadsNamesError: true, //<- add to state? ->
         });
-
-        let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
-
-        arrayOfOwnerIds = [...setOfOwnerIds];
-
-        //console.log("Called Get InitialByYou Threads Names");
-
-        const getNameDocuments = async () => {
-          return client.platform.documents.get("DPNS.domain", {
-            where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
-            orderBy: [["records.dashUniqueIdentityId", "asc"]],
-          });
-        };
-
-        getNameDocuments()
-          .then((d) => {
-            if (d.length === 0) {
-              console.log("No DPNS domain documents retrieved.");
-            }
-
-            let nameDocArray = [];
-            for (const n of d) {
-              //console.log("NameDoc:\n", n.toJSON());
-
-              nameDocArray = [n.toJSON(), ...nameDocArray];
-            }
-
-            this.setState(
-              {
-                InitialByYouThreadsNames: nameDocArray,
-                InitialByYouThreads: docArray,
-                Initial2: true,
-              },
-              () => this.checkInitialForYouRace()
-            );
-          })
-          .catch((e) => {
-            console.error(
-              "Something went wrong getting InitialByYouThreadsNames:\n",
-              e
-            );
-            this.setState({
-              InitialByYouThreadsNamesError: true, //<- add to state? ->
-              
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+      })
+      .finally(() => client.disconnect());
+  };
   //END - ForYou: Msgs and Threads
 
   //START - ForYou TAGS: Msgs and Threads
@@ -2029,11 +2025,9 @@ sendATip = () =>{
         limit: 60,
         where: [
           ["toId", "==", theIdentity],
-          ['$createdAt', '<=' , Date.now()]
-    ],
-    orderBy: [
-    ['$createdAt', 'desc'],
-  ],
+          ["$createdAt", "<=", Date.now()],
+        ],
+        orderBy: [["$createdAt", "desc"]],
       });
     };
 
@@ -2042,12 +2036,18 @@ sendATip = () =>{
         if (d.length !== 0) {
           let docArray = [];
 
-          for(const n of d) {
-            let returnedDoc = n.toJSON()
-             //console.log("Tag:\n", returnedDoc);
-             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-             returnedDoc.toId = Identifier.from(returnedDoc.toId, 'base64').toJSON();
-             //console.log("newTag:\n", returnedDoc);
+          for (const n of d) {
+            let returnedDoc = n.toJSON();
+            //console.log("Tag:\n", returnedDoc);
+            returnedDoc.msgId = Identifier.from(
+              returnedDoc.msgId,
+              "base64"
+            ).toJSON();
+            returnedDoc.toId = Identifier.from(
+              returnedDoc.toId,
+              "base64"
+            ).toJSON();
+            //console.log("newTag:\n", returnedDoc);
             docArray = [...docArray, returnedDoc];
           }
 
@@ -2060,20 +2060,21 @@ sendATip = () =>{
           //NEXT GET THE MSGS FROM THE TAGS msgIds************
           this.getInitialMsgsFromTags(msgIdArray);
           //NEXT GET THE MSGS FROM THE TAGS msgIds************
-
         } else {
           //console.log("No Tags for this user.");
-          
+
           this.setState(
             {
-              Initial3:true,
-              Initial4:true,
+              Initial3: true,
+              Initial4: true,
             },
             () => this.checkInitialForYouRace()
           );
         }
       })
-      .catch((e) => console.error("Something went wrongInitialMsgsfrom Tags:\n", e))
+      .catch((e) =>
+        console.error("Something went wrongInitialMsgsfrom Tags:\n", e)
+      )
       .finally(() => client.disconnect());
   };
 
@@ -2089,7 +2090,6 @@ sendATip = () =>{
       },
     };
     let client = new Dash.Client(clientOpts);
-
 
     const getDocuments = async () => {
       return client.platform.documents.get("DSOContract.dsomsg", {
@@ -2109,18 +2109,22 @@ sendATip = () =>{
             //console.log("Document:\n", n.toJSON());
             docArray = [...docArray, n.toJSON()];
           }
-          
+
           this.getInitialFromTagsThreads(docArray);
           this.getInitialMsgsFromTagsNames(docArray);
-          
 
           // this.setState({
           //   FromTagsMsgs: docArray,
           // });
-            //SET IN STATE IN NAMES TO REDUCE SETSTATE CALLS!!
+          //SET IN STATE IN NAMES TO REDUCE SETSTATE CALLS!!
         }
       })
-      .catch((e) => console.error("Something went wrong in InitialForyouFromOthersMsgs:\n", e))
+      .catch((e) =>
+        console.error(
+          "Something went wrong in InitialForyouFromOthersMsgs:\n",
+          e
+        )
+      )
       .finally(() => client.disconnect());
   };
 
@@ -2166,7 +2170,7 @@ sendATip = () =>{
 
         let nameDocArray = [];
 
-        for(const n of d) {
+        for (const n of d) {
           //console.log("NameDoc:\n", n.toJSON());
 
           nameDocArray = [n.toJSON(), ...nameDocArray];
@@ -2183,148 +2187,152 @@ sendATip = () =>{
         );
       })
       .catch((e) => {
-        console.error("Something went wrong getting InitialForYouTagsNames:\n", e);
-      }).finally(() => client.disconnect());
+        console.error(
+          "Something went wrong getting InitialForYouTagsNames:\n",
+          e
+        );
+      })
+      .finally(() => client.disconnect());
     //END OF NAME RETRIEVAL
-  }; 
+  };
 
-      getInitialFromTagsThreads = (docArray) => {
-        //CHANGE from everyone to foryou ->
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DSOContract: {
-              contractId: this.state.DataContractDSO,
+  getInitialFromTagsThreads = (docArray) => {
+    //CHANGE from everyone to foryou ->
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
+
+    // This Below is to get unique set of ByYou msg doc ids
+    let arrayOfMsgIds = docArray.map((doc) => {
+      return doc.$id;
+    });
+
+    //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+
+    let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+
+    arrayOfMsgIds = [...setOfMsgIds];
+
+    //console.log("Array of order ids", arrayOfMsgIds);
+
+    const getDocuments = async () => {
+      //console.log("Called Get InitialFromTags Threads");
+
+      return client.platform.documents.get("DSOContract.dsothr", {
+        where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
+        orderBy: [["msgId", "asc"]],
+      });
+    };
+
+    getDocuments()
+      .then((d) => {
+        let docArray = [];
+        //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
+
+        for (const n of d) {
+          let returnedDoc = n.toJSON();
+          //console.log("Thr:\n", returnedDoc);
+          returnedDoc.msgId = Identifier.from(
+            returnedDoc.msgId,
+            "base64"
+          ).toJSON();
+          //console.log("newThr:\n", returnedDoc);
+          docArray = [...docArray, returnedDoc];
+        }
+
+        if (docArray.length === 0) {
+          this.setState(
+            {
+              Initial4: true,
             },
-          },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        // This Below is to get unique set of ByYou msg doc ids
-        let arrayOfMsgIds = docArray.map((doc) => {
-          return doc.$id;
+            () => this.checkInitialForYouRace()
+          );
+        } else {
+          this.getInitialFromTagsThreadsNames(docArray); //Name Retrieval
+        }
+      })
+      .catch((e) => {
+        console.error("Something went wrong InitialByYouThreads:\n", e);
+        this.setState({
+          InitialFromTagsThreadsError: true, //handle error ->
+          //isLoadingForYou: false,
         });
+      })
+      .finally(() => client.disconnect());
+  };
 
-        //console.log("Array of ByYouThreads ids", arrayOfMsgIds);
+  getInitialFromTagsThreadsNames = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DataContractDPNS: {
+          contractId: this.state.DataContractDPNS,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
 
-        let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+    let arrayOfOwnerIds = docArray.map((doc) => {
+      return doc.$ownerId;
+    });
 
-        arrayOfMsgIds = [...setOfMsgIds];
+    let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
 
-        //console.log("Array of order ids", arrayOfMsgIds);
+    arrayOfOwnerIds = [...setOfOwnerIds];
 
-        const getDocuments = async () => {
-          //console.log("Called Get InitialFromTags Threads");
+    //TEST ->
+    // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+    //   Buffer.from(Identifier.from(item))
+    // );
 
-          return client.platform.documents.get("DSOContract.dsothr", {
-            where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
-            orderBy: [["msgId", "asc"]],
-          });
-        };
+    //console.log("Called Get FromTags Threads Names");
 
-        getDocuments()
-          .then((d) => {
-            let docArray = [];
-            //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
+    const getNameDocuments = async () => {
+      return client.platform.documents.get("DataContractDPNS.domain", {
+        where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
+        orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      });
+    };
 
-            for(const n of d) {
-              let returnedDoc = n.toJSON()
-               //console.log("Thr:\n", returnedDoc);
-               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-               //console.log("newThr:\n", returnedDoc);
-              docArray = [...docArray, returnedDoc];
-            }
-            
+    getNameDocuments()
+      .then((d) => {
+        if (d.length === 0) {
+          //console.log("No DPNS domain documents retrieved.");
+        }
 
-            if (docArray.length === 0) {
-              this.setState(
-                {
-                  Initial4: true,
-                },
-                () => this.checkInitialForYouRace()
-              );
-            } else {
-              this.getInitialFromTagsThreadsNames(docArray); //Name Retrieval
+        let nameDocArray = [];
+        for (const n of d) {
+          //console.log("NameDoc:\n", n.toJSON());
 
-            }
-          })
-          .catch((e) => {
-            console.error("Something went wrong InitialByYouThreads:\n", e);
-            this.setState({
-              InitialFromTagsThreadsError: true, //handle error ->
-              //isLoadingForYou: false,
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+          nameDocArray = [n.toJSON(), ...nameDocArray];
+        }
 
-      getInitialFromTagsThreadsNames = (docArray) => {
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DataContractDPNS: {
-              contractId: this.state.DataContractDPNS,
-            },
+        this.setState(
+          {
+            InitialFromTagsThreadsNames: nameDocArray,
+            InitialFromTagsThreads: docArray,
+            Initial4: true,
           },
-        };
-        const client = new Dash.Client(clientOpts);
-
-        let arrayOfOwnerIds = docArray.map((doc) => {
-          return doc.$ownerId;
+          () => this.checkInitialForYouRace()
+        );
+      })
+      .catch((e) => {
+        console.error(
+          "Something went wrong getting InitialFromTagsThreadsNames:\n",
+          e
+        );
+        this.setState({
+          InitialFromTagsThreadsNamesError: true, //<- add to state? ->
         });
-
-        let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
-
-        arrayOfOwnerIds = [...setOfOwnerIds];
-
-//TEST -> 
-        // arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-        //   Buffer.from(Identifier.from(item))
-        // );
-
-        //console.log("Called Get FromTags Threads Names");
-
-        const getNameDocuments = async () => {
-          return client.platform.documents.get("DataContractDPNS.domain", {
-            where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
-            orderBy: [["records.dashUniqueIdentityId", "asc"]],
-          });
-        };
-
-        getNameDocuments()
-          .then((d) => {
-            if (d.length === 0) {
-              //console.log("No DPNS domain documents retrieved.");
-            }
-
-            let nameDocArray = [];
-            for(const n of d) {
-              //console.log("NameDoc:\n", n.toJSON());
-
-              nameDocArray = [n.toJSON(), ...nameDocArray];
-            }
-
-            this.setState(
-              {
-                InitialFromTagsThreadsNames: nameDocArray,
-                InitialFromTagsThreads: docArray,
-                Initial4: true,
-              },
-              () => this.checkInitialForYouRace()
-            );
-          })
-          .catch((e) => {
-            console.error(
-              "Something went wrong getting InitialFromTagsThreadsNames:\n",
-              e
-            );
-            this.setState({
-              InitialFromTagsThreadsNamesError: true, //<- add to state? ->
-              
-            });
-          })
-          .finally(() => client.disconnect());
-      };
+      })
+      .finally(() => client.disconnect());
+  };
   //END - MOST RECENT INITIAL ForYou TAGS: Msgs and Threads
 
   //######################################################
@@ -2638,12 +2646,11 @@ sendATip = () =>{
         docProperties
       );
 
-    console.log(dsoDocument.toJSON());
+      console.log(dsoDocument.toJSON());
 
-      console.log('OwnerIdArray of Tags: ',ownerIdArray);
+      console.log("OwnerIdArray of Tags: ", ownerIdArray);
 
       if (ownerIdArray.length !== 0) {
-
         let dsotags = await Promise.all(
           ownerIdArray.map(async (ownerId) => {
             //https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
@@ -2664,21 +2671,19 @@ sendATip = () =>{
 
         dsoTags = dsotags;
       } //else {
-       // dsoMessageAndTags = [dsoDocument];
-     // }
+      // dsoMessageAndTags = [dsoDocument];
+      // }
 
       //THIS ^^^ IS WHAT IS PASSED TO THE DOCUMENT CREATION
 
       //############################################################
       //This below disconnects the document sending..***
 
-
       //return dsoMessageAndTags;
 
       //This is to disconnect the Document Creation***
 
       //############################################################
-
 
       // const documentBatch = {
       //   create: dsoMessageAndTags, // [dsoDocument], // Document(s) to create
@@ -2691,27 +2696,27 @@ sendATip = () =>{
       const tagBatch = {
         create: dsoTags, // Document(s) to create
       };
-      
-      await platform.documents.broadcast(msgBatch, identity)
 
-      if(ownerIdArray.length !== 0){
-      await platform.documents.broadcast(tagBatch, identity)
+      await platform.documents.broadcast(msgBatch, identity);
+
+      if (ownerIdArray.length !== 0) {
+        await platform.documents.broadcast(tagBatch, identity);
       }
-      
+
       return [dsoDocument];
     };
 
     submitDocuments()
       .then((d) => {
-        //Returns array!!! -> 
+        //Returns array!!! ->
         // let returnedDoc = d.toJSON();
         // console.log("MSG Documents JSON:\n", returnedDoc);
 
         let docArray = [];
-          for (const n of d) {
-            console.log("Submitted Doc:\n", n.toJSON());
-            docArray = [...docArray, n.toJSON()];
-          }
+        for (const n of d) {
+          console.log("Submitted Doc:\n", n.toJSON());
+          docArray = [...docArray, n.toJSON()];
+        }
 
         let message = {};
 
@@ -2721,7 +2726,7 @@ sendATip = () =>{
             $id: docArray[0].$id, //$id: returnedDoc.transitions[0].$id,
             sh: addedMessage.sh,
             msg: addedMessage.msg,
-            $createdAt: docArray[0].$createdAt
+            $createdAt: docArray[0].$createdAt,
           };
         } else {
           docArray.forEach((doc) => {
@@ -2732,23 +2737,29 @@ sendATip = () =>{
                 $id: doc.$id,
                 sh: addedMessage.sh,
                 msg: addedMessage.msg,
-                $createdAt: doc.$createdAt
+                $createdAt: doc.$createdAt,
               };
             }
           });
         }
 
         if (addedMessage.sh === "out") {
-          this.setState({
-            EveryoneMsgs: [message, ...this.state.EveryoneMsgs],
-            ByYouMsgs: [message, ...this.state.ByYouMsgs],
-            isLoadingRefresh: false,
-          }, ()=> this.updateIdentityInfo());
+          this.setState(
+            {
+              EveryoneMsgs: [message, ...this.state.EveryoneMsgs],
+              ByYouMsgs: [message, ...this.state.ByYouMsgs],
+              isLoadingRefresh: false,
+            },
+            () => this.updateIdentityInfo()
+          );
         } else {
-          this.setState({
-            ByYouMsgs: [message, ...this.state.ByYouMsgs],
-            isLoadingRefresh: false,
-          }, ()=> this.updateIdentityInfo());
+          this.setState(
+            {
+              ByYouMsgs: [message, ...this.state.ByYouMsgs],
+              isLoadingRefresh: false,
+            },
+            () => this.updateIdentityInfo()
+          );
         }
 
         //console.log(submittedDoc);
@@ -2780,7 +2791,6 @@ sendATip = () =>{
   };
 
   submitDSOThread = (addedMessage, ownerIdArray) => {
-
     this.setState({
       isLoadingRefresh: true,
     });
@@ -2790,7 +2800,7 @@ sendATip = () =>{
       network: this.state.whichNetwork,
       wallet: {
         mnemonic: this.state.mnemonic,
-        //adapter: LocalForage, 
+        //adapter: LocalForage,
         unsafeOptions: {
           skipSynchronizationBeforeHeight: this.state.mostRecentBlockHeight,
           // this.state.skipSynchronizationBeforeHeight,
@@ -2837,7 +2847,6 @@ sendATip = () =>{
       //console.log('OwnerIdArray of Tags: ',ownerIdArray);
 
       if (ownerIdArray.length !== 0) {
-
         let dsotags = await Promise.all(
           ownerIdArray.map(async (ownerId) => {
             //https://stackoverflow.com/questions/40140149/use-async-await-with-array-map
@@ -2858,21 +2867,19 @@ sendATip = () =>{
 
         dsoTags = dsotags;
       } //else {
-       // dsoMessageAndTags = [dsoDocument];
-     // }
+      // dsoMessageAndTags = [dsoDocument];
+      // }
 
       //THIS ^^^ IS WHAT IS PASSED TO THE DOCUMENT CREATION
 
       //############################################################
       //This below disconnects the document sending..***
 
-
       //return dsoMessageAndTags;
 
       //This is to disconnect the Document Creation***
 
       //############################################################
-
 
       const thrBatch = {
         create: [dsoDocument], // Document(s) to create
@@ -2881,28 +2888,27 @@ sendATip = () =>{
       const tagBatch = {
         create: dsoTags, // Document(s) to create
       };
-      
-      await platform.documents.broadcast(thrBatch, identity)
 
-      if(ownerIdArray.length !== 0){
-      await platform.documents.broadcast(tagBatch, identity)
+      await platform.documents.broadcast(thrBatch, identity);
+
+      if (ownerIdArray.length !== 0) {
+        await platform.documents.broadcast(tagBatch, identity);
       }
-      
+
       return [dsoDocument];
     };
 
     submitDocuments()
       .then((d) => {
-        
         // let returnedDoc = d;
         // console.log("Thread Documents:\n", returnedDoc);
 
         let docArray = [];
-          for (const n of d) {
-            console.log("Thr:\n", n.toJSON());
-            docArray = [...docArray, n.toJSON()];
-          }
-        
+        for (const n of d) {
+          console.log("Thr:\n", n.toJSON());
+          docArray = [...docArray, n.toJSON()];
+        }
+
         let newThread = {};
 
         if (docArray.length === 1) {
@@ -2911,7 +2917,7 @@ sendATip = () =>{
             $id: docArray[0].$id, //$id: returnedDoc.transitions[0].$id,
             msgId: this.state.ThreadMessageId,
             msg: addedMessage.msg,
-            $createdAt: docArray[0].$createdAt
+            $createdAt: docArray[0].$createdAt,
           };
         } else {
           docArray.forEach((doc) => {
@@ -2921,24 +2927,24 @@ sendATip = () =>{
                 $id: doc.$id,
                 msgId: this.state.ThreadMessageId,
                 msg: addedMessage.msg,
-                $createdAt: doc.$createdAt
+                $createdAt: doc.$createdAt,
               };
             }
           });
         }
 
-        this.setState({
-          EveryoneThreads: [newThread, ...this.state.EveryoneThreads],
+        this.setState(
+          {
+            EveryoneThreads: [newThread, ...this.state.EveryoneThreads],
 
-          ByYouThreads: [newThread, ...this.state.ByYouThreads],
+            ByYouThreads: [newThread, ...this.state.ByYouThreads],
 
-          FromTagsThreads: [
-            newThread,
-            ...this.state.FromTagsThreads,
-          ],
+            FromTagsThreads: [newThread, ...this.state.FromTagsThreads],
 
-          isLoadingRefresh: false,
-        }, ()=> this.updateIdentityInfo());
+            isLoadingRefresh: false,
+          },
+          () => this.updateIdentityInfo()
+        );
       })
       .catch((e) => {
         this.setState({
@@ -2961,10 +2967,7 @@ sendATip = () =>{
 
       ByYouThreadsNames: [nameDoc, ...this.state.ByYouThreadsNames],
 
-      FromTagsThreadsNames: [
-        nameDoc,
-        ...this.state.FromTagsThreadsNames,
-      ],
+      FromTagsThreadsNames: [nameDoc, ...this.state.FromTagsThreadsNames],
     });
     //END OF NAME DOC ADD***
   };
@@ -2977,7 +2980,7 @@ sendATip = () =>{
     const clientOpts = {
       network: this.state.whichNetwork,
       wallet: {
-        mnemonic: this.state.mnemonic, 
+        mnemonic: this.state.mnemonic,
         adapter: LocalForage.createInstance,
         unsafeOptions: {
           skipSynchronizationBeforeHeight:
@@ -2986,15 +2989,15 @@ sendATip = () =>{
       },
     };
     const client = new Dash.Client(clientOpts);
-  
+
     const topupIdentity = async () => {
       const identityId = this.state.identity; // Your identity ID
       const topUpAmount = numOfCredits; // Number of duffs ie 1000
-  
+
       await client.platform.identities.topUp(identityId, topUpAmount);
       return client.platform.identities.get(identityId);
     };
-  
+
     topupIdentity()
       .then((d) => {
         console.log("Identity credit balance: ", d.balance);
@@ -3024,40 +3027,42 @@ sendATip = () =>{
     let newDocs = [];
 
     possibleDocs.forEach((possibleDoc) => {
-      let oldContains = oldDocs.every((oldDoc) => oldDoc.$id !== possibleDoc.$id);
+      let oldContains = oldDocs.every(
+        (oldDoc) => oldDoc.$id !== possibleDoc.$id
+      );
 
       if (oldContains) {
-        newDocs.push(possibleDoc); 
+        newDocs.push(possibleDoc);
       }
     });
 
     return newDocs;
   }
-//########   #########  ##########  ##########  ############  ###########
+  //########   #########  ##########  ##########  ############  ###########
   // *** AutoUpdate SO and SO threads ***
 
   //WHERE IS THE SETINTERVAL CALLED AT -> after identityinfo
 
-
   autoUpdateEveryoneHelper = () => {
-    console.log('AutoUpdate Everyone');
+    console.log("AutoUpdate Everyone");
 
-    if(!this.state.isLoadingEveryone &&
-       !this.state.isLoadingRefresh &&
-        !this.state.NewSO1 &&
-         !this.state.NewSO2){
+    if (
+      !this.state.isLoadingEveryone &&
+      !this.state.isLoadingRefresh &&
+      !this.state.NewSO1 &&
+      !this.state.NewSO2
+    ) {
       this.checkForNewSO();
-      this.checkForNewSOThreads(); 
+      this.checkForNewSOThreads();
     }
-  }
+  };
 
   checkNewSORace = () => {
     if (this.state.NewSO1 && this.state.NewSO2) {
       this.setState({
-        NewSO1:false,
-        NewSO2:false,
-      })
-      
+        NewSO1: false,
+        NewSO2: false,
+      });
     }
   };
 
@@ -3069,78 +3074,82 @@ sendATip = () =>{
       EveryoneNames: [...this.state.NewSONames, ...this.state.EveryoneNames],
       NewSONames: [],
 
-      EveryoneThreads: [...this.state.NewSOThreads, ...this.state.EveryoneThreads],
+      EveryoneThreads: [
+        ...this.state.NewSOThreads,
+        ...this.state.EveryoneThreads,
+      ],
       NewSOThreads: [],
 
-      EveryoneThreadsNames: [...this.state.NewSOThreadsNames, ...this.state.EveryoneThreadsNames],
+      EveryoneThreadsNames: [
+        ...this.state.NewSOThreadsNames,
+        ...this.state.EveryoneThreadsNames,
+      ],
       NewSOThreadsNames: [],
     });
-  }
+  };
 
   checkForNewSO = () => {
-   
-      const clientOpts = {
-        network: this.state.whichNetwork,
-        apps: {
-          DSOContract: {
-            contractId: this.state.DataContractDSO, // Your contract ID
-          },
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO, // Your contract ID
         },
-      };
-      const client = new Dash.Client(clientOpts);
-  
-      const getDocuments = async () => {
-        return client.platform.documents.get("DSOContract.dsomsg", {
-          limit: 60,
-          where: [
-            ["sh", "==", "out"],
-            ['$createdAt', '<=' , Date.now()]
-    ],
-    orderBy: [
-    ['$createdAt', 'desc'],
-  ],
-        });
-      };
-  
-      getDocuments()
-        .then((d) => {
-          //Should never be 0 so not handling that case.
-  
-          let docArray = [];
-          //console.log("Getting Everyone DSO Docs");
-          for(const n of d) {
-            //console.log("Document:\n", n.toJSON());
-            docArray = [...docArray, n.toJSON()];
-          }
+      },
+    };
+    const client = new Dash.Client(clientOpts);
 
-// $$$ $$$ $$$ $$$ $$$
+    const getDocuments = async () => {
+      return client.platform.documents.get("DSOContract.dsomsg", {
+        limit: 60,
+        where: [
+          ["sh", "==", "out"],
+          ["$createdAt", "<=", Date.now()],
+        ],
+        orderBy: [["$createdAt", "desc"]],
+      });
+    };
 
-let alreadyHaveArray = [...this.state.EveryoneMsgs, ...this.state.NewSOMsgs]
+    getDocuments()
+      .then((d) => {
+        //Should never be 0 so not handling that case.
 
-          docArray = this.compareNewToOld(docArray, alreadyHaveArray);
+        let docArray = [];
+        //console.log("Getting Everyone DSO Docs");
+        for (const n of d) {
+          //console.log("Document:\n", n.toJSON());
+          docArray = [...docArray, n.toJSON()];
+        }
 
-// $$$ $$$ $$$ $$$ $$$
-  
-          if (docArray.length !== 0) {
-            this.handleLoadNewSO(docArray);
-      
-          }else{
-            this.setState(
-              {
-                NewSO1: true,
-              },
-              () => this.checkNewSORace()
-            );
-          }
-        })
-        .catch((e) => {
-          console.error("Something went wrong in checkForNewSO:\n", e);
-          
-        }).finally(() => client.disconnect());
+        // $$$ $$$ $$$ $$$ $$$
+
+        let alreadyHaveArray = [
+          ...this.state.EveryoneMsgs,
+          ...this.state.NewSOMsgs,
+        ];
+
+        docArray = this.compareNewToOld(docArray, alreadyHaveArray);
+
+        // $$$ $$$ $$$ $$$ $$$
+
+        if (docArray.length !== 0) {
+          this.handleLoadNewSO(docArray);
+        } else {
+          this.setState(
+            {
+              NewSO1: true,
+            },
+            () => this.checkNewSORace()
+          );
+        }
+      })
+      .catch((e) => {
+        console.error("Something went wrong in checkForNewSO:\n", e);
+      })
+      .finally(() => client.disconnect());
   };
 
   handleLoadNewSO = (docArray) => {
-
     const clientOpts = {
       network: this.state.whichNetwork,
       apps: {
@@ -3181,7 +3190,7 @@ let alreadyHaveArray = [...this.state.EveryoneMsgs, ...this.state.NewSOMsgs]
 
         let nameDocArray = [];
 
-        for(const n of d) {
+        for (const n of d) {
           //console.log("NameDoc:\n", n.toJSON());
 
           nameDocArray = [n.toJSON(), ...nameDocArray];
@@ -3190,8 +3199,8 @@ let alreadyHaveArray = [...this.state.EveryoneMsgs, ...this.state.NewSOMsgs]
 
         this.setState(
           {
-            NewSONames: [...nameDocArray, ...this.state.NewSONames], 
-            NewSOMsgs: [ ...docArray, ...this.state.NewSOMsgs],
+            NewSONames: [...nameDocArray, ...this.state.NewSONames],
+            NewSOMsgs: [...docArray, ...this.state.NewSOMsgs],
             NewSO1: true,
           },
           () => this.checkNewSORace()
@@ -3201,12 +3210,10 @@ let alreadyHaveArray = [...this.state.EveryoneMsgs, ...this.state.NewSOMsgs]
         console.error("Something went wrong in handleLoadNewSO:\n", e);
       })
       .finally(() => client.disconnect());
-  
   };
 
   checkForNewSOThreads = () => {
-
-let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
+    let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
 
     const clientOpts = {
       network: this.state.whichNetwork,
@@ -3229,7 +3236,6 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
 
     arrayOfMsgIds = [...setOfMsgIds];
 
-
     //console.log("Array of order ids", arrayOfMsgIds);
 
     const getDocuments = async () => {
@@ -3247,18 +3253,23 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
         let docArray = [];
         //THERE ISN'T NECESSARY MESSAGE TO GRAB SO COULD BE ZERO SO STILL NEED TO END LOADING ->
 
-        for(const n of d) {
-          let returnedDoc = n.toJSON()
-           //console.log("Thr:\n", returnedDoc);
-           returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-           //console.log("newThr:\n", returnedDoc);
+        for (const n of d) {
+          let returnedDoc = n.toJSON();
+          //console.log("Thr:\n", returnedDoc);
+          returnedDoc.msgId = Identifier.from(
+            returnedDoc.msgId,
+            "base64"
+          ).toJSON();
+          //console.log("newThr:\n", returnedDoc);
           docArray = [...docArray, returnedDoc];
         }
 
-        let alreadyHaveArray = [...this.state.EveryoneThreads, ...this.state.NewSOThreads]
+        let alreadyHaveArray = [
+          ...this.state.EveryoneThreads,
+          ...this.state.NewSOThreads,
+        ];
 
         docArray = this.compareNewToOld(docArray, alreadyHaveArray);
-
 
         if (docArray.length === 0) {
           this.setState(
@@ -3268,9 +3279,7 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
             () => this.checkNewSORace()
           );
         } else {
-
           this.handleLoadNewSoThreads(docArray); //Name Retrieval
-          
         }
       })
       .catch((e) => {
@@ -3284,7 +3293,6 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
   };
 
   handleLoadNewSoThreads = (docArray) => {
-
     //Get the names and trigger button
 
     const clientOpts = {
@@ -3325,7 +3333,7 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
         }
 
         let nameDocArray = [];
-        for(const n of d) {
+        for (const n of d) {
           //console.log("NameDoc:\n", n.toJSON());
 
           nameDocArray = [n.toJSON(), ...nameDocArray];
@@ -3333,7 +3341,10 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
 
         this.setState(
           {
-            NewSOThreadsNames: [...nameDocArray, ...this.state.NewSOThreadsNames],
+            NewSOThreadsNames: [
+              ...nameDocArray,
+              ...this.state.NewSOThreadsNames,
+            ],
             NewSOThreads: [...docArray, ...this.state.NewSOThreads],
             NewSO2: true,
           },
@@ -3348,212 +3359,228 @@ let docArray = [...this.state.NewSOMsgs, ...this.state.EveryoneMsgs];
         this.setState({
           EveryoneThreadsNamesError: true, //<- add to state? ->
         });
-      }).finally(() => client.disconnect());
+      })
+      .finally(() => client.disconnect());
   };
 
-//########   #########  ##########  ##########  ############  ###########
+  //########   #########  ##########  ##########  ############  ###########
   // *** AutoUpdate DM and DM threads ***
   autoUpdateForYouHelper = () => {
+    console.log("AutoUpdate For You");
 
-    console.log('AutoUpdate For You');
-
-    if(!this.state.isLoadingForYou &&
-       !this.state.isLoadingRefresh &&
-       !this.state.NewDM1 &&
-       !this.state.NewDM2 && 
-       !this.state.NewDM3){
-
+    if (
+      !this.state.isLoadingForYou &&
+      !this.state.isLoadingRefresh &&
+      !this.state.NewDM1 &&
+      !this.state.NewDM2 &&
+      !this.state.NewDM3
+    ) {
       this.checkByYouDMThreads();
       this.getTagsNewDM();
       this.checkFromTagsDMThreads();
-
     }
-  }
+  };
 
   checkNewDMRace = () => {
-    if (this.state.NewDM1 &&
-           this.state.NewDM2 &&
-              this.state.NewDM3) {
+    if (this.state.NewDM1 && this.state.NewDM2 && this.state.NewDM3) {
       this.setState({
-        NewDM1:false,
-        NewDM2:false,
-        NewDM3:false
-      })
-      
+        NewDM1: false,
+        NewDM2: false,
+        NewDM3: false,
+      });
     }
-  }; 
+  };
 
   pushNewDMtoView = () => {
     this.setState({
-      ByYouThreads: [...this.state.NewDMByYouThreads, ...this.state.ByYouThreads],
+      ByYouThreads: [
+        ...this.state.NewDMByYouThreads,
+        ...this.state.ByYouThreads,
+      ],
       NewDMByYouThreads: [],
 
-      ByYouThreadsNames: [...this.state.NewDMByYouThreadsNames, ...this.state.ByYouThreadsNames],
+      ByYouThreadsNames: [
+        ...this.state.NewDMByYouThreadsNames,
+        ...this.state.ByYouThreadsNames,
+      ],
       NewDMByYouThreadsNames: [],
 
-      FromTagsMsgs: [...this.state.NewDMFromTagsMsgs, ...this.state.FromTagsMsgs],
+      FromTagsMsgs: [
+        ...this.state.NewDMFromTagsMsgs,
+        ...this.state.FromTagsMsgs,
+      ],
       NewDMFromTagsMsgs: [],
 
-      FromTagsNames: [...this.state.NewDMFromTagsNames, ...this.state.FromTagsNames],
+      FromTagsNames: [
+        ...this.state.NewDMFromTagsNames,
+        ...this.state.FromTagsNames,
+      ],
       NewDMFromTagsNames: [],
 
-      FromTagsThreads: [...this.state.NewDMFromTagsThreads, ...this.state.FromTagsThreads],
+      FromTagsThreads: [
+        ...this.state.NewDMFromTagsThreads,
+        ...this.state.FromTagsThreads,
+      ],
       NewDMFromTagsThreads: [],
 
-      FromTagsThreadsNames: [...this.state.NewDMFromTagsThreadsNames, ...this.state.FromTagsThreadsNames],
+      FromTagsThreadsNames: [
+        ...this.state.NewDMFromTagsThreadsNames,
+        ...this.state.FromTagsThreadsNames,
+      ],
       NewDMFromTagsThreadsNames: [],
-
     });
-  }
+  };
 
   checkByYouDMThreads = () => {
-
     let docArray = this.state.ByYouMsgs;
 
-    if(docArray.length !== 0){
-    
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DSOContract: {
-              contractId: this.state.DataContractDSO,
-            },
+    if (docArray.length !== 0) {
+      const clientOpts = {
+        network: this.state.whichNetwork,
+        apps: {
+          DSOContract: {
+            contractId: this.state.DataContractDSO,
           },
-        };
-        const client = new Dash.Client(clientOpts);
-    
-        // This Below is to get unique set of order doc ids
-        let arrayOfMsgIds = docArray.map((doc) => {
-          return doc.$id;
-        });
-    
-        //console.log("Array of order ids", arrayOfMsgIds);
-    
-        let setOfMsgIds = [...new Set(arrayOfMsgIds)];
-    
-        arrayOfMsgIds = [...setOfMsgIds];
-    
-    
-        //console.log("Array of order ids", arrayOfMsgIds);
-    
-        const getDocuments = async () => {
-          //console.log("Called Get ByYouDM Threads");
-    
-          return client.platform.documents.get("DSOContract.dsothr", {
-            
-            where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
-            orderBy: [["msgId", "asc"]],
-          });
-        };
-    
-        getDocuments()
-          .then((d) => {
-            let docArray = [];
-    
-            for(const n of d) {
-              let returnedDoc = n.toJSON()
-               //console.log("Thr:\n", returnedDoc);
-               returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-               //console.log("newThr:\n", returnedDoc);
-              docArray = [...docArray, returnedDoc];
-            }
-    
-            let alreadyHaveArray = [...this.state.ByYouThreads, ...this.state.NewDMByYouThreads]
-    
-            docArray = this.compareNewToOld(docArray, alreadyHaveArray);
-    
-    
-            if (docArray.length === 0) {
-              this.setState(
-                {
-                  NewDM1: true,
-                },
-                () => this.checkNewDMRace()
-              );
-            } else {
-    
-              this.handleByYouDMThreads(docArray); //Name Retrieval
-              
-            }
-          })
-          .catch((e) => {
-            console.error("Something went wrong:\n", e);
-            this.setState({
-              ByYouDMThreadsError: true, //handle error ->
-              //isLoadingEveryone: false,
-            });
-          })
-          .finally(() => client.disconnect());
-    }
+        },
       };
-    
-  handleByYouDMThreads = (docArray) => {
-    
-        const clientOpts = {
-          network: this.state.whichNetwork,
-          apps: {
-            DataContractDPNS: {
-              contractId: this.state.DataContractDPNS,
-            },
-          },
-        };
-        const client = new Dash.Client(clientOpts);
-    
-        let arrayOfOwnerIds = docArray.map((doc) => {
-          return doc.$ownerId;
+      const client = new Dash.Client(clientOpts);
+
+      // This Below is to get unique set of order doc ids
+      let arrayOfMsgIds = docArray.map((doc) => {
+        return doc.$id;
+      });
+
+      //console.log("Array of order ids", arrayOfMsgIds);
+
+      let setOfMsgIds = [...new Set(arrayOfMsgIds)];
+
+      arrayOfMsgIds = [...setOfMsgIds];
+
+      //console.log("Array of order ids", arrayOfMsgIds);
+
+      const getDocuments = async () => {
+        //console.log("Called Get ByYouDM Threads");
+
+        return client.platform.documents.get("DSOContract.dsothr", {
+          where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
+          orderBy: [["msgId", "asc"]],
         });
-    
-        let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
-    
-        arrayOfOwnerIds = [...setOfOwnerIds];
-    
-        arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-          Buffer.from(Identifier.from(item))
-        );
-    
-        //console.log("Called Get ByYouDMThreads Names");
-    
-        const getNameDocuments = async () => {
-          return client.platform.documents.get("DataContractDPNS.domain", {
-            where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
-            orderBy: [["records.dashUniqueIdentityId", "asc"]],
-          });
-        };
-    
-        getNameDocuments()
-          .then((d) => {
-            if (d.length === 0) {
-              console.log("No DPNS domain documents retrieved.");
-            }
-    
-            let nameDocArray = [];
-            for (const n of d) {
-              //console.log("NameDoc:\n", n.toJSON());
-    
-              nameDocArray = [n.toJSON(), ...nameDocArray];
-            }
-    
+      };
+
+      getDocuments()
+        .then((d) => {
+          let docArray = [];
+
+          for (const n of d) {
+            let returnedDoc = n.toJSON();
+            //console.log("Thr:\n", returnedDoc);
+            returnedDoc.msgId = Identifier.from(
+              returnedDoc.msgId,
+              "base64"
+            ).toJSON();
+            //console.log("newThr:\n", returnedDoc);
+            docArray = [...docArray, returnedDoc];
+          }
+
+          let alreadyHaveArray = [
+            ...this.state.ByYouThreads,
+            ...this.state.NewDMByYouThreads,
+          ];
+
+          docArray = this.compareNewToOld(docArray, alreadyHaveArray);
+
+          if (docArray.length === 0) {
             this.setState(
               {
-                NewDMByYouThreadsNames: [...nameDocArray, ...this.state.NewDMByYouThreadsNames],
-                NewDMByYouThreads: [...docArray, ...this.state.NewDMByYouThreads],
                 NewDM1: true,
               },
               () => this.checkNewDMRace()
             );
-          })
-          .catch((e) => {
-            console.error(
-              "Something went wrong getting ByYouDMThreads Names:\n",
-              e
-            );
-            this.setState({
-              ByYouDMThreadsNamesError: true, //<- add to state? ->
-            });
-          }).finally(() => client.disconnect());
-      };
+          } else {
+            this.handleByYouDMThreads(docArray); //Name Retrieval
+          }
+        })
+        .catch((e) => {
+          console.error("Something went wrong:\n", e);
+          this.setState({
+            ByYouDMThreadsError: true, //handle error ->
+            //isLoadingEveryone: false,
+          });
+        })
+        .finally(() => client.disconnect());
+    }
+  };
 
-getTagsNewDM = () =>{
+  handleByYouDMThreads = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DataContractDPNS: {
+          contractId: this.state.DataContractDPNS,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
+
+    let arrayOfOwnerIds = docArray.map((doc) => {
+      return doc.$ownerId;
+    });
+
+    let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
+
+    arrayOfOwnerIds = [...setOfOwnerIds];
+
+    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+      Buffer.from(Identifier.from(item))
+    );
+
+    //console.log("Called Get ByYouDMThreads Names");
+
+    const getNameDocuments = async () => {
+      return client.platform.documents.get("DataContractDPNS.domain", {
+        where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
+        orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      });
+    };
+
+    getNameDocuments()
+      .then((d) => {
+        if (d.length === 0) {
+          console.log("No DPNS domain documents retrieved.");
+        }
+
+        let nameDocArray = [];
+        for (const n of d) {
+          //console.log("NameDoc:\n", n.toJSON());
+
+          nameDocArray = [n.toJSON(), ...nameDocArray];
+        }
+
+        this.setState(
+          {
+            NewDMByYouThreadsNames: [
+              ...nameDocArray,
+              ...this.state.NewDMByYouThreadsNames,
+            ],
+            NewDMByYouThreads: [...docArray, ...this.state.NewDMByYouThreads],
+            NewDM1: true,
+          },
+          () => this.checkNewDMRace()
+        );
+      })
+      .catch((e) => {
+        console.error(
+          "Something went wrong getting ByYouDMThreads Names:\n",
+          e
+        );
+        this.setState({
+          ByYouDMThreadsNamesError: true, //<- add to state? ->
+        });
+      })
+      .finally(() => client.disconnect());
+  };
+
+  getTagsNewDM = () => {
     //console.log("Calling getTagsNewDM");
 
     const clientOpts = {
@@ -3573,11 +3600,9 @@ getTagsNewDM = () =>{
         limit: 60,
         where: [
           ["toId", "==", this.state.identity],
-          ['$createdAt', '<=' , Date.now()]
-    ],
-    orderBy: [
-    ['$createdAt', 'desc'],
-  ],
+          ["$createdAt", "<=", Date.now()],
+        ],
+        orderBy: [["$createdAt", "desc"]],
       });
     };
 
@@ -3585,18 +3610,23 @@ getTagsNewDM = () =>{
       .then((d) => {
         if (d.length !== 0) {
           let docArray = [];
-          
-          for(const n of d) {
-            let returnedDoc = n.toJSON()
-             //console.log("Thr:\n", returnedDoc);
-             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-             returnedDoc.toId = Identifier.from(returnedDoc.toId, 'base64').toJSON();
-             //console.log("newThr:\n", returnedDoc);
+
+          for (const n of d) {
+            let returnedDoc = n.toJSON();
+            //console.log("Thr:\n", returnedDoc);
+            returnedDoc.msgId = Identifier.from(
+              returnedDoc.msgId,
+              "base64"
+            ).toJSON();
+            returnedDoc.toId = Identifier.from(
+              returnedDoc.toId,
+              "base64"
+            ).toJSON();
+            //console.log("newThr:\n", returnedDoc);
             docArray = [...docArray, returnedDoc];
           }
 
           let msgIdArray = docArray.map((doc) => {
-            
             return doc.msgId;
           });
 
@@ -3607,14 +3637,12 @@ getTagsNewDM = () =>{
           this.getNewDMMsgsFromTags(msgIdArray);
 
           //NEXT GET THE MSGS FROM THE TAGS msgIds************
-
-
         } else {
           console.log("No Tags for this user.");
-          
+
           this.setState(
             {
-              NewDM2:true,
+              NewDM2: true,
             },
             () => this.checkNewDMRace()
           );
@@ -3622,138 +3650,142 @@ getTagsNewDM = () =>{
       })
       .catch((e) => console.error("Something went wrong getTagsNewDM:\n", e))
       .finally(() => client.disconnect());
+  };
 
-}
+  getNewDMMsgsFromTags = (idsOfMsgsFromTags) => {
+    //console.log("Getting MSGs from Tags");
 
-getNewDMMsgsFromTags = (idsOfMsgsFromTags) => {
-  //console.log("Getting MSGs from Tags");
-
-  const clientOpts = {
-    network: this.state.whichNetwork,
-    apps: {
-      DSOContract: {
-        contractId: this.state.DataContractDSO, // Your contract ID
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DSOContract: {
+          contractId: this.state.DataContractDSO, // Your contract ID
+        },
       },
-    },
+    };
+    let client = new Dash.Client(clientOpts);
+
+    //console.log(`Array of MsgIds: ${idsOfMsgsFromTags}`);
+
+    const getDocuments = async () => {
+      return client.platform.documents.get("DSOContract.dsomsg", {
+        where: [["$id", "in", idsOfMsgsFromTags]],
+        orderBy: [["$id", "asc"]],
+      });
+    };
+
+    getDocuments()
+      .then((d) => {
+        let docArray = [];
+
+        if (d.length === 0) {
+          console.log("There are not getNewDMMsgsFromTags");
+        } else {
+          for (const n of d) {
+            //console.log("Document:\n", n.toJSON());
+            docArray = [...docArray, n.toJSON()];
+          }
+
+          //NEED TO SORT NEW FROM OLD ->
+
+          let alreadyHaveArray = [
+            ...this.state.FromTagsMsgs,
+            ...this.state.NewDMFromTagsMsgs,
+          ];
+
+          docArray = this.compareNewToOld(docArray, alreadyHaveArray);
+
+          if (docArray.length !== 0) {
+            this.handleFromTagsNewDM(docArray);
+          } else {
+            this.setState(
+              {
+                NewDM2: true,
+              },
+              () => this.checkNewDMRace()
+            );
+          }
+        }
+      })
+      .catch((e) =>
+        console.error("Something went wrong in getNewDMMsgsFromTags:\n", e)
+      )
+      .finally(() => client.disconnect());
   };
-  let client = new Dash.Client(clientOpts);
 
+  handleFromTagsNewDM = (docArray) => {
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DPNS: {
+          contractId: this.state.DataContractDPNS,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
 
-  //console.log(`Array of MsgIds: ${idsOfMsgsFromTags}`);
-
-  const getDocuments = async () => {
-    return client.platform.documents.get("DSOContract.dsomsg", {
-      where: [["$id", "in", idsOfMsgsFromTags]],
-      orderBy: [["$id", "asc"]],
+    let ownerarrayOfOwnerIds = docArray.map((doc) => {
+      return doc.$ownerId;
     });
-  };
 
-  getDocuments()
-    .then((d) => {
-      let docArray = [];
+    let setOfOwnerIds = [...new Set(ownerarrayOfOwnerIds)];
 
-      if (d.length === 0) {
-        console.log("There are not getNewDMMsgsFromTags");
-      } else {
-        for (const n of d) {
-          //console.log("Document:\n", n.toJSON());
-          docArray = [...docArray, n.toJSON()];
+    let arrayOfOwnerIds = [...setOfOwnerIds];
+
+    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+      Buffer.from(Identifier.from(item))
+    );
+
+    //console.log("Calling getNamesforDSOmsgs");
+
+    const getNameDocuments = async () => {
+      return client.platform.documents.get("DPNS.domain", {
+        where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
+        orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      });
+    };
+
+    getNameDocuments()
+      .then((d) => {
+        //WHAT IF THERE ARE NO NAMES? -> Then function won't be called
+        if (d.length === 0) {
+          console.log("No handleLoadNewDM Names retrieved.");
         }
 
-        //NEED TO SORT NEW FROM OLD -> 
+        let nameDocArray = [];
 
-let alreadyHaveArray = [...this.state.FromTagsMsgs, ...this.state.NewDMFromTagsMsgs]
+        for (const n of d) {
+          //console.log("NameDoc:\n", n.toJSON());
 
-docArray = this.compareNewToOld(docArray, alreadyHaveArray);
+          nameDocArray = [n.toJSON(), ...nameDocArray];
+        }
+        //console.log(`DPNS Name Docs: ${nameDocArray}`);
 
-if(docArray.length !== 0){
-        this.handleFromTagsNewDM(docArray);
-      } else {
-        
         this.setState(
           {
-            NewDM2:true,
+            NewDMFromTagsNames: [
+              ...nameDocArray,
+              ...this.state.NewDMFromTagsNames,
+            ],
+            NewDMFromTagsMsgs: [...docArray, ...this.state.NewDMFromTagsMsgs],
+            NewDM2: true,
           },
           () => this.checkNewDMRace()
         );
-      }
-      }
-    })
-    .catch((e) => console.error("Something went wrong in getNewDMMsgsFromTags:\n", e))
-    .finally(() => client.disconnect());
-};
-
-handleFromTagsNewDM = (docArray) => {
-  
-  const clientOpts = {
-    network: this.state.whichNetwork,
-    apps: {
-      DPNS: {
-        contractId: this.state.DataContractDPNS,
-      },
-    },
+      })
+      .catch((e) => {
+        console.error("Something went wrong in handleLoadNewSO:\n", e);
+      })
+      .finally(() => client.disconnect());
   };
-  const client = new Dash.Client(clientOpts);
-
-  let ownerarrayOfOwnerIds = docArray.map((doc) => {
-    return doc.$ownerId;
-  });
-
-  let setOfOwnerIds = [...new Set(ownerarrayOfOwnerIds)];
-
-  let arrayOfOwnerIds = [...setOfOwnerIds];
-
-  arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-    Buffer.from(Identifier.from(item))
-  );
-
-  //console.log("Calling getNamesforDSOmsgs");
-
-  const getNameDocuments = async () => {
-    return client.platform.documents.get("DPNS.domain", {
-      where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
-      orderBy: [["records.dashUniqueIdentityId", "asc"]],
-    });
-  };
-
-  getNameDocuments()
-    .then((d) => {
-      //WHAT IF THERE ARE NO NAMES? -> Then function won't be called
-      if (d.length === 0) {
-        console.log("No handleLoadNewDM Names retrieved.");
-      }
-
-      let nameDocArray = [];
-
-      for (const n of d) {
-        //console.log("NameDoc:\n", n.toJSON());
-
-        nameDocArray = [n.toJSON(), ...nameDocArray];
-      }
-      //console.log(`DPNS Name Docs: ${nameDocArray}`);
-
-      this.setState(
-        {
-          NewDMFromTagsNames: [...nameDocArray, ...this.state.NewDMFromTagsNames], 
-          NewDMFromTagsMsgs: [ ...docArray, ...this.state.NewDMFromTagsMsgs],
-          NewDM2: true,
-        },
-        () => this.checkNewDMRace()
-      );
-    })
-    .catch((e) => {
-      console.error("Something went wrong in handleLoadNewSO:\n", e);
-    })
-    .finally(() => client.disconnect());
-
-};
 
   checkFromTagsDMThreads = () => {
+    let docArray = [
+      ...this.state.FromTagsMsgs,
+      ...this.state.NewDMFromTagsMsgs,
+    ];
 
-  let docArray = [...this.state.FromTagsMsgs, ...this.state.NewDMFromTagsMsgs];
-  
-  if(docArray.length !== 0){
-
+    if (docArray.length !== 0) {
       const clientOpts = {
         network: this.state.whichNetwork,
         apps: {
@@ -3763,51 +3795,54 @@ handleFromTagsNewDM = (docArray) => {
         },
       };
       const client = new Dash.Client(clientOpts);
-  
+
       // This Below is to get unique set of order doc ids
       let arrayOfMsgIds = docArray.map((doc) => {
         return doc.$id;
       });
-  
+
       //console.log("Array of order ids", arrayOfMsgIds);
-  
+
       let setOfMsgIds = [...new Set(arrayOfMsgIds)];
-  
+
       arrayOfMsgIds = [...setOfMsgIds];
-  
-  
+
       //console.log("Array of order ids", arrayOfMsgIds);
-  
+
       const getDocuments = async () => {
         //console.log("Called Get ByYouDM Threads");
-  
+
         return client.platform.documents.get("DSOContract.dsothr", {
           //<- Check this
           where: [["msgId", "in", arrayOfMsgIds]], // check msgId ->
           orderBy: [["msgId", "asc"]],
         });
       };
-  
+
       getDocuments()
         .then((d) => {
           let docArray = [];
-          
-  
-          for(const n of d) {
-            let returnedDoc = n.toJSON()
-             //console.log("Thr:\n", returnedDoc);
-             returnedDoc.msgId = Identifier.from(returnedDoc.msgId, 'base64').toJSON();
-             //console.log("newThr:\n", returnedDoc);
+
+          for (const n of d) {
+            let returnedDoc = n.toJSON();
+            //console.log("Thr:\n", returnedDoc);
+            returnedDoc.msgId = Identifier.from(
+              returnedDoc.msgId,
+              "base64"
+            ).toJSON();
+            //console.log("newThr:\n", returnedDoc);
             docArray = [...docArray, returnedDoc];
           }
-  
-          let alreadyHaveArray = [...this.state.NewDMFromTagsThreads, ...this.state.FromTagsThreads];
-  
+
+          let alreadyHaveArray = [
+            ...this.state.NewDMFromTagsThreads,
+            ...this.state.FromTagsThreads,
+          ];
+
           docArray = this.compareNewToOld(docArray, alreadyHaveArray);
-  
+
           //Do i also need to compare to the holding array state also??
-  
-  
+
           if (docArray.length === 0) {
             this.setState(
               {
@@ -3816,9 +3851,7 @@ handleFromTagsNewDM = (docArray) => {
               () => this.checkNewDMRace()
             );
           } else {
-  
             this.handleFromTagsDMThreads(docArray); //Name Retrieval
-            
           }
         })
         .catch((e) => {
@@ -3828,84 +3861,90 @@ handleFromTagsNewDM = (docArray) => {
           });
         })
         .finally(() => client.disconnect());
-      }//end of beginning if statement
-      else{
+    } //end of beginning if statement
+    else {
+      this.setState(
+        {
+          NewDM3: true,
+        },
+        () => this.checkNewDMRace()
+      );
+    }
+  };
+
+  handleFromTagsDMThreads = (docArray) => {
+    //Get the names and trigger button
+
+    const clientOpts = {
+      network: this.state.whichNetwork,
+      apps: {
+        DataContractDPNS: {
+          contractId: this.state.DataContractDPNS,
+        },
+      },
+    };
+    const client = new Dash.Client(clientOpts);
+
+    let arrayOfOwnerIds = docArray.map((doc) => {
+      return doc.$ownerId;
+    });
+
+    let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
+
+    arrayOfOwnerIds = [...setOfOwnerIds];
+
+    arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
+      Buffer.from(Identifier.from(item))
+    );
+
+    //console.log("Called Get ByYouDMThreads Names");
+
+    const getNameDocuments = async () => {
+      return client.platform.documents.get("DataContractDPNS.domain", {
+        where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
+        orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      });
+    };
+
+    getNameDocuments()
+      .then((d) => {
+        if (d.length === 0) {
+          console.log("No DPNS domain documents retrieved.");
+        }
+
+        let nameDocArray = [];
+        for (const n of d) {
+          //console.log("NameDoc:\n", n.toJSON());
+
+          nameDocArray = [n.toJSON(), ...nameDocArray];
+        }
+
         this.setState(
           {
+            NewDMFromTagsThreadsNames: [
+              ...nameDocArray,
+              ...this.state.NewDMFromTagsThreadsNames,
+            ],
+            NewDMFromTagsThreads: [
+              ...docArray,
+              ...this.state.NewDMFromTagsThreads,
+            ],
             NewDM3: true,
           },
           () => this.checkNewDMRace()
         );
-      }
-    };
-  
-  handleFromTagsDMThreads = (docArray) => {
-  
-      //Get the names and trigger button
-  
-      const clientOpts = {
-        network: this.state.whichNetwork,
-        apps: {
-          DataContractDPNS: {
-            contractId: this.state.DataContractDPNS,
-          },
-        },
-      };
-      const client = new Dash.Client(clientOpts);
-  
-      let arrayOfOwnerIds = docArray.map((doc) => {
-        return doc.$ownerId;
-      });
-  
-      let setOfOwnerIds = [...new Set(arrayOfOwnerIds)];
-  
-      arrayOfOwnerIds = [...setOfOwnerIds];
-  
-      arrayOfOwnerIds = arrayOfOwnerIds.map((item) =>
-        Buffer.from(Identifier.from(item))
-      );
-  
-      //console.log("Called Get ByYouDMThreads Names");
-  
-      const getNameDocuments = async () => {
-        return client.platform.documents.get("DataContractDPNS.domain", {
-          where: [["records.dashUniqueIdentityId", "in", arrayOfOwnerIds]],
-          orderBy: [["records.dashUniqueIdentityId", "asc"]],
+      })
+      .catch((e) => {
+        console.error(
+          "Something went wrong getting ByYouDMThreads Names:\n",
+          e
+        );
+        this.setState({
+          FromTagsNewDMThreadsNamesError: true, //<- add to state? ->
         });
-      };
-  
-      getNameDocuments()
-        .then((d) => {
-          if (d.length === 0) {
-            console.log("No DPNS domain documents retrieved.");
-          }
-  
-          let nameDocArray = [];
-          for (const n of d) {
-            //console.log("NameDoc:\n", n.toJSON());
-  
-            nameDocArray = [n.toJSON(), ...nameDocArray];
-          }
-  
-          this.setState(
-            {
-              NewDMFromTagsThreadsNames: [...nameDocArray, ...this.state.NewDMFromTagsThreadsNames],
-              NewDMFromTagsThreads: [...docArray, ...this.state.NewDMFromTagsThreads],
-              NewDM3: true,
-            },
-            () => this.checkNewDMRace()
-          );
-        })
-        .catch((e) => {
-          console.error(
-            "Something went wrong getting ByYouDMThreads Names:\n",
-            e
-          );
-          this.setState({
-            FromTagsNewDMThreadsNamesError: true, //<- add to state? ->
-          });
-        }).finally(() => client.disconnect());
-    };
+      })
+      .finally(() => client.disconnect());
+  };
 
   // AUTO-UPDATE QUERIES ^^^
   //#######################################################################
@@ -3933,86 +3972,73 @@ handleFromTagsNewDM = (docArray) => {
         <Image fluid="true" id="dash-bkgd" src={DashBkgd} alt="Dash Logo" />
 
         <Container className="g-0">
-  <Row className="justify-content-md-center">
-    <Col md={11} lg={10} xl={9} xxl={8}>
+          <Row className="justify-content-md-center">
+            <Col md={11} lg={10} xl={9} xxl={8}>
+              {!this.state.isLoggedIn ? (
+                <>
+                  <LandingPage
+                    mode={this.state.mode}
+                    showModal={this.showModal}
+                  />
 
-        {!this.state.isLoggedIn ? (
-          <>
-            <LandingPage 
-            mode={this.state.mode}
-            showModal={this.showModal} 
-            />
-
-            {/* <LoginBottomNav 
+                  {/* <LoginBottomNav 
             mode={this.state.mode}
              showModal={this.showModal} 
              /> */}
 
-            <Footer />
-          </>
-        ) : (
-          <>
-            <MessagesPage
-              isLoading={this.state.isLoading}
-              isLoadingRefresh={this.state.isLoadingRefresh}
-              isLoadingEveryone={this.state.isLoadingEveryone}
-              isLoadingForYou={this.state.isLoadingForYou}
-              errorToDisplay={this.state.errorToDisplay}
-              identity={this.state.identity}
-              identityInfo={this.state.identityInfo}
-              uniqueName={this.state.uniqueName}
+                  <Footer />
+                </>
+              ) : (
+                <>
+                  <MessagesPage
+                    isLoading={this.state.isLoading}
+                    isLoadingRefresh={this.state.isLoadingRefresh}
+                    isLoadingEveryone={this.state.isLoadingEveryone}
+                    isLoadingForYou={this.state.isLoadingForYou}
+                    errorToDisplay={this.state.errorToDisplay}
+                    identity={this.state.identity}
+                    identityInfo={this.state.identityInfo}
+                    uniqueName={this.state.uniqueName}
+                    EveryoneMsgs={this.state.EveryoneMsgs}
+                    EveryoneNames={this.state.EveryoneNames}
+                    ByYouMsgs={this.state.ByYouMsgs}
+                    ByYouNames={this.state.ByYouNames}
+                    FromTagsMsgs={this.state.FromTagsMsgs}
+                    FromTagsNames={this.state.FromTagsNames}
+                    EveryoneThreads={this.state.EveryoneThreads}
+                    EveryoneThreadsNames={this.state.EveryoneThreadsNames}
+                    ByYouThreads={this.state.ByYouThreads}
+                    ByYouThreadsNames={this.state.ByYouThreadsNames}
+                    FromTagsThreads={this.state.FromTagsThreads}
+                    FromTagsThreadsNames={this.state.FromTagsThreadsNames}
+                    NewSOMsgs={this.state.NewSOMsgs}
+                    NewSOThreads={this.state.NewSOThreads}
+                    NewDMByYouThreads={this.state.NewDMByYouThreads}
+                    NewDMFromTagsMsgs={this.state.NewDMFromTagsMsgs}
+                    NewDMFromTagsThreads={this.state.NewDMFromTagsThreads}
+                    mode={this.state.mode}
+                    showModal={this.showModal}
+                    handleThread={this.handleThread}
+                    pushNewSOtoView={this.pushNewSOtoView}
+                    pushNewDMtoView={this.pushNewDMtoView}
+                  />
 
-              EveryoneMsgs={this.state.EveryoneMsgs}
-              EveryoneNames={this.state.EveryoneNames}
-
-              ByYouMsgs={this.state.ByYouMsgs}
-              ByYouNames={this.state.ByYouNames}
-
-              FromTagsMsgs={this.state.FromTagsMsgs}
-              FromTagsNames={this.state.FromTagsNames}
-
-              EveryoneThreads={this.state.EveryoneThreads}
-              EveryoneThreadsNames={this.state.EveryoneThreadsNames}
-
-              ByYouThreads={this.state.ByYouThreads}
-              ByYouThreadsNames={this.state.ByYouThreadsNames}
-
-              FromTagsThreads={this.state.FromTagsThreads}
-              FromTagsThreadsNames={this.state.FromTagsThreadsNames}
-
-              NewSOMsgs={this.state.NewSOMsgs}
-              NewSOThreads={this.state.NewSOThreads}
-
-              NewDMByYouThreads={this.state.NewDMByYouThreads}
-              NewDMFromTagsMsgs={this.state.NewDMFromTagsMsgs}
-              NewDMFromTagsThreads={this.state.NewDMFromTagsThreads}
-
-              mode={this.state.mode}
-              showModal={this.showModal}
-              handleThread={this.handleThread}
-              pushNewSOtoView={this.pushNewSOtoView}
-              pushNewDMtoView={this.pushNewDMtoView}
-            />
-
-
-            {!this.state.isLoading &&
-            this.state.identity !== "No Identity" &&
-            this.state.uniqueName !== "Er" ? (
-              <BottomNav
-                isLoadingRefresh={this.state.isLoadingRefresh}
-                closeExpandedNavs={this.closeExpandedNavs}
-                
-                mode={this.state.mode}
-                showModal={this.showModal}
-              />
-            ) : (
-              <></>
-            )}
-          </>
-        )}
-
-</Col>
-        </Row>
+                  {!this.state.isLoading &&
+                  this.state.identity !== "No Identity" &&
+                  this.state.uniqueName !== "Er" ? (
+                    <BottomNav
+                      isLoadingRefresh={this.state.isLoadingRefresh}
+                      closeExpandedNavs={this.closeExpandedNavs}
+                      mode={this.state.mode}
+                      showModal={this.showModal}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </>
+              )}
+            </Col>
+          </Row>
         </Container>
 
         {this.state.isModalShowing &&
@@ -4041,7 +4067,7 @@ handleFromTagsNewDM = (docArray) => {
           <></>
         )}
 
-{this.state.isModalShowing &&
+        {this.state.isModalShowing &&
         this.state.presentModal === "SendTipModal" ? (
           <SendTipModal
             isModalShowing={this.state.isModalShowing}
@@ -4105,8 +4131,8 @@ handleFromTagsNewDM = (docArray) => {
         {this.state.isModalShowing &&
         this.state.presentModal === "TopUpIdentityModal" ? (
           <TopUpIdentityModal
-          accountBalance={this.state.accountBalance}
-          isLoadingWallet={this.state.isLoadingWallet}
+            accountBalance={this.state.accountBalance}
+            isLoadingWallet={this.state.isLoadingWallet}
             isModalShowing={this.state.isModalShowing}
             hideModal={this.hideModal}
             mode={this.state.mode}
@@ -4116,7 +4142,6 @@ handleFromTagsNewDM = (docArray) => {
         ) : (
           <></>
         )}
-
       </>
     );
   }

@@ -31,6 +31,7 @@ class LandingPage extends React.Component {
         {/* <h3>
           <Badge bg="primary">Purpose of DashShoutOut</Badge>
         </h3> */}
+        
 <div className="loginButton">
         <div className="d-grid gap-2">
               <Button
